@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOAS - 컬러 컨셉 와이어프레임</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <style>
+        * { font-family: 'Pretendard', -apple-system, sans-serif; }
+        .palette-card { transition: all 0.3s ease; }
+        .palette-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+        .swatch { width: 100%; height: 80px; border-radius: 12px; display: flex; align-items: flex-end; padding: 8px 12px; font-size: 13px; font-weight: 600; }
+        .selected-badge { animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .mockup-section { border: 2px solid #e5e7eb; border-radius: 16px; overflow: hidden; }
+        .hero-mockup { min-height: 320px; display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div>
+                <h1 class="text-xl font-bold text-gray-900">BOAS 컬러 컨셉 와이어프레임</h1>
+                <p class="text-sm text-gray-500 mt-0.5">고객 선택 컬러: <span style="color: #3bf4f7; font-weight: 700;">#3bf4f7</span> 기반 비즈니스 팔레트</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full" style="background: #3bf4f7; box-shadow: 0 0 20px rgba(59,244,247,0.5);"></div>
+                <span class="text-sm font-mono font-bold">#3BF4F7</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-10">
+
+        <!-- 색상 분석 -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-2">1. 기본 컬러 분석</h2>
+            <p class="text-gray-600 mb-6">#3BF4F7은 매우 밝고 채도 높은 시안(Cyan) 계열입니다. 비즈니스 용도로 직접 사용하면 가독성이 떨어질 수 있어, 톤 조절이 필요합니다.</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div>
+                    <div class="swatch text-gray-800" style="background: #3bf4f7;">#3BF4F7</div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">원본 (너무 밝음)</p>
+                </div>
+                <div>
+                    <div class="swatch text-white" style="background: #00D4D8;">#00D4D8</div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">톤다운 1단계</p>
+                </div>
+                <div>
+                    <div class="swatch text-white" style="background: #00B8BC;">#00B8BC</div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">톤다운 2단계</p>
+                </div>
+                <div>
+                    <div class="swatch text-white" style="background: #009CA0;">#009CA0</div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">톤다운 3단계</p>
+                </div>
+                <div>
+                    <div class="swatch text-white" style="background: #007C80;">#007C80</div>
+                    <p class="text-xs text-gray-500 mt-2 text-center">딥 시안</p>
+                </div>
+            </div>
+
+            <div class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                <p class="text-sm text-amber-800"><strong>참고:</strong> 원본 #3BF4F7은 흰색 배경에서 대비비 1.6:1로 WCAG 기준 미달입니다. 비즈니스 사이트에서는 톤다운된 버전을 Primary로, 원본은 강조/글로우 효과에 활용하는 것을 권장합니다.</p>
+            </div>
+        </section>
+
+        <!-- ========================================
+             컨셉 A: 시안 + 다크네이비
+             ======================================== -->
+        <section class="mb-20">
+            <div class="flex items-center gap-3 mb-2">
+                <h2 class="text-2xl font-bold">컨셉 A: 시안 + 다크 네이비</h2>
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold selected-badge">추천</span>
+            </div>
+            <p class="text-gray-600 mb-6">전문성과 신뢰감을 강조하는 조합. 다크 네이비 배경 위 시안 포인트가 세련된 테크/금융 느낌을 줍니다.</p>
+
+            <!-- 팔레트 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+                <h3 class="text-lg font-bold mb-4">팔레트</h3>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                    <div>
+                        <div class="swatch text-white" style="background: #0A1628;">Primary Dark</div>
+                        <p class="text-xs text-center mt-1 font-mono">#0A1628</p>
+                        <p class="text-xs text-center text-gray-400">배경/헤더</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-white" style="background: #112240;">Navy</div>
+                        <p class="text-xs text-center mt-1 font-mono">#112240</p>
+                        <p class="text-xs text-center text-gray-400">섹션 배경</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-900" style="background: #00D4D8;">Cyan</div>
+                        <p class="text-xs text-center mt-1 font-mono">#00D4D8</p>
+                        <p class="text-xs text-center text-gray-400">Primary CTA</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-900" style="background: #3bf4f7;">Bright Cyan</div>
+                        <p class="text-xs text-center mt-1 font-mono">#3BF4F7</p>
+                        <p class="text-xs text-center text-gray-400">글로우/강조</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-800" style="background: #E0FEFF;">Ice</div>
+                        <p class="text-xs text-center mt-1 font-mono">#E0FEFF</p>
+                        <p class="text-xs text-center text-gray-400">라이트 배경</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-800" style="background: #F0F4F8;">Gray</div>
+                        <p class="text-xs text-center mt-1 font-mono">#F0F4F8</p>
+                        <p class="text-xs text-center text-gray-400">컨텐츠 배경</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 히어로 목업 -->
+            <div class="mockup-section mb-6">
+                <div class="hero-mockup relative" style="background: linear-gradient(135deg, #0A1628 0%, #112240 50%, #0A1628 100%);">
+                    <!-- 글로우 이펙트 -->
+                    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 70% 50%, rgba(59,244,247,0.08) 0%, transparent 60%);"></div>
+                    <div class="relative z-10 text-center px-8">
+                        <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold mb-4" style="background: rgba(0,212,216,0.15); color: #3bf4f7; border: 1px solid rgba(59,244,247,0.3);">
+                            BOAS CONSULTING
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-3">
+                            당신의 비즈니스를<br>
+                            <span style="color: #3bf4f7;">한 단계 성장</span>시키는 파트너
+                        </h3>
+                        <p class="text-gray-400 mb-6 text-sm max-w-md mx-auto">전문 컨설팅으로 최적의 솔루션을 제시합니다</p>
+                        <div class="flex gap-3 justify-center">
+                            <button class="px-6 py-3 rounded-xl text-sm font-bold text-gray-900 transition-all" style="background: #00D4D8; box-shadow: 0 0 20px rgba(59,244,247,0.3);">
+                                무료 상담 신청
+                            </button>
+                            <button class="px-6 py-3 rounded-xl text-sm font-bold text-white border transition-all" style="border-color: rgba(59,244,247,0.3); background: rgba(59,244,247,0.05);">
+                                자세히 보기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 카드 목업 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: #E0FEFF;">
+                        <svg class="w-6 h-6" style="color: #00B8BC;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">전문 컨설팅</h4>
+                    <p class="text-gray-500 text-sm">업계 최고의 전문가가 맞춤 솔루션을 제공합니다.</p>
+                </div>
+                <div class="rounded-2xl p-6 text-white" style="background: linear-gradient(135deg, #112240 0%, #0A1628 100%); border: 1px solid rgba(59,244,247,0.15);">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: rgba(59,244,247,0.15);">
+                        <svg class="w-6 h-6" style="color: #3bf4f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">성과 분석</h4>
+                    <p class="text-gray-400 text-sm">데이터 기반의 정확한 분석으로 성장을 이끕니다.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: #E0FEFF;">
+                        <svg class="w-6 h-6" style="color: #00B8BC;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">빠른 실행</h4>
+                    <p class="text-gray-500 text-sm">신속하고 정확한 실행력으로 결과를 만듭니다.</p>
+                </div>
+            </div>
+
+            <!-- 네비게이션 + 푸터 미리보기 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="mockup-section">
+                    <div class="p-4 flex items-center justify-between" style="background: #0A1628;">
+                        <span class="font-bold text-white text-sm">BOAS</span>
+                        <div class="flex gap-4 text-xs text-gray-400">
+                            <span>서비스</span>
+                            <span>성공사례</span>
+                            <span style="color: #3bf4f7;">상담신청</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 text-center py-2">네비게이션 바</p>
+                </div>
+                <div class="mockup-section">
+                    <div class="p-4" style="background: #0A1628;">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-bold text-white text-sm">BOAS</span>
+                                <p class="text-xs text-gray-500 mt-1">Business Optimization & Advisory Services</p>
+                            </div>
+                            <button class="px-3 py-1.5 rounded-lg text-xs font-bold" style="background: #00D4D8; color: #0A1628;">상담</button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 text-center py-2">푸터</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
+             컨셉 B: 시안 + 화이트/라이트
+             ======================================== -->
+        <section class="mb-20">
+            <h2 class="text-2xl font-bold mb-2">컨셉 B: 시안 + 클린 화이트</h2>
+            <p class="text-gray-600 mb-6">밝고 깨끗한 느낌. 의료, 교육, 스타트업 등 친근한 이미지에 적합합니다. 시안을 더 깊게 톤다운하여 가독성을 확보합니다.</p>
+
+            <!-- 팔레트 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+                <h3 class="text-lg font-bold mb-4">팔레트</h3>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                    <div>
+                        <div class="swatch text-white" style="background: #009CA0;">Teal</div>
+                        <p class="text-xs text-center mt-1 font-mono">#009CA0</p>
+                        <p class="text-xs text-center text-gray-400">Primary</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-white" style="background: #007C80;">Deep Teal</div>
+                        <p class="text-xs text-center mt-1 font-mono">#007C80</p>
+                        <p class="text-xs text-center text-gray-400">Hover/Active</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-900" style="background: #3bf4f7;">Cyan</div>
+                        <p class="text-xs text-center mt-1 font-mono">#3BF4F7</p>
+                        <p class="text-xs text-center text-gray-400">하이라이트</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-800" style="background: #E0FEFF;">Ice Blue</div>
+                        <p class="text-xs text-center mt-1 font-mono">#E0FEFF</p>
+                        <p class="text-xs text-center text-gray-400">섹션 배경</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-800" style="background: #F8FFFE;">Almost White</div>
+                        <p class="text-xs text-center mt-1 font-mono">#F8FFFE</p>
+                        <p class="text-xs text-center text-gray-400">페이지 배경</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-white" style="background: #1E293B;">Slate</div>
+                        <p class="text-xs text-center mt-1 font-mono">#1E293B</p>
+                        <p class="text-xs text-center text-gray-400">본문 텍스트</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 히어로 목업 -->
+            <div class="mockup-section mb-6">
+                <div class="hero-mockup" style="background: linear-gradient(180deg, #F8FFFE 0%, #E0FEFF 100%);">
+                    <div class="text-center px-8">
+                        <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold mb-4" style="background: rgba(0,156,160,0.1); color: #007C80; border: 1px solid rgba(0,156,160,0.2);">
+                            BOAS CONSULTING
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold mb-3" style="color: #1E293B;">
+                            비즈니스의 <span style="color: #009CA0;">최적 솔루션</span>을<br>
+                            함께 만들어갑니다
+                        </h3>
+                        <p class="text-gray-500 mb-6 text-sm max-w-md mx-auto">10년 이상의 전문 경험으로 신뢰할 수 있는 파트너</p>
+                        <div class="flex gap-3 justify-center">
+                            <button class="px-6 py-3 rounded-xl text-sm font-bold text-white transition-all" style="background: #009CA0;">
+                                무료 상담 신청
+                            </button>
+                            <button class="px-6 py-3 rounded-xl text-sm font-bold transition-all border" style="color: #009CA0; border-color: #009CA0;">
+                                서비스 안내
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 카드 목업 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="rounded-2xl p-6 border" style="background: #F8FFFE; border-color: #E0FEFF;">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: #009CA0;">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2" style="color: #1E293B;">전문 컨설팅</h4>
+                    <p class="text-gray-500 text-sm">맞춤형 솔루션으로 성장을 지원합니다.</p>
+                </div>
+                <div class="rounded-2xl p-6 border" style="background: #F8FFFE; border-color: #E0FEFF;">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: #009CA0;">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2" style="color: #1E293B;">성과 분석</h4>
+                    <p class="text-gray-500 text-sm">데이터 기반 정확한 분석을 제공합니다.</p>
+                </div>
+                <div class="rounded-2xl p-6 border" style="background: #F8FFFE; border-color: #E0FEFF;">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: #009CA0;">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2" style="color: #1E293B;">빠른 실행</h4>
+                    <p class="text-gray-500 text-sm">신속한 실행력으로 결과를 만듭니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
+             컨셉 C: 시안 + 그라데이션 다크
+             ======================================== -->
+        <section class="mb-20">
+            <h2 class="text-2xl font-bold mb-2">컨셉 C: 시안 글래스모피즘</h2>
+            <p class="text-gray-600 mb-6">프리미엄/모던 무드. 다크 배경 + 글래스 카드 + 시안 글로우로 고급스러운 디지털 브랜드 이미지를 구현합니다.</p>
+
+            <!-- 팔레트 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+                <h3 class="text-lg font-bold mb-4">팔레트</h3>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                    <div>
+                        <div class="swatch text-white" style="background: #0F172A;">Deep Dark</div>
+                        <p class="text-xs text-center mt-1 font-mono">#0F172A</p>
+                        <p class="text-xs text-center text-gray-400">메인 배경</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-white" style="background: #1E293B;">Slate</div>
+                        <p class="text-xs text-center mt-1 font-mono">#1E293B</p>
+                        <p class="text-xs text-center text-gray-400">카드 배경</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-900" style="background: #22D3EE;">Sky Cyan</div>
+                        <p class="text-xs text-center mt-1 font-mono">#22D3EE</p>
+                        <p class="text-xs text-center text-gray-400">Primary</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-gray-900" style="background: #3bf4f7;">Neon Cyan</div>
+                        <p class="text-xs text-center mt-1 font-mono">#3BF4F7</p>
+                        <p class="text-xs text-center text-gray-400">글로우/강조</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-white" style="background: #6366F1;">Indigo</div>
+                        <p class="text-xs text-center mt-1 font-mono">#6366F1</p>
+                        <p class="text-xs text-center text-gray-400">Accent</p>
+                    </div>
+                    <div>
+                        <div class="swatch text-white" style="background: #334155;">Glass</div>
+                        <p class="text-xs text-center mt-1 font-mono">#334155</p>
+                        <p class="text-xs text-center text-gray-400">글래스 카드</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 히어로 목업 -->
+            <div class="mockup-section mb-6">
+                <div class="hero-mockup relative overflow-hidden" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);">
+                    <!-- 그라데이션 오브 -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-20" style="background: radial-gradient(circle, #3bf4f7 0%, #6366F1 50%, transparent 70%); filter: blur(60px);"></div>
+                    <div class="relative z-10 text-center px-8">
+                        <div class="inline-block px-4 py-1.5 rounded-full text-xs font-bold mb-4" style="background: rgba(59,244,247,0.1); color: #3bf4f7; border: 1px solid rgba(59,244,247,0.2); backdrop-filter: blur(8px);">
+                            BOAS GROUP
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-3">
+                            Next Level<br>
+                            <span class="bg-clip-text text-transparent" style="background-image: linear-gradient(90deg, #3bf4f7, #6366F1);">Business Growth</span>
+                        </h3>
+                        <p class="text-gray-400 mb-6 text-sm max-w-md mx-auto">혁신적인 컨설팅으로 비즈니스의 미래를 설계합니다</p>
+                        <button class="px-8 py-3.5 rounded-2xl text-sm font-bold text-gray-900 transition-all" style="background: linear-gradient(135deg, #3bf4f7, #22D3EE); box-shadow: 0 0 30px rgba(59,244,247,0.3);">
+                            시작하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 글래스 카드 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" style="background: #0F172A; border-radius: 16px; padding: 24px;">
+                <div class="rounded-2xl p-6" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(59,244,247,0.1); backdrop-filter: blur(8px);">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(59,244,247,0.2), rgba(99,102,241,0.2));">
+                        <svg class="w-6 h-6" style="color: #3bf4f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2 text-white">전문 컨설팅</h4>
+                    <p class="text-gray-400 text-sm">최적의 비즈니스 전략을 설계합니다.</p>
+                </div>
+                <div class="rounded-2xl p-6" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(59,244,247,0.1); backdrop-filter: blur(8px);">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(59,244,247,0.2), rgba(99,102,241,0.2));">
+                        <svg class="w-6 h-6" style="color: #3bf4f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2 text-white">성과 분석</h4>
+                    <p class="text-gray-400 text-sm">데이터 기반 인사이트를 제공합니다.</p>
+                </div>
+                <div class="rounded-2xl p-6" style="background: rgba(30,41,59,0.8); border: 1px solid rgba(59,244,247,0.1); backdrop-filter: blur(8px);">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background: linear-gradient(135deg, rgba(59,244,247,0.2), rgba(99,102,241,0.2));">
+                        <svg class="w-6 h-6" style="color: #3bf4f7;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2 text-white">빠른 실행</h4>
+                    <p class="text-gray-400 text-sm">빠르고 정확하게 실행합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================
+             비교표
+             ======================================== -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6">컨셉 비교표</h2>
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-6 py-4 text-left font-bold">항목</th>
+                            <th class="px-6 py-4 text-center font-bold">
+                                <span class="inline-flex items-center gap-1">A: 다크 네이비 <span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs">추천</span></span>
+                            </th>
+                            <th class="px-6 py-4 text-center font-bold">B: 클린 화이트</th>
+                            <th class="px-6 py-4 text-center font-bold">C: 글래스모피즘</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="px-6 py-3 text-gray-600">분위기</td>
+                            <td class="px-6 py-3 text-center">전문적/신뢰감</td>
+                            <td class="px-6 py-3 text-center">깨끗/친근</td>
+                            <td class="px-6 py-3 text-center">프리미엄/모던</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 text-gray-600">적합 업종</td>
+                            <td class="px-6 py-3 text-center">금융/컨설팅/IT</td>
+                            <td class="px-6 py-3 text-center">교육/의료/스타트업</td>
+                            <td class="px-6 py-3 text-center">테크/디자인/크리에이티브</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 text-gray-600">#3BF4F7 활용도</td>
+                            <td class="px-6 py-3 text-center">높음 (다크 위 강조)</td>
+                            <td class="px-6 py-3 text-center">중간 (톤다운 필수)</td>
+                            <td class="px-6 py-3 text-center">높음 (글로우/네온)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 text-gray-600">가독성</td>
+                            <td class="px-6 py-3 text-center">우수</td>
+                            <td class="px-6 py-3 text-center">우수</td>
+                            <td class="px-6 py-3 text-center">양호</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 text-gray-600">구현 난이도</td>
+                            <td class="px-6 py-3 text-center">보통</td>
+                            <td class="px-6 py-3 text-center">쉬움</td>
+                            <td class="px-6 py-3 text-center">높음</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 text-gray-600">고객 선택색 느낌</td>
+                            <td class="px-6 py-3 text-center">잘 살아남</td>
+                            <td class="px-6 py-3 text-center">톤다운 필요</td>
+                            <td class="px-6 py-3 text-center">가장 잘 살아남</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CSS Variables 참조 -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6">컨셉 A 적용 시 CSS Variables</h2>
+            <div class="bg-gray-900 rounded-2xl p-6 overflow-x-auto">
+                <pre class="text-sm text-gray-300 leading-relaxed"><code><span class="text-purple-400">:root</span> {
+  <span class="text-gray-500">/* Primary - Cyan */</span>
+  <span class="text-cyan-400">--boas-primary</span>: <span class="text-yellow-300">#00D4D8</span>;
+  <span class="text-cyan-400">--boas-primary-dark</span>: <span class="text-yellow-300">#00B8BC</span>;
+  <span class="text-cyan-400">--boas-primary-light</span>: <span class="text-yellow-300">#3BF4F7</span>;
+  <span class="text-cyan-400">--boas-primary-pale</span>: <span class="text-yellow-300">#E0FEFF</span>;
+
+  <span class="text-gray-500">/* Background - Dark Navy */</span>
+  <span class="text-cyan-400">--boas-bg-dark</span>: <span class="text-yellow-300">#0A1628</span>;
+  <span class="text-cyan-400">--boas-bg-navy</span>: <span class="text-yellow-300">#112240</span>;
+  <span class="text-cyan-400">--boas-bg-light</span>: <span class="text-yellow-300">#F0F4F8</span>;
+  <span class="text-cyan-400">--boas-bg-white</span>: <span class="text-yellow-300">#FFFFFF</span>;
+
+  <span class="text-gray-500">/* Text */</span>
+  <span class="text-cyan-400">--boas-text-primary</span>: <span class="text-yellow-300">#1A1A1A</span>;
+  <span class="text-cyan-400">--boas-text-secondary</span>: <span class="text-yellow-300">#64748B</span>;
+  <span class="text-cyan-400">--boas-text-on-dark</span>: <span class="text-yellow-300">#E2E8F0</span>;
+
+  <span class="text-gray-500">/* Gradients */</span>
+  <span class="text-cyan-400">--boas-gradient</span>: <span class="text-yellow-300">linear-gradient(135deg, #00D4D8, #00B8BC)</span>;
+  <span class="text-cyan-400">--boas-glow</span>: <span class="text-yellow-300">0 0 20px rgba(59, 244, 247, 0.3)</span>;
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 선택 가이드 -->
+        <section class="mb-10">
+            <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-8 border border-cyan-100">
+                <h2 class="text-xl font-bold mb-4">컨셉 선택 후 진행 사항</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-bold mb-2" style="color: #009CA0;">선택해주세요</h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex items-start gap-2">
+                                <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background: #00D4D8;">A</span>
+                                <span>시안 + 다크 네이비 (전문/신뢰)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background: #009CA0;">B</span>
+                                <span>시안 + 클린 화이트 (깨끗/친근)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0" style="background: #6366F1;">C</span>
+                                <span>시안 글래스모피즘 (프리미엄/모던)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold mb-2" style="color: #009CA0;">선택 후 작업</h3>
+                        <ol class="space-y-1 text-sm text-gray-700 list-decimal list-inside">
+                            <li>globals.css 컬러 변수 교체</li>
+                            <li>tailwind.config.ts 업데이트</li>
+                            <li>전체 컴포넌트 컬러 적용</li>
+                            <li>로고/아이콘 컬러 맞춤</li>
+                            <li>개발서버 확인</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 text-gray-400 text-xs border-t border-gray-200">
+        BOAS 컬러 컨셉 와이어프레임 | 생성일: 2026-02-12
+    </footer>
+
+</body>
+</html>

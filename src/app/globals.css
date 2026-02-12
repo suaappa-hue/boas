@@ -1,0 +1,3213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+/* ========================================
+   BOAS FINANCE - 공통 스타일
+   브랜드 컬러: Cyan (#00D4D8)
+   ======================================== */
+
+/* CSS Variables - BOAS 브랜드 컬러 */
+:root {
+  /* Primary - Teal (톤다운 시안, 화이트 배경 가독성 확보) */
+  --boas-primary: #009CA0;
+  --boas-primary-dark: #007C80;
+  --boas-primary-light: #00B8BC;
+  --boas-primary-pale: #E0FEFF;
+
+  /* Secondary - Cyan Accent */
+  --boas-secondary: #00B8BC;
+  --boas-secondary-dark: #009CA0;
+  --boas-secondary-light: #3BF4F7;
+
+  /* Text Colors */
+  --boas-text-primary: #1E293B;
+  --boas-text-secondary: #64748B;
+  --boas-text-muted: #94A3B8;
+
+  /* Background - Clean White */
+  --boas-bg-dark: #1E293B;
+  --boas-bg-navy: #F0FDFD;
+  --boas-bg-light: #F8FFFE;
+  --boas-bg-white: #FFFFFF;
+
+  /* Gradients */
+  --boas-gradient-primary: linear-gradient(135deg, #009CA0 0%, #007C80 100%);
+  --boas-gradient-dark: linear-gradient(135deg, #007C80 0%, #009CA0 100%);
+
+  /* Shadows */
+  --boas-shadow-primary: 0 4px 20px rgba(0, 156, 160, 0.25);
+  --boas-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --boas-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --boas-shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.12);
+
+  /* Shorthand aliases (used across pages) */
+  --cyan: #009CA0;
+  --cyan-dark: #007C80;
+  --cyan-light: #00B8BC;
+  --cyan-lighter: #E0FEFF;
+  --navy: #1E293B;
+  --body-text: #1E293B;
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--boas-text-primary);
+  background: var(--boas-bg-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   헤더 스타일
+   ======================================== */
+
+.boas-header {
+  background: var(--boas-bg-white);
+  border-bottom: 1px solid #dce3ed;
+  box-shadow: var(--boas-shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+
+.boas-header.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 212, 216, 0.15);
+}
+
+.boas-header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 로고 */
+.boas-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.boas-logo img {
+  width: auto;
+  height: 50px;
+  object-fit: contain;
+  position: relative;
+  top: 4px;
+}
+
+/* Desktop 네비게이션 */
+.boas-desktop-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.boas-nav-menu {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.boas-nav-menu > li {
+  position: relative;
+}
+
+.boas-nav-menu > li > a {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--boas-text-primary);
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color 0.25s ease;
+  position: relative;
+  display: block;
+}
+
+.boas-nav-menu > li > a:hover,
+.boas-nav-menu > li > a.active {
+  color: var(--boas-primary);
+}
+
+.boas-nav-menu > li > a::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--boas-primary);
+  transition: width 0.25s ease;
+}
+
+.boas-nav-menu > li > a:hover::after,
+.boas-nav-menu > li > a.active::after {
+  width: 100%;
+}
+
+/* CTA 버튼 (헤더) */
+.boas-cta-button {
+  background: var(--boas-gradient-primary);
+  color: var(--boas-bg-white);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  box-shadow: var(--boas-shadow-primary);
+}
+
+.boas-cta-button svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--boas-bg-white);
+}
+
+.boas-cta-button:hover {
+  background: var(--boas-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 184, 188, 0.45);
+}
+
+/* 모바일 메뉴 토글 */
+.boas-mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.boas-mobile-menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: var(--boas-text-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.boas-mobile-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.boas-mobile-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.boas-mobile-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* 모바일 네비게이션 */
+.boas-mobile-nav {
+  display: none;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background: var(--boas-bg-white);
+  border-top: 1px solid #dce3ed;
+  box-shadow: var(--boas-shadow-md);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.boas-mobile-nav.active {
+  display: block;
+}
+
+.boas-mobile-nav ul {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.boas-mobile-nav ul li {
+  border-bottom: 1px solid #eef2f7;
+}
+
+.boas-mobile-nav ul li:last-child {
+  border-bottom: none;
+}
+
+.boas-mobile-nav ul li a {
+  display: block;
+  padding: 16px 0;
+  color: var(--boas-text-primary);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.boas-mobile-nav ul li a:hover,
+.boas-mobile-nav ul li a.active {
+  color: var(--boas-primary);
+}
+
+.boas-mobile-nav ul li a.boas-mobile-cta {
+  background: var(--boas-gradient-primary);
+  color: var(--boas-bg-white);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: var(--boas-shadow-primary);
+}
+
+/* ========================================
+   공통 섹션 스타일
+   ======================================== */
+
+.boas-section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+
+.boas-section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.boas-section-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--boas-text-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.boas-section-subtitle {
+  font-size: 18px;
+  color: var(--boas-text-muted);
+  font-weight: 400;
+}
+
+/* ========================================
+   Hero Section 스타일
+   ======================================== */
+
+.boas-hero {
+  background: linear-gradient(180deg, #F8FFFE 0%, #E0FEFF 100%);
+  padding: 0;
+  margin: 0;
+  min-height: auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.boas-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  width: 100%;
+}
+
+.boas-hero-content {
+  max-width: 580px;
+}
+
+.boas-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--boas-primary-pale);
+  color: var(--boas-primary);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.boas-hero-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.boas-hero-headline {
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--boas-text-primary);
+  line-height: 1.3;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+  animation: fadeInUp 0.6s ease-out 0.1s both;
+}
+
+.boas-hero-headline .highlight {
+  color: var(--boas-primary);
+}
+
+.boas-hero-subheadline {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--boas-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.boas-hero-cta-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.boas-cta-primary {
+  background: var(--boas-gradient-primary);
+  color: var(--boas-bg-white);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--boas-shadow-primary);
+}
+
+.boas-cta-primary svg {
+  width: 18px;
+  height: 18px;
+}
+
+.boas-cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 212, 216, 0.45);
+}
+
+.boas-cta-ghost {
+  background: transparent;
+  color: var(--boas-primary);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid var(--boas-primary);
+  cursor: pointer;
+}
+
+.boas-cta-ghost svg {
+  width: 18px;
+  height: 18px;
+}
+
+.boas-cta-ghost:hover {
+  background: var(--boas-primary-pale);
+  border-color: var(--boas-primary-dark);
+  transform: translateY(-3px);
+}
+
+.boas-hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.boas-hero-visual img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(0, 212, 216, 0.15);
+}
+
+.boas-hero-disclaimer {
+  font-size: 13px;
+  color: #9CA3AF;
+  line-height: 1.6;
+  margin-top: 24px;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+/* ========================================
+   Interest Section - 금리 비교
+   ======================================== */
+
+.boas-interest {
+  background: var(--boas-bg-light);
+  padding: 80px 0;
+}
+
+.boas-interest .boas-section-title {
+  font-size: 42px;
+}
+
+/* 비교 카드 그리드 */
+.boas-rate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 50px;
+}
+
+/* 카드 기본 스타일 */
+.boas-rate-card {
+  background: #FFFFFF;
+  border: 2px solid var(--boas-primary-pale);
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* 정책자금 카드 하이라이트 */
+.boas-rate-card.highlight {
+  background: var(--boas-gradient-primary);
+  border-color: var(--boas-primary-dark);
+  transform: scale(1.05);
+  box-shadow: var(--boas-shadow-primary);
+}
+
+.boas-rate-card.highlight .boas-card-label,
+.boas-rate-card.highlight .boas-rate-percent,
+.boas-rate-card.highlight .boas-rate-amount,
+.boas-rate-card.highlight .boas-card-badge {
+  color: #FFFFFF;
+}
+
+/* 일반 카드 호버 */
+.boas-rate-card:not(.highlight):hover {
+  border-color: var(--boas-primary);
+  box-shadow: 0 8px 20px rgba(0, 212, 216, 0.15);
+}
+
+/* 카드 배지 */
+.boas-card-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 212, 216, 0.15);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--boas-text-primary);
+}
+
+.boas-rate-card.highlight .boas-card-badge {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--boas-primary-dark);
+}
+
+/* 필수체크 뱃지 */
+.boas-essential-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: var(--boas-primary);
+  padding: 4px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.boas-essential-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* 카드 위 손실 표시 */
+.boas-card-top-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #EF4444;
+  background: #FFFFFF;
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid #EF4444;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* 아이콘 */
+.boas-card-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--boas-primary-pale);
+}
+
+.boas-rate-card.highlight .boas-card-icon {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.boas-card-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--boas-primary-dark);
+  fill: none;
+}
+
+.boas-rate-card.highlight .boas-card-icon svg {
+  stroke: #FFFFFF;
+}
+
+/* 카드 레이블 */
+.boas-card-label {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--boas-text-primary);
+  margin-bottom: 16px;
+}
+
+/* 금리 퍼센트 */
+.boas-rate-percent {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--boas-primary-dark);
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.boas-rate-card.highlight .boas-rate-percent {
+  color: #FFFFFF;
+}
+
+/* 연간 이자 금액 */
+.boas-rate-amount {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--boas-text-primary);
+  margin-bottom: 8px;
+}
+
+/* 손실 표시 */
+.boas-rate-loss {
+  font-size: 16px;
+  font-weight: 500;
+  color: #EF4444;
+  padding: 8px 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* 카드 아래 주석 */
+.boas-rate-note {
+  font-size: 13px;
+  color: #999999;
+  text-align: center;
+  margin: 0 0 40px 0;
+  line-height: 1.4;
+}
+
+/* 하이라이트 메시지 */
+.boas-highlight-message {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.boas-highlight-text {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--boas-text-primary);
+  background: #FFFFFF;
+  padding: 20px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 212, 216, 0.2);
+  display: inline-block;
+  border: 1px solid var(--boas-primary-pale);
+}
+
+.boas-highlight-text .emphasis {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--boas-primary);
+  display: block;
+  margin: 8px 0 2px 0;
+}
+
+/* CTA 섹션 */
+.boas-interest-cta {
+  text-align: center;
+}
+
+.boas-interest-cta .boas-disclaimer {
+  font-size: 14px;
+  color: #999999;
+  text-align: center;
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* ========================================
+   Core Section - 핵심 서비스
+   ======================================== */
+
+.boas-core {
+  background: var(--boas-bg-white);
+  padding: 80px 0;
+}
+
+/* 서비스 카드 그리드 */
+.boas-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* 서비스 카드 */
+.boas-service-card {
+  background: #FFFFFF;
+  border: 1px solid var(--boas-primary-pale);
+  border-radius: 12px;
+  padding: 0;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  overflow: hidden;
+}
+
+.boas-service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 212, 216, 0.25);
+  border-color: var(--boas-primary);
+}
+
+/* 카드 이미지 */
+.boas-service-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.boas-service-card:hover .boas-service-image {
+  transform: scale(1.05);
+}
+
+/* 카드 콘텐츠 */
+.boas-service-content {
+  padding: 32px 28px;
+}
+
+/* 카드 아이콘 */
+.boas-service-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  background: var(--boas-gradient-primary);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.boas-service-card:hover .boas-service-icon {
+  transform: scale(1.1);
+}
+
+.boas-service-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: #FFFFFF;
+  fill: none;
+}
+
+/* 카드 제목 */
+.boas-service-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--boas-text-primary);
+  margin-bottom: 16px;
+}
+
+/* 카드 설명 */
+.boas-service-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* 카드 링크 */
+.boas-service-link {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--boas-primary-dark);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.3s ease;
+}
+
+.boas-service-card:hover .boas-service-link {
+  gap: 12px;
+  color: var(--boas-primary);
+}
+
+.boas-service-link svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+/* ========================================
+   Info Section - 차별화 포인트 + 전문가
+   ======================================== */
+
+.boas-info {
+  background: #f7f9fc;
+  padding: 80px 0;
+}
+
+/* 차별화 포인트 그리드 */
+.boas-points-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 80px;
+}
+
+/* 포인트 카드 */
+.boas-point-card {
+  background: #FFFFFF;
+  border: 1px solid var(--boas-primary-pale);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.boas-point-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 212, 216, 0.15);
+  border-color: var(--boas-primary);
+}
+
+/* 카드 이미지 */
+.boas-point-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.boas-point-card:hover .boas-point-image {
+  transform: scale(1.05);
+}
+
+/* 카드 콘텐츠 */
+.boas-point-content {
+  padding: 32px 28px;
+  overflow: hidden;
+}
+
+/* 체크 아이콘 */
+.boas-point-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 20px;
+  background: var(--boas-gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.boas-point-card:hover .boas-point-icon {
+  transform: scale(1.1);
+}
+
+.boas-point-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #FFFFFF;
+  stroke-width: 3;
+  fill: none;
+}
+
+/* 포인트 제목 */
+.boas-point-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--boas-text-primary);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* 포인트 설명 */
+.boas-point-description {
+  font-size: 15px;
+  font-weight: 400;
+  color: #666666;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* 전문가 소개 영역 */
+.boas-expert-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.boas-expert-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--boas-text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.boas-expert-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* 전문가 카드 그리드 */
+.boas-expert-grid {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+/* 전문가 카드 */
+.boas-expert-card {
+  background: #FFFFFF;
+  border: 1px solid var(--boas-primary-pale);
+  border-radius: 12px;
+  padding: 40px 48px;
+  transition: all 0.3s ease;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.boas-expert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 212, 216, 0.12);
+  border-color: var(--boas-primary);
+}
+
+/* 전문가 프로필 영역 (왼쪽) */
+.boas-expert-profile {
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 140px;
+}
+
+/* 전문가 프로필 사진 - 사각형 */
+.boas-expert-photo {
+  width: 140px;
+  height: 170px;
+  margin: 0 auto 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px solid var(--boas-primary-pale);
+  transition: all 0.3s ease;
+}
+
+.boas-expert-card:hover .boas-expert-photo {
+  border-color: var(--boas-primary);
+  transform: scale(1.02);
+}
+
+.boas-expert-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+/* 전문가 정보 */
+.boas-expert-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--boas-text-primary);
+  margin-bottom: 4px;
+}
+
+.boas-expert-role {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--boas-primary);
+  margin-bottom: 0;
+}
+
+/* 전문가 인사말 영역 (오른쪽) */
+.boas-expert-message {
+  flex: 1;
+  text-align: left;
+  padding-top: 8px;
+}
+
+.boas-expert-greeting {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--boas-text-primary);
+  margin-bottom: 16px;
+}
+
+.boas-expert-description {
+  font-size: 15px;
+  font-weight: 400;
+  color: #555555;
+  line-height: 1.8;
+}
+
+/* ========================================
+   Story Section - 고객 후기
+   ======================================== */
+
+.boas-story {
+  background: linear-gradient(rgba(254, 243, 226, 0.9), rgba(254, 243, 226, 0.9)), url('https://pub-8b474ea0dceb4600b835f34636611442.r2.dev/BOAS/images/story-bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+/* 가로 스크롤 래퍼 */
+.boas-review-scroll-wrapper {
+  padding: 20px 0 40px 0;
+  margin: -20px 0 -40px 0;
+  width: 100%;
+}
+
+/* 가로 스크롤 컨테이너 */
+.boas-review-scroll-container {
+  display: flex;
+  gap: 24px;
+  animation: autoScroll 150s linear infinite;
+  padding-left: 0;
+  width: max-content;
+}
+
+.boas-review-scroll-container:hover {
+  animation-play-state: paused;
+}
+
+/* 자동 스크롤 애니메이션 */
+@keyframes autoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* 후기 카드 */
+.boas-review-card {
+  flex: 0 0 400px;
+  background: #FFFFFF;
+  border: 2px solid var(--boas-primary-pale);
+  border-radius: 16px;
+  padding: 32px 28px;
+  scroll-snap-align: start;
+  transition: all 0.3s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.boas-review-card:hover {
+  border-color: var(--boas-primary);
+  box-shadow: 0 8px 20px rgba(0, 212, 216, 0.15);
+  transform: translateY(-4px);
+}
+
+/* 업종 레이블 */
+.boas-review-industry {
+  display: inline-block;
+  background: var(--boas-gradient-primary);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+/* 후기 내용 */
+.boas-review-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--boas-text-primary);
+  line-height: 1.7;
+  margin: 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+/* 따옴표 아이콘 */
+.boas-review-text::before {
+  content: '\201C';
+  position: absolute;
+  left: 0;
+  top: -8px;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--boas-primary);
+  opacity: 0.4;
+}
+
+.boas-ctabar {
+  background: var(--boas-gradient-primary);
+  padding: 48px 0;
+}
+
+.boas-ctabar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.boas-ctabar-content {
+  flex: 1;
+}
+
+.boas-ctabar-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--boas-bg-white);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.boas-ctabar-subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+}
+
+.boas-ctabar-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.boas-btn-phone {
+  background: var(--boas-bg-white);
+  color: var(--boas-primary);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.boas-btn-phone svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--boas-primary);
+}
+
+.boas-btn-phone:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.boas-btn-contact {
+  background: transparent;
+  color: var(--boas-bg-white);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--boas-bg-white);
+  transition: all 0.3s ease;
+}
+
+.boas-btn-contact:hover {
+  background: var(--boas-bg-white);
+  color: var(--boas-primary);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   CTA Bar 스타일
+   ======================================== */
+
+.boas-cta-bar {
+  background: var(--boas-gradient-primary);
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.boas-cta-bar-container {
+  max-width: 100%;
+  margin: 0;
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.boas-cta-text {
+  font-size: 44px;
+  font-weight: 400;
+  font-style: italic;
+  color: #FFFFFF;
+  line-height: 1.6;
+  margin: 0;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.boas-cta-text .highlight {
+  font-size: 44px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   Footer 스타일
+   ======================================== */
+
+.boas-footer {
+  background: #0F0E0D;
+  color: #D1D5DB;
+  padding: 60px 0 30px;
+}
+
+.boas-footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* 푸터 메인 영역 */
+.boas-footer-main {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 30px;
+}
+
+/* 회사 정보 섹션 */
+.boas-footer-company {
+  display: flex;
+  flex-direction: column;
+}
+
+.boas-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.boas-footer-logo img {
+  width: auto;
+  height: 60px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.boas-footer-logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.boas-footer-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.boas-footer-description {
+  font-size: 14px;
+  color: #9CA3AF;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* 회사 상세 정보 */
+.boas-footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: #9CA3AF;
+  line-height: 1.6;
+}
+
+.boas-footer-info strong {
+  color: #D1D5DB;
+  font-weight: 600;
+  min-width: 80px;
+  display: inline-block;
+}
+
+/* 연락처 섹션 */
+.boas-footer-contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.boas-footer-heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.boas-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.boas-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #9CA3AF;
+}
+
+.boas-contact-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--boas-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.boas-contact-item a {
+  color: #D1D5DB;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.boas-contact-item a:hover {
+  color: var(--boas-primary);
+}
+
+.boas-phone-highlight {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--boas-primary);
+}
+
+/* 바로가기 섹션 */
+.boas-footer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.boas-footer-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.boas-footer-nav li a {
+  font-size: 14px;
+  color: #9CA3AF;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.boas-footer-nav li a:hover {
+  color: var(--boas-primary);
+  transform: translateX(4px);
+}
+
+/* 업무협약 섹션 */
+.boas-partnership-section {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0, 212, 216, 0.2);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.boas-partnership-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(0, 212, 216, 0.12), rgba(0, 212, 216, 0.08));
+  border: 1.5px solid rgba(0, 212, 216, 0.3);
+  border-radius: 8px;
+  padding: 10px 18px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0, 212, 216, 0.2);
+  animation: cyanGlow 3s ease-in-out infinite;
+}
+
+/* 시안 글로우 반짝이는 애니메이션 */
+@keyframes cyanGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 212, 216, 0.2),
+                0 0 35px rgba(0, 212, 216, 0.15),
+                inset 0 0 15px rgba(0, 212, 216, 0.08);
+    border-color: rgba(0, 212, 216, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(0, 212, 216, 0.4),
+                0 0 55px rgba(0, 212, 216, 0.25),
+                inset 0 0 20px rgba(0, 212, 216, 0.15);
+    border-color: rgba(0, 212, 216, 0.5);
+  }
+}
+
+.boas-partnership-link a:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 216, 0.2), rgba(0, 212, 216, 0.12));
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 0 40px rgba(0, 212, 216, 0.5),
+              0 0 65px rgba(0, 212, 216, 0.3);
+}
+
+.boas-partnership-icon {
+  width: auto;
+  height: 18px;
+  max-width: 85px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(0, 212, 216, 0.6));
+}
+
+.boas-partnership-link span {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--boas-primary);
+  text-shadow: 0 0 12px rgba(0, 212, 216, 0.6),
+               0 0 22px rgba(0, 212, 216, 0.4);
+}
+
+/* 푸터 하단 */
+.boas-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.boas-footer-copyright {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+/* ========================================
+   반응형 (Responsive)
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .boas-header-container {
+    padding: 0 32px;
+  }
+
+  .boas-nav-menu {
+    gap: 24px;
+  }
+
+  .boas-nav-menu > li > a {
+    font-size: 15px;
+  }
+
+  .boas-cta-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .boas-section-container {
+    padding: 60px 32px;
+  }
+
+  .boas-section-title {
+    font-size: 32px;
+  }
+
+  .boas-section-subtitle {
+    font-size: 16px;
+  }
+
+  .boas-footer-container {
+    padding: 0 32px;
+  }
+
+  .boas-footer-main {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .boas-footer-links {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .boas-header-container {
+    height: 60px;
+    padding: 0 16px;
+    justify-content: center;
+    position: relative;
+  }
+
+  .boas-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .boas-logo img {
+    height: 45px;
+    top: 2px;
+  }
+
+  .boas-desktop-nav,
+  .boas-cta-button {
+    display: none;
+  }
+
+  .boas-mobile-menu-toggle {
+    display: flex;
+    position: absolute;
+    right: 16px;
+  }
+
+  .boas-mobile-nav {
+    top: 60px;
+    max-height: calc(100vh - 60px);
+  }
+
+  .boas-section-container {
+    padding: 40px 20px;
+  }
+
+  .boas-section-header {
+    margin-bottom: 40px;
+  }
+
+  .boas-section-title {
+    font-size: 24px;
+    text-wrap: balance;
+  }
+
+  .boas-section-subtitle {
+    font-size: 14px;
+    text-wrap: balance;
+  }
+
+  /* Hero Section 모바일 */
+  .boas-hero {
+    min-height: 0;
+  }
+
+  .boas-hero-container {
+    grid-template-columns: 1fr;
+    padding: 0;
+    gap: 0;
+    text-align: center;
+  }
+
+  .boas-hero-content {
+    max-width: 100%;
+    padding: 32px 20px 40px;
+    order: 1;
+  }
+
+  .boas-hero-badge {
+    margin-bottom: 20px;
+  }
+
+  .boas-hero-headline {
+    font-size: 26px;
+    margin-bottom: 16px;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .boas-hero-subheadline {
+    font-size: 15px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .boas-hero-cta-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .boas-cta-primary,
+  .boas-cta-ghost {
+    width: 100%;
+    justify-content: center;
+    font-size: 15px;
+    padding: 16px 24px;
+  }
+
+  .boas-hero-visual {
+    order: -1;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .boas-hero-visual img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .boas-hero-disclaimer {
+    font-size: 11px;
+    margin-top: 20px;
+    line-height: 1.5;
+  }
+
+  /* CTA Bar 모바일 */
+  .boas-ctabar {
+    padding: 32px 0;
+  }
+
+  .boas-ctabar-container {
+    flex-direction: column;
+    padding: 0 20px;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .boas-ctabar-title {
+    font-size: 20px;
+  }
+
+  .boas-ctabar-subtitle {
+    font-size: 13px;
+  }
+
+  .boas-ctabar-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .boas-btn-phone,
+  .boas-btn-contact {
+    width: 100%;
+    justify-content: center;
+    font-size: 15px;
+    padding: 14px 24px;
+  }
+
+  .boas-footer {
+    padding: 40px 0 20px;
+  }
+
+  .boas-footer-container {
+    padding: 0 20px;
+  }
+
+  .boas-footer-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+  }
+
+  .boas-footer {
+    padding: 40px 0 20px;
+  }
+
+  .boas-footer-container {
+    padding: 0 20px;
+  }
+
+  .boas-footer-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+  }
+
+  .boas-footer-links {
+    display: none;
+  }
+
+  .boas-footer-logo {
+    margin-bottom: 16px;
+  }
+
+  .boas-footer-logo img {
+    height: 50px;
+  }
+
+  .boas-footer-logo-text {
+    font-size: 16px;
+  }
+
+  .boas-footer-description {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .boas-footer-info {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .boas-footer-info strong {
+    min-width: 50px;
+  }
+
+  .boas-footer-heading {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .boas-contact-list {
+    gap: 10px;
+  }
+
+  .boas-contact-item {
+    font-size: 13px;
+  }
+
+  .boas-contact-item svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .boas-phone-highlight {
+    font-size: 16px;
+  }
+
+  .boas-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .boas-footer-copyright {
+    font-size: 12px;
+  }
+
+  .boas-partnership-section {
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  .boas-partnership-link a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    text-align: center;
+  }
+
+  .boas-partnership-icon {
+    height: 14px;
+    max-width: 70px;
+  }
+
+  .boas-partnership-link span {
+    white-space: normal;
+    word-break: keep-all;
+    line-height: 1.3;
+    font-size: 10px;
+  }
+}
+
+/* CTA Bar & Interest 반응형 */
+@media (max-width: 1023px) {
+  .boas-cta-bar-container {
+    padding: 40px 40px;
+  }
+
+  .boas-cta-text {
+    font-size: 34px;
+    line-height: 1.7;
+  }
+
+  .boas-cta-text .highlight {
+    font-size: 34px;
+  }
+
+  /* Interest Section - 태블릿 */
+  .boas-interest {
+    padding: 60px 0;
+  }
+
+  .boas-interest .boas-section-title {
+    font-size: 36px;
+  }
+
+  .boas-interest .boas-section-subtitle {
+    font-size: 16px;
+  }
+
+  .boas-rate-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .boas-rate-card.highlight {
+    transform: scale(1);
+  }
+
+  .boas-highlight-text {
+    font-size: 24px;
+  }
+
+  .boas-highlight-text .emphasis {
+    font-size: 30px;
+  }
+
+  /* Core Section - 태블릿 */
+  .boas-core {
+    padding: 60px 0;
+  }
+
+  .boas-service-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .boas-service-content {
+    padding: 28px 20px;
+  }
+
+  .boas-service-image {
+    height: 180px;
+  }
+
+  /* Info Section - 태블릿 */
+  .boas-info {
+    padding: 60px 0;
+  }
+
+  .boas-points-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .boas-expert-header {
+    margin-bottom: 40px;
+  }
+
+  .boas-expert-title {
+    font-size: 28px;
+  }
+
+  /* Story Section - 태블릿 */
+  .boas-story {
+    padding: 60px 0;
+  }
+
+  .boas-review-scroll-wrapper {
+    padding: 20px 0 35px 0;
+    margin: -20px 0 -35px 0;
+  }
+
+  .boas-review-scroll-container {
+    animation: autoScroll 180s linear infinite;
+  }
+
+  .boas-review-card {
+    flex: 0 0 360px;
+  }
+}
+
+@media (max-width: 767px) {
+  .boas-cta-bar-container {
+    padding: 32px 20px;
+  }
+
+  .boas-cta-text {
+    font-size: 22px;
+    line-height: 1.7;
+    text-wrap: balance;
+  }
+
+  .boas-cta-text .highlight {
+    font-size: 22px;
+  }
+
+  .boas-cta-text br.mobile-br {
+    display: block;
+  }
+
+  /* Interest Section - 모바일 3열 컴팩트 */
+  .boas-interest {
+    padding: 40px 0;
+  }
+
+  .boas-interest .boas-section-container {
+    padding: 0 16px;
+  }
+
+  .boas-interest .boas-section-header {
+    margin-bottom: 30px;
+  }
+
+  .boas-interest .boas-section-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .boas-interest .boas-section-subtitle {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .boas-rate-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+
+  .boas-rate-card {
+    padding: 16px 8px;
+    border-radius: 12px;
+  }
+
+  .boas-rate-card.highlight {
+    transform: scale(1);
+  }
+
+  .boas-card-badge {
+    display: none;
+  }
+
+  .boas-card-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 6px;
+  }
+
+  .boas-card-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .boas-card-label {
+    font-size: 12px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .boas-rate-percent {
+    font-size: 24px;
+    margin-bottom: 6px;
+    font-weight: 800;
+  }
+
+  .boas-rate-amount {
+    font-size: 13px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .boas-rate-loss {
+    display: none;
+  }
+
+  .boas-card-top-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    top: -10px;
+  }
+
+  .boas-essential-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    top: -10px;
+  }
+
+  .boas-essential-badge svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .boas-rate-note {
+    font-size: 11px;
+    margin-bottom: 20px;
+  }
+
+  .boas-highlight-text {
+    font-size: 16px;
+    padding: 14px 20px;
+  }
+
+  .boas-highlight-text br {
+    display: none;
+  }
+
+  .boas-highlight-text .emphasis {
+    font-size: 28px;
+    font-weight: 800;
+    display: block;
+    margin: 6px 0;
+  }
+
+  .boas-interest-cta .boas-cta-primary {
+    width: 100%;
+    justify-content: center;
+    font-size: 15px;
+    padding: 14px 20px;
+  }
+
+  .boas-interest-cta .boas-disclaimer {
+    font-size: 11px;
+    margin-top: 10px;
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  .boas-interest-cta .boas-disclaimer br {
+    display: none;
+  }
+
+  /* Core Section - 모바일 (가로 스크롤) */
+  .boas-core {
+    padding: 40px 0;
+  }
+
+  .boas-core .boas-section-container {
+    padding: 0;
+  }
+
+  .boas-core .boas-section-header {
+    margin-bottom: 24px;
+    padding: 0 20px;
+  }
+
+  .boas-core .boas-section-title {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .boas-core .boas-section-subtitle {
+    font-size: 14px;
+  }
+
+  /* 가로 스크롤 컨테이너 */
+  .boas-service-grid {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 0 20px 20px 20px;
+    margin: 0;
+  }
+
+  /* 스크롤바 숨김 */
+  .boas-service-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .boas-service-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* 카드 크기 고정 */
+  .boas-service-card {
+    flex: 0 0 85vw;
+    max-width: 320px;
+    scroll-snap-align: start;
+    padding: 0;
+  }
+
+  .boas-service-content {
+    padding: 20px 18px;
+  }
+
+  .boas-service-image {
+    height: 140px;
+  }
+
+  /* 아이콘 제거 */
+  .boas-service-icon {
+    display: none;
+  }
+
+  .boas-service-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .boas-service-description {
+    font-size: 14px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  /* 모바일에서 간결한 설명 */
+  .boas-service-description br {
+    display: none;
+  }
+
+  .boas-service-link {
+    font-size: 14px;
+  }
+
+  /* Info Section - 모바일 (아코디언) */
+  .boas-info {
+    padding: 50px 0;
+  }
+
+  .boas-points-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 50px;
+  }
+
+  /* 아코디언 포인트 카드 */
+  .boas-point-card {
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* 이미지 기본 숨김 */
+  .boas-point-image {
+    display: none;
+    height: 140px;
+  }
+
+  .boas-point-card.expanded .boas-point-image {
+    display: block;
+  }
+
+  .boas-point-content {
+    padding: 16px 18px;
+    position: relative;
+  }
+
+  /* 아이콘 숨김 */
+  .boas-point-icon {
+    display: none;
+  }
+
+  .boas-point-title {
+    font-size: 16px;
+    margin-bottom: 0;
+    padding-right: 30px;
+    text-align: left;
+  }
+
+  /* 펼침 화살표 */
+  .boas-point-content::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--boas-primary);
+    border-bottom: 2px solid var(--boas-primary);
+    transform: translateY(-50%) rotate(45deg);
+    transition: transform 0.3s ease;
+  }
+
+  .boas-point-card.expanded .boas-point-content::after {
+    transform: translateY(-30%) rotate(-135deg);
+  }
+
+  /* 설명 기본 숨김 */
+  .boas-point-description {
+    display: none;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 12px;
+    text-align: left;
+  }
+
+  .boas-point-card.expanded .boas-point-description {
+    display: block;
+  }
+
+  .boas-point-description br {
+    display: none;
+  }
+
+  .boas-expert-header {
+    margin-bottom: 30px;
+  }
+
+  .boas-expert-title {
+    font-size: 20px;
+  }
+
+  .boas-expert-subtitle {
+    font-size: 14px;
+  }
+
+  .boas-expert-card {
+    padding: 20px 16px;
+    max-width: 100%;
+    flex-direction: row;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .boas-expert-profile {
+    min-width: 90px;
+    flex-shrink: 0;
+  }
+
+  .boas-expert-photo {
+    width: 90px;
+    height: 110px;
+    margin-bottom: 8px;
+    border-width: 2px;
+  }
+
+  .boas-expert-name {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .boas-expert-role {
+    font-size: 11px;
+  }
+
+  .boas-expert-message {
+    text-align: left;
+    padding-top: 0;
+  }
+
+  .boas-expert-greeting {
+    font-size: 14px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+  }
+
+  .boas-expert-description {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* Story Section - 모바일 */
+  .boas-story {
+    padding: 50px 0;
+  }
+
+  .boas-review-scroll-wrapper {
+    padding: 15px 0 25px 0;
+    margin: -15px 0 -25px 0;
+  }
+
+  .boas-review-scroll-container {
+    gap: 12px;
+    animation: autoScroll 200s linear infinite;
+  }
+
+  .boas-review-card {
+    flex: 0 0 75vw;
+    max-width: 300px;
+    padding: 20px 18px;
+    min-height: 160px;
+  }
+
+  .boas-review-industry {
+    font-size: 12px;
+    padding: 5px 12px;
+    margin-bottom: 14px;
+  }
+
+  .boas-review-text {
+    font-size: 13px;
+    line-height: 1.6;
+    padding-left: 16px;
+  }
+
+  .boas-review-text::before {
+    font-size: 28px;
+    top: -6px;
+  }
+}
+
+@media (min-width: 768px) {
+  .boas-cta-text br.mobile-br {
+    display: none;
+  }
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .boas-mobile-menu-toggle,
+  .boas-mobile-nav {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   애니메이션
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========================================
+   BOAS FINANCE - 플로팅 빠른 상담 접수
+   PC: 하단 바 형태, 기본 열림
+   모바일: 버튼 클릭 시 열림
+   ======================================== */
+
+/* 오버레이 배경 (모바일 전용) */
+.boas-floating-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.boas-floating-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 플로팅 컨테이너 - PC 전체 너비 확장 */
+.boas-floating-consult {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  width: 100%;
+  max-width: 100%;
+  transition: all 0.3s ease;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 토글 버튼 (접기/펼치기) */
+.boas-floating-toggle {
+  background: linear-gradient(135deg, #00D4D8 0%, #3BF4F7 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  box-shadow: 0 -4px 20px rgba(0, 212, 216, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: clamp(13px, 1.1vw, 15px);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 200px;
+  margin: 0 auto;
+  white-space: nowrap;
+  border: none;
+}
+
+.boas-floating-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.boas-floating-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 -8px 30px rgba(0, 212, 216, 0.6);
+}
+
+.boas-floating-toggle-icon {
+  font-size: 18px;
+}
+
+/* 플로팅 폼 - PC 2단 레이아웃 */
+.boas-floating-form {
+  background: white;
+  border-radius: 0;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.2);
+  padding: 20px calc(50% - 550px);
+  max-height: 500px;
+  opacity: 1;
+  transition: all 0.3s ease;
+  overflow: visible;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 접힌 상태 */
+.boas-floating-consult.collapsed .boas-floating-form {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 calc(50% - 550px);
+  overflow: hidden;
+}
+
+/* 폼 헤더 - PC 왼쪽 영역 */
+.boas-floating-header {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.boas-floating-title {
+  font-size: clamp(14px, 1.3vw, 18px);
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.boas-floating-title svg {
+  width: 24px;
+  height: 24px;
+  fill: #00D4D8;
+  flex-shrink: 0;
+}
+
+.boas-floating-subtitle {
+  font-size: clamp(10px, 0.9vw, 12px);
+  color: #666666;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.boas-floating-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 600;
+  margin-top: 4px;
+  text-decoration: none;
+}
+
+.boas-floating-phone:hover {
+  background: linear-gradient(135deg, #00B8BC, #00D4D8);
+}
+
+.boas-floating-phone svg {
+  width: 16px;
+  height: 16px;
+  fill: white;
+  flex-shrink: 0;
+}
+
+/* PC 오른쪽 입력 영역 */
+.boas-floating-content {
+  /* 오른쪽 영역 전체 */
+}
+
+.boas-floating-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 12px;
+}
+
+.boas-floating-grid-submit {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.boas-floating-group {
+  margin-bottom: 0;
+}
+
+.boas-floating-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 6px;
+}
+
+.boas-floating-required {
+  color: #ef4444;
+}
+
+.boas-floating-input,
+.boas-floating-select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #000000;
+  border: 2px solid #E5E7EB;
+  border-radius: 6px;
+  background: white;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  height: 42px;
+}
+
+.boas-floating-input:focus,
+.boas-floating-select:focus {
+  outline: none;
+  border-color: #00D4D8;
+  box-shadow: 0 0 0 3px rgba(0, 212, 216, 0.1);
+}
+
+.boas-floating-input::placeholder {
+  color: #9CA3AF;
+}
+
+.boas-floating-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666666'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 18px;
+  padding-right: 32px;
+}
+
+/* 개인정보 동의 */
+.boas-floating-privacy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+}
+
+.boas-floating-privacy input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin: 0;
+  accent-color: #00D4D8;
+}
+
+.boas-floating-privacy label {
+  font-size: 12px;
+  cursor: pointer;
+  margin: 0;
+  white-space: nowrap;
+  line-height: 18px;
+  color: #333333;
+}
+
+/* 제출 버튼 */
+.boas-floating-submit {
+  background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 212, 216, 0.3);
+  white-space: nowrap;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.boas-floating-submit svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+}
+
+.boas-floating-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 212, 216, 0.5);
+}
+
+.boas-floating-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========================================
+   플로팅 폼 - 모바일 스타일
+   ======================================== */
+@media (max-width: 768px) {
+  .boas-floating-consult {
+    width: 100%;
+    max-width: 100%;
+    bottom: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .boas-floating-toggle {
+    width: 100%;
+    border-radius: 0;
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+
+  /* 모바일 폼 - 세로 레이아웃 */
+  .boas-floating-form {
+    border-radius: 16px 16px 0 0;
+    padding: 16px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    display: block;
+  }
+
+  /* 모바일에서는 클릭해야 열림 */
+  .boas-floating-consult.open .boas-floating-form {
+    max-height: 85vh;
+    opacity: 1;
+    overflow-y: auto;
+  }
+
+  .boas-floating-consult.collapsed .boas-floating-form {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .boas-floating-header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    border-bottom: 1px solid #E0FEFF;
+  }
+
+  .boas-floating-title {
+    font-size: 16px;
+    white-space: normal;
+    justify-content: center;
+  }
+
+  .boas-floating-subtitle {
+    font-size: 11px;
+    white-space: normal;
+  }
+
+  .boas-floating-phone {
+    font-size: 12px;
+    padding: 3px 12px;
+  }
+
+  /* 모바일 가로 레이아웃 - 이름, 연락처, 통화시간 */
+  .boas-floating-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .boas-floating-group {
+    width: 100%;
+  }
+
+  .boas-floating-label {
+    font-size: 11px !important;
+    margin-bottom: 3px;
+  }
+
+  .boas-floating-input,
+  .boas-floating-select {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    height: 34px !important;
+  }
+
+  /* 모바일 세로 배치 - 동의 및 제출 */
+  .boas-floating-grid-submit {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .boas-floating-privacy {
+    width: 100%;
+    justify-content: flex-start;
+    min-height: auto;
+  }
+
+  .boas-floating-privacy input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+
+  .boas-floating-privacy label {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .boas-floating-submit {
+    width: 100%;
+    padding: 10px 24px;
+    font-size: 14px;
+    height: 40px;
+  }
+
+  /* 모바일에서 기존 플로팅 숨김 */
+  .boas-floating-consult,
+  .boas-floating-overlay {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   모바일 하단 네비게이션 + 슬라이드업 CTA
+   ======================================== */
+
+/* 데스크탑에서 숨김 (기본) */
+.boas-bottom-nav {
+  display: none;
+}
+
+/* 모바일 전용 */
+@media (max-width: 768px) {
+  .boas-bottom-nav {
+    display: block;
+  }
+  /* 하단 네비게이션 컨테이너 */
+  .boas-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--boas-bg-white);
+    border-top: 1px solid #E5E7EB;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  /* 슬라이드업 CTA 트리거 */
+  .boas-slideup-trigger {
+    background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-radius: 16px 16px 0 0;
+    margin: 0 -1px;
+    transition: all 0.3s ease;
+  }
+
+  .boas-slideup-trigger:active {
+    background: linear-gradient(135deg, #00B8BC, #00D4D8);
+  }
+
+  .boas-slideup-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .boas-slideup-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 4px;
+  }
+
+  .boas-slideup-text {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .boas-slideup-icon {
+    color: white;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  .boas-bottom-nav.open .boas-slideup-icon {
+    transform: rotate(180deg);
+  }
+
+  /* 슬라이드업 폼 패널 */
+  .boas-slideup-panel {
+    background: var(--boas-bg-white);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 16px;
+  }
+
+  .boas-bottom-nav.open .boas-slideup-panel {
+    max-height: 400px;
+    padding: 20px 16px;
+    border-top: 1px solid #E0FEFF;
+  }
+
+  .boas-slideup-form-header {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .boas-slideup-form-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--boas-text-primary);
+    margin-bottom: 4px;
+  }
+
+  .boas-slideup-form-subtitle {
+    font-size: 12px;
+    color: var(--boas-text-secondary);
+  }
+
+  .boas-slideup-phone-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--boas-primary-pale);
+    color: var(--boas-primary);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+
+  .boas-slideup-phone-link svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* 폼 그리드 */
+  .boas-slideup-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .boas-slideup-form-grid .boas-slideup-group:last-child {
+    grid-column: span 2;
+  }
+
+  .boas-slideup-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--boas-text-primary);
+    margin-bottom: 4px;
+  }
+
+  .boas-slideup-group label .required {
+    color: #EF4444;
+  }
+
+  .boas-slideup-group input,
+  .boas-slideup-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .boas-slideup-group input:focus,
+  .boas-slideup-group select:focus {
+    outline: none;
+    border-color: var(--boas-primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 216, 0.1);
+  }
+
+  .boas-slideup-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .boas-slideup-privacy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--boas-text-secondary);
+  }
+
+  .boas-slideup-privacy input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--boas-primary);
+  }
+
+  .boas-slideup-submit {
+    background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 212, 216, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .boas-slideup-submit:active {
+    transform: scale(0.98);
+  }
+
+  .boas-slideup-submit svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+  }
+
+  /* 하단 네비게이션 메뉴 */
+  .boas-nav-menu-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 8px 0 12px;
+    background: var(--boas-bg-white);
+  }
+
+  .boas-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--boas-text-secondary);
+    padding: 4px 12px;
+    transition: color 0.2s ease;
+    min-width: 60px;
+  }
+
+  .boas-nav-item.active {
+    color: var(--boas-primary);
+  }
+
+  .boas-nav-item svg {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 2px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+  }
+
+  .boas-nav-item.active svg {
+    stroke-width: 2.2;
+  }
+
+  .boas-nav-item span {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .boas-nav-item.active span {
+    font-weight: 700;
+  }
+
+  /* body에 하단 여백 추가 (네비게이션 높이만큼) */
+  body {
+    padding-bottom: 120px;
+  }
+
+  /* 푸터 하단 여백 조정 */
+  .boas-footer {
+    padding-bottom: 20px;
+  }
+}
+
+
+/* ================================================
+   Popup Modal
+   ================================================ */
+.popup-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.popup-modal-container {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  max-width: 400px;
+  max-height: 90vh;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-modal-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  position: relative;
+}
+
+.popup-modal-footer {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-top: 1px solid #eee;
+}
+
+.popup-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.popup-modal-close:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.popup-modal-slider {
+  position: relative;
+}
+
+.popup-slide {
+  display: none;
+}
+
+.popup-slide.active {
+  display: block;
+}
+
+.popup-slide img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.popup-slide a {
+  display: block;
+}
+
+.popup-modal-nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: #fff;
+}
+
+.popup-nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: var(--boas-text-muted);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease;
+}
+
+.popup-nav-dot.active {
+  background: var(--boas-primary);
+}
+
+.popup-modal-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #666;
+}
+
+.popup-modal-checkbox input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .popup-modal-container {
+    max-width: 320px;
+    border-radius: 12px;
+  }
+
+  .popup-modal-close {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+}

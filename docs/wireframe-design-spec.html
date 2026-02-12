@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세진컨설팅 - 와이어프레임 설계서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        * { font-family: 'Pretendard', sans-serif; }
+
+        :root {
+            --gold: #D4A574;
+            --gold-hover: #C9A05E;
+            --cream: #F5F1E8;
+            --warm-dark: #2A1A0E;
+            --dark-text: #212121;
+            --border-beige: #E8DCC8;
+        }
+
+        .color-swatch {
+            width: 60px; height: 60px; border-radius: 12px;
+            border: 2px solid #E8DCC8;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 10px; color: white; font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .wireframe-box {
+            border: 2px dashed #D4A574;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 8px 0;
+            position: relative;
+        }
+        .wireframe-box::before {
+            content: attr(data-label);
+            position: absolute; top: -10px; left: 16px;
+            background: #D4A574; color: white;
+            font-size: 11px; padding: 2px 10px;
+            border-radius: 4px; font-weight: 600;
+        }
+
+        .section-card {
+            background: white;
+            border: 1px solid #E8DCC8;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .page-tab { cursor: pointer; transition: all 0.2s; }
+        .page-tab.active { background: #D4A574; color: white; }
+        .page-tab:not(.active):hover { background: #F5F1E8; }
+
+        .page-content { display: none; }
+        .page-content.active { display: block; }
+
+        .mini-wireframe {
+            background: #FAFAF8;
+            border: 1px solid #E8DCC8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .check-item::before {
+            content: ''; display: inline-block;
+            width: 18px; height: 18px; border-radius: 4px;
+            border: 2px solid #D4A574; margin-right: 8px;
+            vertical-align: middle; cursor: pointer;
+        }
+        .check-item.checked::before {
+            background: #D4A574;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-size: 14px; background-position: center; background-repeat: no-repeat;
+        }
+
+        .toc-link { transition: all 0.15s; }
+        .toc-link:hover { color: #D4A574; padding-left: 8px; }
+
+        table { border-collapse: collapse; width: 100%; }
+        th { background: #F5F1E8; color: #2A1A0E; font-weight: 600; }
+        th, td { padding: 10px 14px; border: 1px solid #E8DCC8; font-size: 14px; }
+        td { color: #444; }
+
+        .badge {
+            display: inline-block; padding: 3px 10px; border-radius: 6px;
+            font-size: 12px; font-weight: 600;
+        }
+        .badge-gold { background: #FEF3E2; color: #C9A05E; }
+        .badge-dark { background: #2A1A0E; color: #F5F1E8; }
+        .badge-cream { background: #F5F1E8; color: #8B7355; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- ============================================ -->
+<!-- HEADER -->
+<!-- ============================================ -->
+<header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div>
+            <h1 class="text-xl font-bold" style="color: #2A1A0E;">세진컨설팅 와이어프레임 설계서</h1>
+            <p class="text-xs text-gray-400 mt-1">v1.0 | 2026-02-11 | 검토용</p>
+        </div>
+        <div class="flex gap-2">
+            <span class="badge badge-gold">DK Center 컬러</span>
+            <span class="badge badge-dark">WIZTION 구조</span>
+        </div>
+    </div>
+</header>
+
+<div class="max-w-6xl mx-auto px-6 py-8">
+
+<!-- ============================================ -->
+<!-- 1. 프로젝트 개요 -->
+<!-- ============================================ -->
+<section id="overview" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">1. 프로젝트 개요</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 브랜드 정보 -->
+        <div>
+            <h3 class="font-bold text-lg mb-4" style="color: #D4A574;">브랜드 정보</h3>
+            <table>
+                <tr><th width="35%">항목</th><th>내용</th></tr>
+                <tr><td>프로덕션 표기</td><td><strong>세진컨설팅</strong></td></tr>
+                <tr><td>대표</td><td>유현서</td></tr>
+                <tr><td>사업자번호</td><td>446-39-01281</td></tr>
+                <tr><td>대표번호</td><td>1877-0773</td></tr>
+                <tr><td>휴대전화</td><td>010-5247-7767</td></tr>
+                <tr><td>이메일</td><td>a01077457213@gmail.com</td></tr>
+                <tr><td>주소</td><td>대전광역시 서구 둔산로 73번길 22, 404호 (둔산동, 블루샵)</td></tr>
+                <tr><td>도메인</td><td>sejin.ai.kr</td></tr>
+                <tr><td>업종</td><td>정책자금 경영컨설팅</td></tr>
+            </table>
+        </div>
+
+        <!-- 설계 원칙 -->
+        <div>
+            <h3 class="font-bold text-lg mb-4" style="color: #D4A574;">설계 원칙</h3>
+            <div class="space-y-3">
+                <div class="p-4 rounded-xl" style="background: #F5F1E8;">
+                    <p class="font-bold text-sm" style="color: #2A1A0E;">구조/레이아웃</p>
+                    <p class="text-sm text-gray-600 mt-1">WIZTION 사이트의 섹션 구조, 그리드 레이아웃, 컴포넌트 패턴을 그대로 활용</p>
+                </div>
+                <div class="p-4 rounded-xl" style="background: #FEF3E2;">
+                    <p class="font-bold text-sm" style="color: #C9A05E;">컬러/톤</p>
+                    <p class="text-sm text-gray-600 mt-1">DK Center의 크림/골드 웜톤 팔레트 적용 (미니멀 럭셔리)</p>
+                </div>
+                <div class="p-4 rounded-xl bg-gray-100">
+                    <p class="font-bold text-sm" style="color: #2A1A0E;">콘텐츠</p>
+                    <p class="text-sm text-gray-600 mt-1">세진컨설팅 브랜드 정보, 서비스 내용으로 전면 교체</p>
+                </div>
+            </div>
+
+            <h3 class="font-bold text-lg mt-6 mb-3" style="color: #D4A574;">기술 스택</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="badge badge-cream">정적 HTML/CSS/JS</span>
+                <span class="badge badge-cream">Vercel Serverless</span>
+                <span class="badge badge-cream">Airtable</span>
+                <span class="badge badge-cream">Cloudflare R2</span>
+                <span class="badge badge-cream">Workers (알림)</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 2. 컬러 시스템 -->
+<!-- ============================================ -->
+<section id="colors" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">2. 컬러 시스템</h2>
+    <p class="text-sm text-gray-500 mb-6">DK Center 컬러 팔레트 기반 &rarr; 세진컨설팅 CSS 변수 매핑</p>
+
+    <!-- 메인 컬러 -->
+    <h3 class="font-bold mb-4">메인 컬러</h3>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #D4A574;">#D4A574</div>
+            <p class="text-xs font-bold mt-2">Primary Gold</p>
+            <p class="text-xs text-gray-400">CTA, 강조, 아이콘</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #C9A05E;">#C9A05E</div>
+            <p class="text-xs font-bold mt-2">Gold Hover</p>
+            <p class="text-xs text-gray-400">호버, 액티브</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #F5F1E8; color: #8B7355;">#F5F1E8</div>
+            <p class="text-xs font-bold mt-2">Cream</p>
+            <p class="text-xs text-gray-400">섹션 배경</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #2A1A0E;">#2A1A0E</div>
+            <p class="text-xs font-bold mt-2">Warm Dark</p>
+            <p class="text-xs text-gray-400">다크 섹션, 푸터</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #212121;">#212121</div>
+            <p class="text-xs font-bold mt-2">Dark Text</p>
+            <p class="text-xs text-gray-400">헤드라인</p>
+        </div>
+    </div>
+
+    <!-- 보조 컬러 -->
+    <h3 class="font-bold mb-4">보조 컬러</h3>
+    <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #E8DCC8; color: #8B7355;">#E8DCC8</div>
+            <p class="text-xs font-bold mt-2">Border Beige</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #FFFFFF; border-color: #ddd; color: #999;">#FFFFFF</div>
+            <p class="text-xs font-bold mt-2">White</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #666666;">#666666</div>
+            <p class="text-xs font-bold mt-2">Body Text</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #999999;">#999999</div>
+            <p class="text-xs font-bold mt-2">Muted</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #10B981;">#10B981</div>
+            <p class="text-xs font-bold mt-2">Success</p>
+        </div>
+        <div class="text-center">
+            <div class="color-swatch mx-auto" style="background: #EF4444;">#EF4444</div>
+            <p class="text-xs font-bold mt-2">Error</p>
+        </div>
+    </div>
+
+    <!-- CSS 변수 매핑 테이블 -->
+    <h3 class="font-bold mb-4">CSS 변수 매핑 (WIZTION &rarr; 세진컨설팅)</h3>
+    <table>
+        <tr>
+            <th>WIZTION 변수</th>
+            <th>WIZTION 값</th>
+            <th>세진컨설팅 변수</th>
+            <th>세진컨설팅 값</th>
+            <th>용도</th>
+        </tr>
+        <tr>
+            <td><code>--wiztion-primary</code></td>
+            <td><span style="color:#4A7C59">#4A7C59</span></td>
+            <td><code>--sejin-primary</code></td>
+            <td><span style="color:#D4A574; font-weight:700">#D4A574</span></td>
+            <td>CTA 버튼, 강조색</td>
+        </tr>
+        <tr>
+            <td><code>--wiztion-primary-dark</code></td>
+            <td><span style="color:#3D6649">#3D6649</span></td>
+            <td><code>--sejin-primary-dark</code></td>
+            <td><span style="color:#C9A05E; font-weight:700">#C9A05E</span></td>
+            <td>호버, 액티브</td>
+        </tr>
+        <tr>
+            <td><code>--wiztion-primary-pale</code></td>
+            <td><span style="color:#90be9e">#E8F0EA</span></td>
+            <td><code>--sejin-primary-pale</code></td>
+            <td><span style="color:#C9A05E; font-weight:700">#FEF3E2</span></td>
+            <td>연한 배경, 배지</td>
+        </tr>
+        <tr>
+            <td><code>--wiztion-bg-ivory</code></td>
+            <td><span style="color:#90be9e">#F5F9F6</span></td>
+            <td><code>--sejin-bg-cream</code></td>
+            <td><span style="color:#C9A05E; font-weight:700">#F5F1E8</span></td>
+            <td>섹션 배경</td>
+        </tr>
+        <tr>
+            <td><code>--wiztion-gradient-primary</code></td>
+            <td>135deg, #4A7C59 &rarr; #6B9B7A</td>
+            <td><code>--sejin-gradient-primary</code></td>
+            <td style="font-weight:700; color:#C9A05E">135deg, #D4A574 &rarr; #C9A05E</td>
+            <td>그라디언트 버튼, 아이콘</td>
+        </tr>
+        <tr>
+            <td><code>--wiztion-text-primary</code></td>
+            <td>#1A1A1A</td>
+            <td><code>--sejin-text-primary</code></td>
+            <td style="font-weight:700">#212121</td>
+            <td>메인 텍스트</td>
+        </tr>
+        <tr>
+            <td><code>--wiztion-text-secondary</code></td>
+            <td>#64746B</td>
+            <td><code>--sejin-text-secondary</code></td>
+            <td style="font-weight:700">#666666</td>
+            <td>보조 텍스트</td>
+        </tr>
+        <tr>
+            <td><code>--wiztion-shadow-primary</code></td>
+            <td>rgba(74,124,89,0.35)</td>
+            <td><code>--sejin-shadow-primary</code></td>
+            <td style="font-weight:700; color:#C9A05E">rgba(212,165,116,0.4)</td>
+            <td>버튼 그림자</td>
+        </tr>
+        <tr>
+            <td>(새로 추가)</td>
+            <td>-</td>
+            <td><code>--sejin-warm-dark</code></td>
+            <td style="font-weight:700">#2A1A0E</td>
+            <td>다크 섹션, 푸터</td>
+        </tr>
+    </table>
+</section>
+
+<!-- ============================================ -->
+<!-- 3. 사이트맵 -->
+<!-- ============================================ -->
+<section id="sitemap" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">3. 사이트맵 &amp; 네비게이션</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 사이트맵 -->
+        <div>
+            <h3 class="font-bold mb-4" style="color: #D4A574;">페이지 구조 (5페이지 + 부가)</h3>
+            <div class="space-y-2 text-sm">
+                <div class="p-3 rounded-lg font-bold" style="background: #2A1A0E; color: #D4A574;">
+                    sejin.ai.kr
+                </div>
+                <div class="ml-6 space-y-1">
+                    <div class="p-2 px-4 rounded-lg" style="background: #F5F1E8;">
+                        <strong>/</strong> &mdash; 메인 (index.html)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg" style="background: #F5F1E8;">
+                        <strong>/fund</strong> &mdash; 정책자금 (fund.html)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg" style="background: #F5F1E8;">
+                        <strong>/certification</strong> &mdash; 인증지원 (certification.html)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg" style="background: #F5F1E8;">
+                        <strong>/success</strong> &mdash; 성공사례/게시판 (success.html)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg" style="background: #F5F1E8;">
+                        <strong>/contact</strong> &mdash; 무료심사 (contact.html)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg bg-gray-100 text-gray-500">
+                        <strong>/post?id=xxx</strong> &mdash; 게시글 상세
+                    </div>
+                    <div class="p-2 px-4 rounded-lg bg-gray-100 text-gray-500">
+                        <strong>/admin-login</strong> &mdash; 관리자 로그인
+                    </div>
+                    <div class="p-2 px-4 rounded-lg bg-gray-100 text-gray-500">
+                        <strong>/dashboard/</strong> &mdash; 관리자 대시보드
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 네비게이션 -->
+        <div>
+            <h3 class="font-bold mb-4" style="color: #D4A574;">GNB (Global Navigation Bar)</h3>
+
+            <!-- Desktop 헤더 와이어프레임 -->
+            <div class="mini-wireframe p-4 mb-4">
+                <p class="text-xs text-gray-400 mb-2">Desktop Header (Sticky, 70px)</p>
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white border" style="border-color: #E8DCC8;">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded" style="background: #D4A574;"></div>
+                        <span class="font-bold text-sm" style="color: #2A1A0E;">세진컨설팅</span>
+                    </div>
+                    <div class="flex gap-4 text-xs text-gray-500">
+                        <span class="font-bold" style="color: #D4A574;">홈</span>
+                        <span>정책자금</span>
+                        <span>인증지원</span>
+                        <span>성공사례</span>
+                        <span>무료심사</span>
+                    </div>
+                    <div class="px-3 py-1 rounded-full text-xs text-white font-bold" style="background: #D4A574;">
+                        1877-0773
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile 헤더 -->
+            <div class="mini-wireframe p-4 mb-4">
+                <p class="text-xs text-gray-400 mb-2">Mobile Header + Bottom Nav</p>
+                <div class="flex items-center justify-between p-3 rounded-lg bg-white border" style="border-color: #E8DCC8;">
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded" style="background: #D4A574;"></div>
+                        <span class="font-bold text-xs">세진컨설팅</span>
+                    </div>
+                    <div class="text-gray-400">&equiv;</div>
+                </div>
+                <div class="mt-2 flex justify-around p-2 rounded-lg text-xs" style="background: #2A1A0E; color: #F5F1E8;">
+                    <span>정책자금</span>
+                    <span>인증</span>
+                    <span>성공사례</span>
+                    <span style="color: #D4A574; font-weight: 700;">무료심사</span>
+                </div>
+            </div>
+
+            <h3 class="font-bold mb-3 mt-4" style="color: #D4A574;">메뉴 항목</h3>
+            <table>
+                <tr><th>메뉴명</th><th>URL</th><th>설명</th></tr>
+                <tr><td>홈</td><td>/</td><td>메인 페이지</td></tr>
+                <tr><td>정책자금</td><td>/fund</td><td>정책자금 종류, 프로세스</td></tr>
+                <tr><td>인증지원</td><td>/certification</td><td>기업인증 종류, 혜택</td></tr>
+                <tr><td>성공사례</td><td>/success</td><td>게시판(공지/뉴스/정보)</td></tr>
+                <tr><td>무료심사</td><td>/contact</td><td>상담 신청 폼</td></tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 4. 페이지별 와이어프레임 -->
+<!-- ============================================ -->
+<section id="pages" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">4. 페이지별 와이어프레임</h2>
+
+    <!-- 페이지 탭 -->
+    <div class="flex flex-wrap gap-2 mb-8">
+        <button class="page-tab active px-4 py-2 rounded-full text-sm font-bold border" style="border-color: #D4A574;" onclick="showPage('main')">메인 (index)</button>
+        <button class="page-tab px-4 py-2 rounded-full text-sm font-bold border" style="border-color: #D4A574;" onclick="showPage('fund')">정책자금 (fund)</button>
+        <button class="page-tab px-4 py-2 rounded-full text-sm font-bold border" style="border-color: #D4A574;" onclick="showPage('cert')">인증지원 (cert)</button>
+        <button class="page-tab px-4 py-2 rounded-full text-sm font-bold border" style="border-color: #D4A574;" onclick="showPage('contact')">무료심사 (contact)</button>
+        <button class="page-tab px-4 py-2 rounded-full text-sm font-bold border" style="border-color: #D4A574;" onclick="showPage('success')">성공사례 (게시판)</button>
+    </div>
+
+    <!-- ======================== -->
+    <!-- 메인 페이지 -->
+    <!-- ======================== -->
+    <div id="page-main" class="page-content active">
+        <h3 class="text-xl font-bold mb-2" style="color: #2A1A0E;">메인 페이지 (index.html)</h3>
+        <p class="text-sm text-gray-500 mb-6">8개 섹션 | WIZTION index.html 구조 그대로</p>
+
+        <!-- 섹션 흐름도 -->
+        <div class="space-y-4">
+
+            <!-- 1. 히어로 -->
+            <div class="wireframe-box" data-label="01 Hero">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <span class="badge badge-gold mb-2">배지: 중소기업 정책자금 전문</span>
+                        <p class="text-lg font-bold mt-2" style="color: #212121;">
+                            대표님의 역량을 분석해<br>
+                            맞춤 자금을 설계합니다
+                        </p>
+                        <p class="text-sm text-gray-500 mt-2">세진컨설팅의 자금조달 전문가가 대표님의 기업 성장을 지원합니다.</p>
+                        <div class="flex gap-2 mt-4">
+                            <button class="px-4 py-2 rounded-full text-sm text-white font-bold" style="background: #D4A574;">무료 심사 신청</button>
+                            <button class="px-4 py-2 rounded-full text-sm font-bold border" style="border-color: #D4A574; color: #D4A574;">정책자금 안내</button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3">* 세진컨설팅은 기업평가 및 정부정책 서류작성 대행을 하지 않습니다.</p>
+                    </div>
+                    <div class="bg-gray-200 rounded-xl h-48 flex items-center justify-center text-gray-400 text-sm">
+                        히어로 이미지<br>(비즈니스 컨설팅 장면)
+                    </div>
+                </div>
+                <div class="mt-3 p-2 rounded text-xs" style="background: #FEF3E2; color: #8B7355;">
+                    <strong>배경:</strong> linear-gradient(135deg, #FFFFFF 0%, #F5F1E8 100%) | <strong>레이아웃:</strong> 2-column grid (1fr 1fr) | <strong>애니메이션:</strong> fadeInUp
+                </div>
+            </div>
+
+            <!-- 2. 금리비교 -->
+            <div class="wireframe-box" data-label="02 Interest (금리 비교)">
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div class="p-4 rounded-xl border-2" style="border-color: #D4A574; background: #FEF3E2;">
+                        <p class="text-xs text-gray-500">정책자금</p>
+                        <p class="text-2xl font-bold" style="color: #D4A574;">3.5%</p>
+                        <p class="text-xs" style="color: #D4A574;">최저금리</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-100 border">
+                        <p class="text-xs text-gray-500">은행대출</p>
+                        <p class="text-2xl font-bold text-gray-600">6.5%</p>
+                        <p class="text-xs text-gray-400">부담금리</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-gray-100 border">
+                        <p class="text-xs text-gray-500">카드론</p>
+                        <p class="text-2xl font-bold text-gray-600">15%</p>
+                        <p class="text-xs text-gray-400">고금리</p>
+                    </div>
+                </div>
+                <p class="text-center text-sm font-bold mt-4" style="color: #D4A574;">
+                    &rarr; 동일 1억 대출 시 연 1,150만원 이자 절약
+                </p>
+                <div class="mt-3 p-2 rounded text-xs" style="background: #FEF3E2; color: #8B7355;">
+                    <strong>배경:</strong> #F5F1E8 (cream) | <strong>레이아웃:</strong> 3-column card grid | <strong>효과:</strong> 하이라이트 카드 scale(1.05) + 골드 보더
+                </div>
+            </div>
+
+            <!-- 3. CTA Bar -->
+            <div class="wireframe-box" data-label="03 CTA Bar">
+                <div class="p-6 rounded-xl text-center text-white" style="background: linear-gradient(135deg, #D4A574 0%, #C9A05E 100%);">
+                    <p class="text-lg font-bold">"무료 상담으로 최적의 자금조달 솔루션을 확인하세요"</p>
+                    <button class="mt-3 px-6 py-2 rounded-full bg-white text-sm font-bold" style="color: #D4A574;">상담 신청하기</button>
+                </div>
+                <div class="mt-3 p-2 rounded text-xs" style="background: #FEF3E2; color: #8B7355;">
+                    <strong>배경:</strong> 골드 그라디언트 | <strong>레이아웃:</strong> 중앙 정렬 | <strong>역할:</strong> 스크롤 중간 CTA 유도
+                </div>
+            </div>
+
+            <!-- 4. 핵심 서비스 -->
+            <div class="wireframe-box" data-label="04 Core Services (핵심 서비스)">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-white rounded-xl border p-4" style="border-color: #E8DCC8;">
+                        <div class="bg-gray-200 rounded-lg h-28 mb-3 flex items-center justify-center text-xs text-gray-400">서비스 이미지</div>
+                        <p class="font-bold text-sm">정책자금 컨설팅</p>
+                        <p class="text-xs text-gray-500 mt-1">중소기업 맞춤형 정책자금 확보 전략 수립</p>
+                        <a class="text-xs font-bold mt-2 inline-block" style="color: #D4A574;">자세히 보기 &rarr;</a>
+                    </div>
+                    <div class="bg-white rounded-xl border p-4" style="border-color: #E8DCC8;">
+                        <div class="bg-gray-200 rounded-lg h-28 mb-3 flex items-center justify-center text-xs text-gray-400">서비스 이미지</div>
+                        <p class="font-bold text-sm">인증 컨설팅</p>
+                        <p class="text-xs text-gray-500 mt-1">기업인증 획득을 통한 경쟁력 강화</p>
+                        <a class="text-xs font-bold mt-2 inline-block" style="color: #D4A574;">자세히 보기 &rarr;</a>
+                    </div>
+                    <div class="bg-white rounded-xl border p-4" style="border-color: #E8DCC8;">
+                        <div class="bg-gray-200 rounded-lg h-28 mb-3 flex items-center justify-center text-xs text-gray-400">서비스 이미지</div>
+                        <p class="font-bold text-sm">성공사례</p>
+                        <p class="text-xs text-gray-500 mt-1">실제 자금조달 성공 기업 사례 확인</p>
+                        <a class="text-xs font-bold mt-2 inline-block" style="color: #D4A574;">자세히 보기 &rarr;</a>
+                    </div>
+                </div>
+                <div class="mt-3 p-2 rounded text-xs" style="background: #FEF3E2; color: #8B7355;">
+                    <strong>배경:</strong> #FFFFFF | <strong>레이아웃:</strong> 3-column card grid | <strong>효과:</strong> hover translateY(-8px) + shadow
+                </div>
+            </div>
+
+            <!-- 5. 차별점 + 전문가 -->
+            <div class="wireframe-box" data-label="05 Info (차별점 + 전문가 소개)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <p class="text-xs font-bold text-gray-400 mb-2">3가지 차별점 카드</p>
+                        <div class="flex gap-2 items-start p-3 rounded-lg" style="background: #F5F1E8;">
+                            <div class="w-10 h-10 rounded-lg flex-shrink-0" style="background: #D4A574;"></div>
+                            <div>
+                                <p class="font-bold text-sm">무료 진단</p>
+                                <p class="text-xs text-gray-500">기업 현황 분석 무료 제공</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 items-start p-3 rounded-lg" style="background: #F5F1E8;">
+                            <div class="w-10 h-10 rounded-lg flex-shrink-0" style="background: #D4A574;"></div>
+                            <div>
+                                <p class="font-bold text-sm">1:1 맞춤 컨설팅</p>
+                                <p class="text-xs text-gray-500">전담 컨설턴트 배정</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 items-start p-3 rounded-lg" style="background: #F5F1E8;">
+                            <div class="w-10 h-10 rounded-lg flex-shrink-0" style="background: #D4A574;"></div>
+                            <div>
+                                <p class="font-bold text-sm">투명한 프로세스</p>
+                                <p class="text-xs text-gray-500">진행 상황 실시간 공유</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 rounded-xl border" style="border-color: #E8DCC8;">
+                        <p class="text-xs font-bold text-gray-400 mb-3">전문가 프로필 카드</p>
+                        <div class="flex gap-4 items-start">
+                            <div class="w-20 h-20 rounded-xl bg-gray-200 flex-shrink-0 flex items-center justify-center text-xs text-gray-400">프로필</div>
+                            <div>
+                                <p class="font-bold" style="color: #D4A574;">유현서</p>
+                                <p class="text-xs text-gray-500">기업심사관 / 대표 컨설턴트</p>
+                                <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                                    "안녕하세요. 세진컨설팅 대표 유현서입니다.
+                                    정책자금 전문가로서 대표님의 기업 성장을 위한 최적의 자금조달 전략을 함께 설계하겠습니다."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 p-2 rounded text-xs" style="background: #FEF3E2; color: #8B7355;">
+                    <strong>배경:</strong> #FFFFFF | <strong>레이아웃:</strong> 좌: 3-row point cards / 우: 전문가 프로필 카드
+                </div>
+            </div>
+
+            <!-- 6. 고객 후기 -->
+            <div class="wireframe-box" data-label="06 Story (고객 후기 슬라이더)">
+                <div class="overflow-hidden">
+                    <div class="flex gap-3">
+                        <div class="flex-shrink-0 w-64 p-4 rounded-xl bg-white border" style="border-color: #E8DCC8;">
+                            <span class="badge badge-gold">제조업</span>
+                            <p class="text-xs text-gray-600 mt-2 leading-relaxed">"정책자금 3억원 확보에 성공했습니다. 세진컨설팅의 체계적인 준비 덕분에..."</p>
+                        </div>
+                        <div class="flex-shrink-0 w-64 p-4 rounded-xl bg-white border" style="border-color: #E8DCC8;">
+                            <span class="badge badge-gold">IT 서비스</span>
+                            <p class="text-xs text-gray-600 mt-2 leading-relaxed">"벤처인증과 함께 기술보증기금 대출까지 한번에 해결..."</p>
+                        </div>
+                        <div class="flex-shrink-0 w-64 p-4 rounded-xl bg-white border opacity-50" style="border-color: #E8DCC8;">
+                            <span class="badge badge-gold">유통업</span>
+                            <p class="text-xs text-gray-600 mt-2">...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 p-2 rounded text-xs" style="background: #FEF3E2; color: #8B7355;">
+                    <strong>배경:</strong> #F5F1E8 | <strong>레이아웃:</strong> 무한 가로 자동 스크롤 (150s, hover pause) | <strong>데이터:</strong> 10개 후기 카드 복제 루프
+                </div>
+            </div>
+
+            <!-- 7. 푸터 -->
+            <div class="wireframe-box" data-label="07 Footer">
+                <div class="p-6 rounded-xl text-white text-xs" style="background: #2A1A0E;">
+                    <div class="grid grid-cols-3 gap-6">
+                        <div>
+                            <p class="font-bold mb-2" style="color: #D4A574;">세진컨설팅</p>
+                            <p class="text-gray-400">대표: 유현서</p>
+                            <p class="text-gray-400">사업자: 446-39-01281</p>
+                            <p class="text-gray-400">대전광역시 서구 둔산로 73번길 22, 404호</p>
+                        </div>
+                        <div>
+                            <p class="font-bold mb-2" style="color: #D4A574;">연락처</p>
+                            <p class="text-gray-400">대표: 1877-0773</p>
+                            <p class="text-gray-400">이메일: a01077457213@gmail.com</p>
+                        </div>
+                        <div>
+                            <p class="font-bold mb-2" style="color: #D4A574;">바로가기</p>
+                            <p class="text-gray-400">정책자금 | 인증지원 | 성공사례 | 무료심사</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-700 text-gray-500 text-center">
+                        &copy; 2026 세진컨설팅. All rights reserved.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. 플로팅/모바일 -->
+            <div class="wireframe-box" data-label="08 Floating Elements">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 mb-2">Desktop: 플로팅 상담 폼</p>
+                        <div class="p-3 rounded-xl border text-xs" style="border-color: #E8DCC8;">
+                            <p class="font-bold" style="color: #D4A574;">빠른 상담</p>
+                            <div class="space-y-1 mt-2">
+                                <div class="h-6 bg-gray-100 rounded text-xs flex items-center px-2 text-gray-400">기업명</div>
+                                <div class="h-6 bg-gray-100 rounded text-xs flex items-center px-2 text-gray-400">연락처</div>
+                                <div class="h-6 bg-gray-100 rounded text-xs flex items-center px-2 text-gray-400">통화시간</div>
+                                <button class="w-full h-6 rounded text-white text-xs font-bold" style="background: #D4A574;">상담 신청</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 mb-2">Mobile: 슬라이드업 상담 폼</p>
+                        <div class="p-3 rounded-xl border text-xs" style="border-color: #E8DCC8;">
+                            <p class="text-center font-bold" style="color: #D4A574;">무료 상담 신청</p>
+                            <div class="space-y-1 mt-2">
+                                <div class="h-6 bg-gray-100 rounded text-xs flex items-center px-2 text-gray-400">이름</div>
+                                <div class="h-6 bg-gray-100 rounded text-xs flex items-center px-2 text-gray-400">연락처</div>
+                                <div class="flex items-center gap-1 text-xs text-gray-400">
+                                    <div class="w-3 h-3 border rounded" style="border-color: #D4A574;"></div>
+                                    개인정보 동의
+                                </div>
+                                <button class="w-full h-6 rounded text-white text-xs font-bold" style="background: #D4A574;">신청하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- 정책자금 페이지 -->
+    <!-- ======================== -->
+    <div id="page-fund" class="page-content">
+        <h3 class="text-xl font-bold mb-2" style="color: #2A1A0E;">정책자금 페이지 (fund.html)</h3>
+        <p class="text-sm text-gray-500 mb-6">6개 섹션 | WIZTION fund.html 구조</p>
+
+        <div class="space-y-4">
+            <div class="wireframe-box" data-label="01 Fund Hero">
+                <p class="font-bold">2-column 그리드 히어로</p>
+                <p class="text-sm text-gray-500">좌: 헤드라인 + 서브 + CTA 버튼 2개 / 우: 정사각형 이미지 (green shadow &rarr; gold shadow)</p>
+                <p class="text-xs mt-2" style="color: #D4A574;">헤드라인: "기업 성장을 위한 정책자금, 세진컨설팅이 함께합니다"</p>
+            </div>
+
+            <div class="wireframe-box" data-label="02 Fund Why (왜 정책자금인가)">
+                <p class="font-bold">3-column 카드 그리드</p>
+                <p class="text-sm text-gray-500">각 카드: 이미지(200px) + 제목 + 설명. 하단에 절약 금액 예시 박스</p>
+                <p class="text-xs mt-2 text-gray-400">hover: translateY(-8px) + shadow 효과</p>
+            </div>
+
+            <div class="wireframe-box" data-label="03 Fund Category (자금 종류 - 탭)">
+                <p class="font-bold">탭 네비게이션 + 콘텐츠 패널</p>
+                <div class="flex gap-2 mt-2">
+                    <span class="px-3 py-1 rounded-full text-xs text-white" style="background: #D4A574;">창업자금</span>
+                    <span class="px-3 py-1 rounded-full text-xs border" style="border-color: #E8DCC8;">운전자금</span>
+                    <span class="px-3 py-1 rounded-full text-xs border" style="border-color: #E8DCC8;">시설자금</span>
+                    <span class="px-3 py-1 rounded-full text-xs border" style="border-color: #E8DCC8;">긴급자금</span>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">각 탭: 헤더 이미지(16:7) + 2-column 상세 내용 (이미지 280px + 설명)</p>
+            </div>
+
+            <div class="wireframe-box" data-label="04 Fund Process (진행 프로세스)">
+                <p class="font-bold">4-column 타임라인</p>
+                <div class="flex justify-between mt-2 text-center text-xs">
+                    <div>
+                        <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white font-bold" style="background: linear-gradient(135deg, #D4A574, #C9A05E);">01</div>
+                        <p class="mt-1 font-bold">무료심사</p>
+                    </div>
+                    <div class="text-gray-300 self-center">- - - -</div>
+                    <div>
+                        <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white font-bold" style="background: linear-gradient(135deg, #D4A574, #C9A05E);">02</div>
+                        <p class="mt-1 font-bold">현황분석</p>
+                    </div>
+                    <div class="text-gray-300 self-center">- - - -</div>
+                    <div>
+                        <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white font-bold" style="background: linear-gradient(135deg, #D4A574, #C9A05E);">03</div>
+                        <p class="mt-1 font-bold">전략수립</p>
+                    </div>
+                    <div class="text-gray-300 self-center">- - - -</div>
+                    <div>
+                        <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white font-bold" style="background: linear-gradient(135deg, #D4A574, #C9A05E);">04</div>
+                        <p class="mt-1 font-bold">실행지원</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">Mobile: 탭 형식으로 전환 (데스크탑 타임라인 숨김)</p>
+            </div>
+
+            <div class="wireframe-box" data-label="05 Fund FAQ (아코디언)">
+                <p class="font-bold">아코디언 형식 FAQ</p>
+                <div class="space-y-2 mt-2 text-sm">
+                    <div class="p-3 rounded-lg border flex justify-between items-center" style="border-color: #E8DCC8;">
+                        <span>정책자금은 어떤 기업이 받을 수 있나요?</span>
+                        <span style="color: #D4A574;">+</span>
+                    </div>
+                    <div class="p-3 rounded-lg border flex justify-between items-center" style="border-color: #E8DCC8;">
+                        <span>컨설팅 비용은 어떻게 되나요?</span>
+                        <span style="color: #D4A574;">+</span>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">max-height 애니메이션 + 아이콘 45도 회전</p>
+            </div>
+
+            <div class="wireframe-box" data-label="06 Fund Final CTA">
+                <div class="p-6 rounded-xl text-center" style="background: #F5F1E8;">
+                    <p class="text-lg font-bold">지금 바로 <span style="color: #D4A574;">무료 심사</span>를 신청하세요</p>
+                    <button class="mt-3 px-6 py-2 rounded-full text-white text-sm font-bold" style="background: #D4A574;">무료 심사 신청하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- 인증지원 페이지 -->
+    <!-- ======================== -->
+    <div id="page-cert" class="page-content">
+        <h3 class="text-xl font-bold mb-2" style="color: #2A1A0E;">인증지원 페이지 (certification.html)</h3>
+        <p class="text-sm text-gray-500 mb-6">6개 섹션 | WIZTION certification.html 구조</p>
+
+        <div class="space-y-4">
+            <div class="wireframe-box" data-label="01 Cert Hero">
+                <p class="font-bold">2-column 그리드 히어로 (fund와 동일 패턴)</p>
+                <p class="text-xs mt-1" style="color: #D4A574;">헤드라인: "기업인증으로 경쟁력을 높이세요"</p>
+            </div>
+
+            <div class="wireframe-box" data-label="02 Cert Category (인증 종류)">
+                <p class="font-bold">3-column 카드 그리드 (340px 고정)</p>
+                <div class="grid grid-cols-3 gap-3 mt-2">
+                    <div class="p-3 rounded-lg border text-center text-xs" style="border-color: #E8DCC8;">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-gray-200 mb-2"></div>
+                        <p class="font-bold">벤처인증</p>
+                        <p class="text-gray-400 mt-1">세제혜택, 자금지원...</p>
+                    </div>
+                    <div class="p-3 rounded-lg border text-center text-xs" style="border-color: #E8DCC8;">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-gray-200 mb-2"></div>
+                        <p class="font-bold">이노비즈</p>
+                        <p class="text-gray-400 mt-1">기술혁신 인증...</p>
+                    </div>
+                    <div class="p-3 rounded-lg border text-center text-xs" style="border-color: #E8DCC8;">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-gray-200 mb-2"></div>
+                        <p class="font-bold">메인비즈</p>
+                        <p class="text-gray-400 mt-1">경영혁신 인증...</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">각 카드: 로고(100x100) + 인증명 + 설명 + 혜택 리스트 (녹색 체크 아이콘)</p>
+            </div>
+
+            <div class="wireframe-box" data-label="03 Cert CTA Bar">
+                <p class="font-bold">골드 그라디언트 배경 CTA 바</p>
+                <p class="text-xs text-gray-400">큰 이탤릭 텍스트(42px) + highlight 강조</p>
+            </div>
+
+            <div class="wireframe-box" data-label="04 Cert Benefit (혜택 - 탭)">
+                <p class="font-bold">탭 버튼(160px) + 카드 스택 (이미지 320px + 콘텐츠)</p>
+                <p class="text-xs text-gray-400 mt-1">큰 통계 숫자(48px, gradient text-clip), 2-column 혜택 리스트</p>
+            </div>
+
+            <div class="wireframe-box" data-label="05 Cert Ready (준비사항 - 탭)">
+                <p class="font-bold">탭 버튼(150px) + 체크리스트 카드</p>
+                <p class="text-xs text-gray-400 mt-1">2-column 체크리스트 (골드 체크 아이콘 + 텍스트), 하단 CTA</p>
+            </div>
+
+            <div class="wireframe-box" data-label="06 Cert Final CTA">
+                <p class="font-bold">최종 CTA 섹션</p>
+                <p class="text-xs text-gray-400 mt-1">헤드라인(42px) + highlight + 버튼 그룹 + 화살표 링크</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- 무료심사 페이지 -->
+    <!-- ======================== -->
+    <div id="page-contact" class="page-content">
+        <h3 class="text-xl font-bold mb-2" style="color: #2A1A0E;">무료심사 페이지 (contact.html)</h3>
+        <p class="text-sm text-gray-500 mb-6">5개 섹션 | WIZTION contact.html 구조</p>
+
+        <div class="space-y-4">
+            <div class="wireframe-box" data-label="01 Contact Hero">
+                <p class="font-bold">2-column 그리드 히어로</p>
+                <p class="text-xs mt-1" style="color: #D4A574;">헤드라인: "무료 심사로 시작하세요"</p>
+            </div>
+
+            <div class="wireframe-box" data-label="02 Contact Process (4단계)">
+                <p class="font-bold">4-column 스텝 카드</p>
+                <p class="text-xs text-gray-400 mt-1">SVG 아이콘 + 번호 배지 + 제목 + 설명. Mobile: 슬라이드 네비게이션</p>
+            </div>
+
+            <div class="wireframe-box" data-label="03 Contact FAQ">
+                <p class="font-bold">아코디언 FAQ (6개 항목)</p>
+                <p class="text-xs text-gray-400 mt-1">Q: 무료?, 시간?, 서류?, 기존 수혜?, 계약 필수?, 소규모?</p>
+            </div>
+
+            <div class="wireframe-box" data-label="04 Contact Form (핵심)">
+                <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div class="p-3 rounded-lg" style="background: #2A1A0E;">
+                        <p class="text-xs font-bold" style="color: #D4A574;">좌: 정보 패널</p>
+                        <p class="text-xs text-gray-400 mt-1">컨설턴트 프로필 이미지</p>
+                        <p class="text-xs text-gray-400">전화번호 + 상담시간</p>
+                    </div>
+                    <div class="p-3 rounded-lg border" style="border-color: #E8DCC8;">
+                        <p class="text-xs font-bold" style="color: #D4A574;">우: 상담 신청 폼</p>
+                        <div class="grid grid-cols-2 gap-1 mt-2 text-xs">
+                            <div class="h-5 bg-gray-100 rounded px-1 flex items-center text-gray-400">기업명*</div>
+                            <div class="h-5 bg-gray-100 rounded px-1 flex items-center text-gray-400">대표자명*</div>
+                            <div class="h-5 bg-gray-100 rounded px-1 flex items-center text-gray-400">연락처*</div>
+                            <div class="h-5 bg-gray-100 rounded px-1 flex items-center text-gray-400">통화시간*</div>
+                        </div>
+                        <div class="h-5 bg-gray-100 rounded mt-1 px-1 flex items-center text-xs text-gray-400">자금규모 (선택)</div>
+                        <div class="flex gap-1 mt-1 text-xs text-gray-400">
+                            <span class="px-1 border rounded" style="border-color:#E8DCC8">창업</span>
+                            <span class="px-1 border rounded" style="border-color:#E8DCC8">운전</span>
+                            <span class="px-1 border rounded" style="border-color:#E8DCC8">시설</span>
+                            <span class="px-1 border rounded" style="border-color:#E8DCC8">기타</span>
+                        </div>
+                        <div class="h-10 bg-gray-100 rounded mt-1 px-1 flex items-start pt-1 text-xs text-gray-400">문의사항</div>
+                        <button class="w-full h-6 rounded text-white text-xs font-bold mt-1" style="background: #D4A574;">무료 상담 신청하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== -->
+    <!-- 성공사례 페이지 -->
+    <!-- ======================== -->
+    <div id="page-success" class="page-content">
+        <h3 class="text-xl font-bold mb-2" style="color: #2A1A0E;">성공사례 / 게시판 (success.html)</h3>
+        <p class="text-sm text-gray-500 mb-6">Airtable 연동 게시판 | WIZTION success.html 구조</p>
+
+        <div class="space-y-4">
+            <div class="wireframe-box" data-label="게시판 목록">
+                <p class="font-bold">썸네일 + 제목 + 날짜 리스트</p>
+                <div class="space-y-2 mt-2">
+                    <div class="flex gap-3 items-center p-2 rounded-lg border" style="border-color: #E8DCC8;">
+                        <div class="w-16 h-12 bg-gray-200 rounded flex-shrink-0 flex items-center justify-center text-xs text-gray-400">thumb</div>
+                        <div>
+                            <p class="text-sm font-bold">2026년 상반기 중소기업 정책자금 안내</p>
+                            <p class="text-xs text-gray-400">2026-02-10</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 items-center p-2 rounded-lg border" style="border-color: #E8DCC8;">
+                        <div class="w-16 h-12 bg-gray-200 rounded flex-shrink-0 flex items-center justify-center text-xs text-gray-400">thumb</div>
+                        <div>
+                            <p class="text-sm font-bold">벤처인증 취득 성공사례 - IT 서비스 기업</p>
+                            <p class="text-xs text-gray-400">2026-02-05</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-2">데이터 소스: Airtable API (/api/board) | 썸네일: R2 CDN</p>
+            </div>
+
+            <div class="wireframe-box" data-label="게시글 상세 (post.html)">
+                <p class="font-bold">게시글 상세 페이지</p>
+                <p class="text-xs text-gray-400 mt-1">제목 + 날짜 + 본문(HTML) + 목록으로 돌아가기 버튼</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 5. 컴포넌트 스타일 가이드 -->
+<!-- ============================================ -->
+<section id="components" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">5. 컴포넌트 스타일 가이드</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 버튼 -->
+        <div>
+            <h3 class="font-bold mb-4" style="color: #D4A574;">버튼</h3>
+            <div class="space-y-3">
+                <div>
+                    <button class="px-6 py-3 rounded-full text-white font-bold text-sm" style="background: linear-gradient(135deg, #D4A574, #C9A05E); box-shadow: 0 4px 20px rgba(212,165,116,0.4);">Primary CTA</button>
+                    <p class="text-xs text-gray-400 mt-1">골드 그라디언트 + shadow</p>
+                </div>
+                <div>
+                    <button class="px-6 py-3 rounded-full font-bold text-sm border-2" style="border-color: #D4A574; color: #D4A574;">Ghost Button</button>
+                    <p class="text-xs text-gray-400 mt-1">투명 배경 + 골드 보더</p>
+                </div>
+                <div>
+                    <button class="px-6 py-3 rounded-full font-bold text-sm text-white" style="background: #2A1A0E;">Dark Button</button>
+                    <p class="text-xs text-gray-400 mt-1">다크 배경 (푸터/다크 섹션용)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 -->
+        <div>
+            <h3 class="font-bold mb-4" style="color: #D4A574;">카드</h3>
+            <div class="p-4 rounded-xl bg-white border" style="border-color: #E8DCC8; box-shadow: 0 2px 12px rgba(0,0,0,0.04);">
+                <div class="w-full h-32 bg-gray-200 rounded-lg mb-3 flex items-center justify-center text-sm text-gray-400">이미지 영역</div>
+                <p class="font-bold text-sm" style="color: #212121;">카드 제목</p>
+                <p class="text-xs text-gray-500 mt-1">카드 설명 텍스트가 들어갑니다.</p>
+                <a class="text-xs font-bold mt-2 inline-block" style="color: #D4A574;">자세히 보기 &rarr;</a>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">보더: #E8DCC8 | 호버: translateY(-8px) + shadow-lg</p>
+        </div>
+
+        <!-- 타이포그래피 -->
+        <div>
+            <h3 class="font-bold mb-4" style="color: #D4A574;">타이포그래피</h3>
+            <div class="space-y-2">
+                <p class="text-4xl font-bold" style="color: #212121;">H1 제목 (36px)</p>
+                <p class="text-2xl font-bold" style="color: #212121;">H2 섹션 제목 (24px)</p>
+                <p class="text-xl font-bold" style="color: #212121;">H3 카드 제목 (20px)</p>
+                <p class="text-base" style="color: #666666;">본문 텍스트 (16px)</p>
+                <p class="text-sm" style="color: #999999;">보조 텍스트 (14px)</p>
+                <p class="text-xs" style="color: #999999;">캡션 (12px)</p>
+            </div>
+            <p class="text-xs text-gray-400 mt-3">폰트: Pretendard | Line-height: 1.6</p>
+        </div>
+
+        <!-- 배지/태그 -->
+        <div>
+            <h3 class="font-bold mb-4" style="color: #D4A574;">배지 &amp; 입력 필드</h3>
+            <div class="space-y-3">
+                <div class="flex gap-2 flex-wrap">
+                    <span class="badge badge-gold">골드 배지</span>
+                    <span class="badge badge-dark">다크 배지</span>
+                    <span class="badge badge-cream">크림 배지</span>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold text-white" style="background: #10B981;">성공</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 mb-1">입력 필드</p>
+                    <input type="text" placeholder="기업명을 입력하세요" class="w-full p-3 rounded-xl border text-sm outline-none" style="border-color: #E8DCC8;" onfocus="this.style.borderColor='#D4A574'" onblur="this.style.borderColor='#E8DCC8'">
+                    <p class="text-xs text-gray-400 mt-1">포커스: 골드 보더 + shadow</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 6. 반응형 전략 -->
+<!-- ============================================ -->
+<section id="responsive" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">6. 반응형 전략</h2>
+
+    <table>
+        <tr>
+            <th>Breakpoint</th>
+            <th>범위</th>
+            <th>레이아웃 변화</th>
+        </tr>
+        <tr>
+            <td><strong>Desktop</strong></td>
+            <td>1024px+</td>
+            <td>2-3 column 그리드, 데스크탑 네비, 플로팅 상담 폼, 타임라인 표시</td>
+        </tr>
+        <tr>
+            <td><strong>Tablet</strong></td>
+            <td>768-1023px</td>
+            <td>히어로 1fr 1fr &rarr; 약간 축소, 서비스 카드 2-column, 폰트 축소</td>
+        </tr>
+        <tr>
+            <td><strong>Mobile</strong></td>
+            <td>~767px</td>
+            <td>
+                1-column 스택, 이미지 상단 이동(order: -1), 햄버거 메뉴,
+                하단 고정 네비게이션 바, 슬라이드업 상담 폼,
+                서비스 카드 가로 스크롤(scroll-snap), 타임라인 &rarr; 탭 전환,
+                CTA 버튼 full-width, 텍스트 중앙 정렬
+            </td>
+        </tr>
+    </table>
+
+    <div class="mt-4 p-4 rounded-xl" style="background: #FEF3E2;">
+        <p class="text-sm font-bold" style="color: #C9A05E;">Mobile 핵심 요소</p>
+        <ul class="text-sm text-gray-600 mt-2 space-y-1">
+            <li>- 하단 고정 네비 바 (정책자금 | 인증 | 성공사례 | 무료심사)</li>
+            <li>- "무료심사" 탭 클릭 시 슬라이드업 빠른 상담 폼</li>
+            <li>- 전화번호 터치 시 바로 전화 연결 (tel: 링크)</li>
+            <li>- H1: 48px &rarr; 28px / 섹션 타이틀: 42px &rarr; 24px</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 7. 백엔드 연동 -->
+<!-- ============================================ -->
+<section id="backend" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">7. 백엔드 / API 연동</h2>
+
+    <table>
+        <tr><th>기능</th><th>엔드포인트</th><th>연동 서비스</th><th>설명</th></tr>
+        <tr>
+            <td>상담 폼 제출</td>
+            <td>POST /api/contact</td>
+            <td>Airtable + Workers</td>
+            <td>Airtable 저장 &rarr; 텔레그램 알림 + 이메일 발송</td>
+        </tr>
+        <tr>
+            <td>게시글 목록</td>
+            <td>GET /api/board</td>
+            <td>Airtable</td>
+            <td>Board 테이블에서 게시글 리스트 반환</td>
+        </tr>
+        <tr>
+            <td>게시글 상세</td>
+            <td>GET /api/board?id=xxx</td>
+            <td>Airtable</td>
+            <td>개별 게시글 내용 반환</td>
+        </tr>
+        <tr>
+            <td>팝업 이미지</td>
+            <td>GET /api/popups</td>
+            <td>Airtable</td>
+            <td>활성 팝업 이미지 URL 반환</td>
+        </tr>
+        <tr>
+            <td>이미지 호스팅</td>
+            <td>R2 CDN</td>
+            <td>Cloudflare R2</td>
+            <td>로고, 히어로, 서비스 이미지</td>
+        </tr>
+        <tr>
+            <td>알림</td>
+            <td>Workers</td>
+            <td>CF Workers</td>
+            <td>텔레그램 봇 + Gmail 알림</td>
+        </tr>
+        <tr>
+            <td>관리자</td>
+            <td>/admin-login, /dashboard/</td>
+            <td>Airtable + R2</td>
+            <td>게시글 CRUD, 팝업 관리</td>
+        </tr>
+    </table>
+</section>
+
+<!-- ============================================ -->
+<!-- 8. 관리자 대시보드 (JNI 기반) -->
+<!-- ============================================ -->
+<section id="admin" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">8. 관리자 대시보드</h2>
+    <p class="text-sm text-gray-500 mb-2">원본: <code>F:\pola_homepage\11.26_1th_kimjongik_jni</code> (JNI Partners)</p>
+    <p class="text-sm mb-6 p-3 rounded-xl" style="background: #FEF3E2; color: #8B7355;">
+        <strong>Next.js App Router</strong> 기반 관리자 대시보드. JNI 프로젝트의 구조를 그대로 가져오되, 브랜드 컬러(골드/크림)와 세진컨설팅 정보로 교체.
+    </p>
+
+    <!-- 대시보드 구조도 -->
+    <h3 class="font-bold mb-4" style="color: #D4A574;">라우팅 구조</h3>
+    <div class="mini-wireframe p-4 mb-6">
+        <div class="text-xs space-y-1">
+            <div class="p-2 rounded-lg" style="background: #2A1A0E; color: #D4A574;">
+                <strong>(admin)</strong> Route Group
+            </div>
+            <div class="ml-6 space-y-1">
+                <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                    <strong>/admin-login</strong> &mdash; 비밀번호 로그인 (쿠키 기반)
+                </div>
+                <div class="p-2 px-4 rounded-lg" style="background: #F5F1E8;">
+                    <strong>/dashboard</strong> &mdash; 레이아웃 (Sidebar + Header + Content)
+                </div>
+                <div class="ml-8 space-y-1">
+                    <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                        <strong>/dashboard</strong> &mdash; 홈 (통계 4개 + 최근 리드 5건 + 최근 게시글 5건)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                        <strong>/dashboard/leads</strong> &mdash; 상담 신청 관리 (CRM)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                        <strong>/dashboard/board</strong> &mdash; 게시판 관리
+                    </div>
+                    <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                        <strong>/dashboard/board/edit</strong> &mdash; 게시글 작성/편집 (리치 에디터)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                        <strong>/dashboard/popups</strong> &mdash; 팝업 이미지 관리 (최대 8개)
+                    </div>
+                    <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                        <strong>/dashboard/analytics</strong> &mdash; GA4 분석 대시보드
+                    </div>
+                    <div class="p-2 px-4 rounded-lg border" style="border-color: #E8DCC8;">
+                        <strong>/dashboard/settings</strong> &mdash; 서비스 현황 + 로그아웃
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 레이아웃 와이어프레임 -->
+    <h3 class="font-bold mb-4" style="color: #D4A574;">레이아웃 구조</h3>
+    <div class="mini-wireframe p-4 mb-6">
+        <div class="flex gap-2 h-64">
+            <!-- Sidebar -->
+            <div class="w-48 rounded-lg p-3 flex flex-col justify-between text-xs" style="background: #1a0f08; color: #D4A574;">
+                <div>
+                    <p class="font-bold mb-3">세진컨설팅</p>
+                    <div class="space-y-2">
+                        <div class="p-2 rounded-lg" style="background: rgba(212,165,116,0.15); border-left: 3px solid #D4A574;">Dashboard</div>
+                        <div class="p-2 text-gray-500">Leads</div>
+                        <div class="p-2 text-gray-500">Board</div>
+                        <div class="p-2 text-gray-500">Analytics</div>
+                        <div class="p-2 text-gray-500">Popups</div>
+                    </div>
+                </div>
+                <div class="text-gray-600 text-xs">사이트 바로가기 &rarr;</div>
+            </div>
+            <!-- Main -->
+            <div class="flex-1 flex flex-col gap-2">
+                <!-- Header -->
+                <div class="h-12 rounded-lg p-3 flex items-center justify-between text-xs" style="background: #0f1a2e; color: white;">
+                    <span>&equiv; 대시보드</span>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-1 rounded-full text-xs" style="background: #D4A574; color: white;">Admin</span>
+                        <span class="text-gray-400">로그아웃</span>
+                    </div>
+                </div>
+                <!-- Content -->
+                <div class="flex-1 rounded-lg p-4 text-xs" style="background: #0d1829; color: white;">
+                    <p class="text-gray-400 mb-2">콘텐츠 영역</p>
+                    <div class="grid grid-cols-4 gap-2">
+                        <div class="h-14 rounded-lg flex items-center justify-center" style="background: #141e33;">
+                            <div>
+                                <p class="text-gray-400 text-xs">총 상담</p>
+                                <p class="font-bold" style="color: #D4A574;">24</p>
+                            </div>
+                        </div>
+                        <div class="h-14 rounded-lg flex items-center justify-center" style="background: #141e33;">
+                            <div>
+                                <p class="text-gray-400 text-xs">대기중</p>
+                                <p class="font-bold text-yellow-400">8</p>
+                            </div>
+                        </div>
+                        <div class="h-14 rounded-lg flex items-center justify-center" style="background: #141e33;">
+                            <div>
+                                <p class="text-gray-400 text-xs">완료</p>
+                                <p class="font-bold text-green-400">12</p>
+                            </div>
+                        </div>
+                        <div class="h-14 rounded-lg flex items-center justify-center" style="background: #141e33;">
+                            <div>
+                                <p class="text-gray-400 text-xs">게시글</p>
+                                <p class="font-bold text-blue-400">6</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">Desktop: Sidebar(260px) + Main | Mobile: 햄버거메뉴 + 하단 5탭 네비 (Home, Leads, Board, Analytics, Popups)</p>
+    </div>
+
+    <!-- 페이지별 기능 -->
+    <h3 class="font-bold mb-4" style="color: #D4A574;">페이지별 기능 상세</h3>
+    <div class="space-y-4">
+
+        <div class="wireframe-box" data-label="Login">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="font-bold text-sm">비밀번호 전용 로그인</p>
+                    <ul class="text-xs text-gray-500 mt-2 space-y-1">
+                        <li>- POST /api/admin-auth &rarr; 쿠키 세팅</li>
+                        <li>- 성공 시 /dashboard로 리다이렉트</li>
+                        <li>- ?redirect= 쿼리 파라미터 지원</li>
+                    </ul>
+                </div>
+                <div class="p-3 rounded-xl text-center" style="background: #0d1829;">
+                    <div class="w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-2" style="background: #D4A574;">
+                        <span class="text-white text-lg">&#128274;</span>
+                    </div>
+                    <div class="h-8 rounded-lg mb-2" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);"></div>
+                    <div class="h-8 rounded-lg text-white text-xs flex items-center justify-center font-bold" style="background: #D4A574;">로그인</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Leads (CRM)">
+            <p class="font-bold text-sm">상담 신청 관리 (핵심 기능)</p>
+            <div class="grid grid-cols-2 gap-4 mt-2">
+                <div>
+                    <p class="text-xs font-bold text-gray-400 mb-2">기능 목록</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>- 6탭 상태 필터 (전체/신규/대기/상담중/진행중/완료)</li>
+                        <li>- 텍스트 검색 (기업명, 대표자, 전화번호)</li>
+                        <li>- 인라인 메모 편집 (클릭→편집→Enter 저장)</li>
+                        <li>- 빠른 액션 (전화/전환/되돌리기/삭제)</li>
+                        <li>- 상세 모달 (11개 필드 + 5단계 파이프라인)</li>
+                        <li>- 낙관적 업데이트 (즉시 UI 반영)</li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 mb-2">상태 파이프라인</p>
+                    <div class="flex gap-1 text-xs">
+                        <span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700">신규</span>
+                        <span class="text-gray-300">&rarr;</span>
+                        <span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-700">대기</span>
+                        <span class="text-gray-300">&rarr;</span>
+                        <span class="px-2 py-1 rounded-full bg-purple-100 text-purple-700">상담</span>
+                        <span class="text-gray-300">&rarr;</span>
+                        <span class="px-2 py-1 rounded-full bg-orange-100 text-orange-700">진행</span>
+                        <span class="text-gray-300">&rarr;</span>
+                        <span class="px-2 py-1 rounded-full bg-green-100 text-green-700">완료</span>
+                    </div>
+                    <p class="text-xs font-bold text-gray-400 mt-3 mb-2">리드 필드 (15개)</p>
+                    <p class="text-xs text-gray-500">기업명, 사업자번호, 대표자명, 연락처, 이메일, 업종, 설립연도, 통화시간, 자금규모, 자금종류, 문의사항, 접수일, 상태, 메모</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Board (게시판 관리)">
+            <p class="font-bold text-sm">게시판 CRUD + 리치 에디터</p>
+            <div class="grid grid-cols-2 gap-4 mt-2">
+                <div>
+                    <p class="text-xs font-bold text-gray-400 mb-2">목록 페이지</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>- 4탭 카테고리 필터 (전체/성공사례/정책자금/인증지원)</li>
+                        <li>- 테이블: 카테고리, 제목, 날짜, 공개여부, 액션</li>
+                        <li>- 새 게시글 / 편집 / 삭제</li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-gray-400 mb-2">에디터 (board/edit)</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>- 제목, 요약, 카테고리(select), 공개 토글</li>
+                        <li>- 썸네일: 드래그&드롭 + WebP 압축(30KB) + R2 업로드</li>
+                        <li>- 본문: 커스텀 마크다운 에디터 + 미리보기</li>
+                        <li>- 자동저장 (5초 간격, localStorage)</li>
+                        <li>- 편집모드: ?id= 쿼리로 기존 글 로드</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="wireframe-box" data-label="Popups (팝업 관리)">
+            <p class="font-bold text-sm">이미지 팝업/배너 관리 (최대 8개)</p>
+            <ul class="text-xs text-gray-500 mt-2 space-y-1">
+                <li>- 4-column 카드 그리드 (이미지 프리뷰 + 상태 배지 + 순서 번호)</li>
+                <li>- 필드: 제목, ALT, 이미지URL, 링크, 순서(1-8), 활성, 시작일, 종료일</li>
+                <li>- 상태 자동 계산: 활성(녹)/비활성(회)/예약(노)/만료(적)</li>
+                <li>- 이미지: WebP 압축 + R2 업로드</li>
+                <li>- 추가/편집 모달 + 삭제 확인 모달</li>
+            </ul>
+        </div>
+
+        <div class="wireframe-box" data-label="Analytics (GA4)">
+            <p class="font-bold text-sm">GA4 분석 대시보드</p>
+            <ul class="text-xs text-gray-500 mt-2 space-y-1">
+                <li>- 기간 필터: 오늘/7일/14일/30일</li>
+                <li>- 실시간 접속자 + 활성 페이지</li>
+                <li>- 통계 카드: 방문자, 페이지뷰, 평균 체류, 이탈률</li>
+                <li>- 전환 카드: 전화클릭, CTA클릭, 폼제출, 스크롤90%</li>
+                <li>- 전환 퍼널: 방문 &rarr; CTA &rarr; 폼노출 &rarr; 폼시작 &rarr; 제출</li>
+                <li>- 일별 차트 (CSS-only 바 차트, 라이브러리 없음)</li>
+                <li>- 트래픽 소스, 리퍼러, 디바이스, 인기 페이지, 지역</li>
+            </ul>
+        </div>
+
+        <div class="wireframe-box" data-label="Settings">
+            <p class="font-bold text-sm">서비스 현황 + 알림 상태 + 로그아웃</p>
+            <ul class="text-xs text-gray-500 mt-2 space-y-1">
+                <li>- 서비스 목록: Vercel, Airtable, R2, GA4, Telegram (각 플랜/한도)</li>
+                <li>- 트래픽 시뮬레이터 (일 방문자별 대역폭/Airtable 사용량 예측)</li>
+                <li>- 알림 상태: 텔레그램, 이메일, 고객 확인 이메일</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 컬러 테마 차이 -->
+    <h3 class="font-bold mt-6 mb-4" style="color: #D4A574;">대시보드 컬러 테마</h3>
+    <p class="text-sm text-gray-500 mb-3">관리자 영역은 JNI 원본의 다크 네이비 테마를 유지하되, 악센트 컬러만 골드로 교체</p>
+    <table>
+        <tr><th>요소</th><th>JNI 원본</th><th>세진컨설팅</th></tr>
+        <tr><td>페이지 배경</td><td><code>#0d1829</code> (dark navy)</td><td><code>#0d1829</code> 유지</td></tr>
+        <tr><td>카드/패널</td><td><code>#141e33</code></td><td><code>#141e33</code> 유지</td></tr>
+        <tr><td>헤더</td><td><code>#0f1a2e</code></td><td><code>#0f1a2e</code> 유지</td></tr>
+        <tr><td>사이드바</td><td>bg-navy-dark</td><td>bg-navy-dark 유지</td></tr>
+        <tr><td>악센트 (text-gold, bg-gold)</td><td><code>#D4A574</code></td><td><code>#D4A574</code> (동일)</td></tr>
+        <tr><td>보더</td><td>white/[0.06]</td><td>white/[0.06] 유지</td></tr>
+        <tr><td>로고/브랜드명</td><td>JNI Partners</td><td><strong>세진컨설팅</strong></td></tr>
+    </table>
+    <p class="text-xs text-gray-400 mt-2">* JNI의 골드 악센트가 DK Center 골드(#D4A574)와 동일하므로 대시보드 컬러 변경 최소화</p>
+</section>
+
+<!-- ============================================ -->
+<!-- 9. 작업 체크리스트 -->
+<!-- ============================================ -->
+<section id="checklist" class="section-card">
+    <h2 class="text-2xl font-bold mb-6" style="color: #2A1A0E;">9. 구현 체크리스트</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <h3 class="font-bold mb-3" style="color: #D4A574;">Phase 1: HTML 구축</h3>
+            <div class="space-y-2 text-sm">
+                <p class="check-item">공통 CSS (sejin-common.css) - 컬러 변수 교체</p>
+                <p class="check-item">공통 헤더/푸터 - 브랜드 정보 교체</p>
+                <p class="check-item">index.html - 메인 페이지 8개 섹션</p>
+                <p class="check-item">fund.html - 정책자금 6개 섹션</p>
+                <p class="check-item">certification.html - 인증지원 6개 섹션</p>
+                <p class="check-item">contact.html - 무료심사 5개 섹션</p>
+                <p class="check-item">success.html - 게시판 (기존 유지)</p>
+                <p class="check-item">post.html - 게시글 상세 (기존 유지)</p>
+                <p class="check-item">모바일 하단 네비 + 슬라이드업 폼</p>
+                <p class="check-item">플로팅 상담 폼 (데스크탑)</p>
+            </div>
+        </div>
+        <div>
+            <h3 class="font-bold mb-3" style="color: #D4A574;">Phase 1.5: 관리자 대시보드 (JNI 이식)</h3>
+            <div class="space-y-2 text-sm mb-6">
+                <p class="check-item">JNI (admin) 라우트 그룹 복사 + 브랜딩 교체</p>
+                <p class="check-item">admin-login 페이지 (비밀번호 로그인)</p>
+                <p class="check-item">dashboard layout (Sidebar + Header + Mobile Nav)</p>
+                <p class="check-item">dashboard home (통계 카드 + 최근 리드/게시글)</p>
+                <p class="check-item">leads CRM (필터/검색/메모/상태관리/상세모달)</p>
+                <p class="check-item">board 관리 + 리치 에디터 + 썸네일 업로드</p>
+                <p class="check-item">popups 관리 (이미지 업로드/스케줄링)</p>
+                <p class="check-item">analytics GA4 대시보드</p>
+                <p class="check-item">settings 서비스 현황</p>
+                <p class="check-item">API 엔드포인트 이식 (admin-auth, leads, board, popups, upload, analytics)</p>
+            </div>
+
+            <h3 class="font-bold mb-3" style="color: #D4A574;">Phase 2: 연동 &amp; 배포</h3>
+            <div class="space-y-2 text-sm">
+                <p class="check-item">Airtable 테이블 생성 (고객접수, Board, Popups)</p>
+                <p class="check-item">API 엔드포인트 (/api/contact, /api/board, /api/popups)</p>
+                <p class="check-item">R2 이미지 업로드 (로고, 프로필, 서비스)</p>
+                <p class="check-item">Workers 배포 (알림 시스템)</p>
+                <p class="check-item">텔레그램 봇 설정</p>
+                <p class="check-item">Gmail OAuth2 설정</p>
+                <p class="check-item">관리자 대시보드</p>
+                <p class="check-item">Vercel 배포 + 도메인 연결</p>
+                <p class="check-item">GA4 연동</p>
+                <p class="check-item">Favicon 생성</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<!-- ============================================ -->
+<!-- JavaScript -->
+<!-- ============================================ -->
+<script>
+function showPage(pageId) {
+    document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.page-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// 체크리스트 토글
+document.querySelectorAll('.check-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('checked'));
+});
+</script>
+
+</body>
+</html>

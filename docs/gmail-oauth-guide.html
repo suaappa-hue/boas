@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gmail OAuth2 설정 가이드 - 세진컨설팅</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .copy-btn { transition: all 0.2s; }
+  .copy-btn:hover { transform: scale(1.05); }
+  .copy-btn.copied { background: #10B981 !important; }
+  .step-card { transition: all 0.3s; }
+  .step-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+  .check-item input:checked + span { text-decoration: line-through; color: #9CA3AF; }
+  .path-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; background: #FEF3C7; border-radius: 6px; font-size: 13px; color: #92400E; font-weight: 600; }
+  .arrow { color: #D97706; font-weight: bold; margin: 0 2px; }
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<div class="max-w-3xl mx-auto py-10 px-4">
+
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-[#2A1A0E] to-[#3D2B1F] rounded-2xl p-8 mb-8 text-center">
+    <h1 class="text-3xl font-bold text-[#D4A574] mb-2">Gmail OAuth2 설정 가이드</h1>
+    <p class="text-white/70 text-sm">세진컨설팅 알림 이메일 발송을 위한 Gmail API 설정</p>
+    <p class="text-white/50 text-xs mt-2">예상 소요시간: 10-15분</p>
+  </div>
+
+  <!-- Checklist -->
+  <div class="bg-white rounded-xl border p-6 mb-8">
+    <h2 class="font-bold text-lg mb-4">진행 체크리스트</h2>
+    <div class="space-y-2">
+      <label class="check-item flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" class="w-4 h-4 accent-[#D4A574]">
+        <span class="text-sm">1. Google Cloud 프로젝트 생성/선택</span>
+      </label>
+      <label class="check-item flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" class="w-4 h-4 accent-[#D4A574]">
+        <span class="text-sm">2. Gmail API 활성화</span>
+      </label>
+      <label class="check-item flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" class="w-4 h-4 accent-[#D4A574]">
+        <span class="text-sm">3. OAuth 동의 화면 설정</span>
+      </label>
+      <label class="check-item flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" class="w-4 h-4 accent-[#D4A574]">
+        <span class="text-sm">4. OAuth2 Client ID 생성</span>
+      </label>
+      <label class="check-item flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" class="w-4 h-4 accent-[#D4A574]">
+        <span class="text-sm">5. Refresh Token 발급</span>
+      </label>
+      <label class="check-item flex items-center gap-3 cursor-pointer">
+        <input type="checkbox" class="w-4 h-4 accent-[#D4A574]">
+        <span class="text-sm">6. 값을 Claude에게 전달</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step-card bg-white rounded-xl border p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-8 h-8 bg-[#D4A574] text-white rounded-full flex items-center justify-center font-bold text-sm">1</span>
+      <h3 class="font-bold text-lg">Google Cloud Console 접속</h3>
+    </div>
+    <p class="text-sm text-gray-600 mb-3">아래 링크로 접속하세요:</p>
+    <a href="https://console.cloud.google.com/" target="_blank" class="inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+      Google Cloud Console 열기 &rarr;
+    </a>
+    <div class="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3">
+      <p class="text-sm text-amber-800">
+        <strong>계정:</strong> <code class="bg-amber-100 px-1.5 py-0.5 rounded">a01077457213@gmail.com</code> 으로 로그인
+      </p>
+    </div>
+    <div class="mt-3">
+      <p class="text-sm text-gray-600">프로젝트가 없으면 새로 만들기:</p>
+      <p class="text-sm mt-1">
+        <span class="path-badge">상단 프로젝트 선택</span>
+        <span class="arrow">&rarr;</span>
+        <span class="path-badge">새 프로젝트</span>
+        <span class="arrow">&rarr;</span>
+        <span class="path-badge">이름: Pola Homepage</span>
+        <span class="arrow">&rarr;</span>
+        <span class="path-badge">만들기</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step-card bg-white rounded-xl border p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-8 h-8 bg-[#D4A574] text-white rounded-full flex items-center justify-center font-bold text-sm">2</span>
+      <h3 class="font-bold text-lg">Gmail API 활성화</h3>
+    </div>
+    <a href="https://console.cloud.google.com/apis/library/gmail.googleapis.com" target="_blank" class="inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition mb-3">
+      Gmail API 페이지 열기 &rarr;
+    </a>
+    <p class="text-sm text-gray-600 mt-2">
+      <span class="path-badge">사용</span> 버튼 클릭하여 활성화
+    </p>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step-card bg-white rounded-xl border p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-8 h-8 bg-[#D4A574] text-white rounded-full flex items-center justify-center font-bold text-sm">3</span>
+      <h3 class="font-bold text-lg">OAuth 동의 화면 설정</h3>
+    </div>
+    <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" class="inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition mb-3">
+      OAuth 동의 화면 열기 &rarr;
+    </a>
+    <div class="space-y-2 mt-3 text-sm text-gray-600">
+      <p>1. User Type: <span class="path-badge">외부</span> 선택 &rarr; <span class="path-badge">만들기</span></p>
+      <p>2. 앱 이름: <code class="bg-gray-100 px-1.5 py-0.5 rounded">Pola Homepage Mailer</code></p>
+      <p>3. 사용자 지원 이메일: <code class="bg-gray-100 px-1.5 py-0.5 rounded">a01077457213@gmail.com</code></p>
+      <p>4. 개발자 연락처: <code class="bg-gray-100 px-1.5 py-0.5 rounded">a01077457213@gmail.com</code></p>
+      <p>5. <span class="path-badge">저장 후 계속</span> (범위, 테스트 사용자는 건너뛰기)</p>
+    </div>
+    <div class="mt-4 bg-red-50 border border-red-200 rounded-lg p-3">
+      <p class="text-sm text-red-800">
+        <strong>중요:</strong> "테스트 사용자" 단계에서 <code class="bg-red-100 px-1.5 py-0.5 rounded">a01077457213@gmail.com</code> 추가 필수!
+      </p>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step-card bg-white rounded-xl border p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-8 h-8 bg-[#D4A574] text-white rounded-full flex items-center justify-center font-bold text-sm">4</span>
+      <h3 class="font-bold text-lg">OAuth2 Client ID 생성</h3>
+    </div>
+    <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition mb-3">
+      사용자 인증 정보 열기 &rarr;
+    </a>
+    <div class="space-y-2 mt-3 text-sm text-gray-600">
+      <p>1. <span class="path-badge">+ 사용자 인증 정보 만들기</span> &rarr; <span class="path-badge">OAuth 클라이언트 ID</span></p>
+      <p>2. 애플리케이션 유형: <span class="path-badge">웹 애플리케이션</span></p>
+      <p>3. 이름: <code class="bg-gray-100 px-1.5 py-0.5 rounded">Pola Homepage Mailer</code></p>
+      <p>4. <strong>승인된 리디렉션 URI</strong> 추가:</p>
+    </div>
+    <div class="mt-3 bg-gray-50 border rounded-lg p-3 flex items-center justify-between">
+      <code class="text-sm text-gray-700">https://developers.google.com/oauthplayground</code>
+      <button onclick="copyText(this, 'https://developers.google.com/oauthplayground')" class="copy-btn bg-[#D4A574] text-white px-3 py-1.5 rounded-lg text-xs font-medium">
+        복사
+      </button>
+    </div>
+    <div class="mt-4 bg-green-50 border border-green-200 rounded-lg p-3">
+      <p class="text-sm text-green-800">
+        생성 후 표시되는 <strong>클라이언트 ID</strong>와 <strong>클라이언트 보안 비밀번호</strong>를 복사해주세요!
+      </p>
+    </div>
+
+    <!-- 입력 필드 -->
+    <div class="mt-4 space-y-3">
+      <div>
+        <label class="block text-xs font-medium text-gray-500 mb-1">Client ID (여기에 붙여넣기)</label>
+        <input id="clientId" type="text" placeholder="xxx.apps.googleusercontent.com" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#D4A574] focus:border-transparent outline-none">
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-500 mb-1">Client Secret (여기에 붙여넣기)</label>
+        <input id="clientSecret" type="text" placeholder="GOCSPX-xxx" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#D4A574] focus:border-transparent outline-none">
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step-card bg-white rounded-xl border p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-8 h-8 bg-[#D4A574] text-white rounded-full flex items-center justify-center font-bold text-sm">5</span>
+      <h3 class="font-bold text-lg">Refresh Token 발급 (OAuth2 Playground)</h3>
+    </div>
+    <a href="https://developers.google.com/oauthplayground" target="_blank" class="inline-block bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition mb-3">
+      OAuth2 Playground 열기 &rarr;
+    </a>
+
+    <div class="space-y-4 mt-3">
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
+        <p class="text-sm text-amber-800 font-medium mb-2">먼저 설정 변경 (우측 상단 톱니바퀴 아이콘):</p>
+        <p class="text-sm text-amber-700">
+          1. <span class="path-badge">⚙ OAuth 2.0 configuration</span> 클릭<br>
+          2. <strong>Use your own OAuth credentials</strong> 체크<br>
+          3. 위에서 복사한 <strong>Client ID</strong>와 <strong>Client Secret</strong> 입력
+        </p>
+      </div>
+
+      <div class="text-sm text-gray-600">
+        <p class="font-medium mb-2">Step 1: Select & authorize APIs</p>
+        <p>좌측 목록에서 <span class="path-badge">Gmail API v1</span> 찾기 &rarr; 아래 scope 선택:</p>
+        <div class="mt-2 bg-gray-50 border rounded-lg p-3 flex items-center justify-between">
+          <code class="text-xs text-gray-700">https://mail.google.com/</code>
+          <button onclick="copyText(this, 'https://mail.google.com/')" class="copy-btn bg-[#D4A574] text-white px-3 py-1.5 rounded-lg text-xs font-medium">
+            복사
+          </button>
+        </div>
+        <p class="mt-2"><span class="path-badge">Authorize APIs</span> 클릭 &rarr; Google 로그인 &rarr; 허용</p>
+      </div>
+
+      <div class="text-sm text-gray-600">
+        <p class="font-medium mb-2">Step 2: Exchange authorization code for tokens</p>
+        <p><span class="path-badge">Exchange authorization code for tokens</span> 클릭</p>
+        <p class="mt-1">표시되는 <strong>Refresh token</strong> 값을 복사!</p>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <label class="block text-xs font-medium text-gray-500 mb-1">Refresh Token (여기에 붙여넣기)</label>
+      <input id="refreshToken" type="text" placeholder="1//xxx" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[#D4A574] focus:border-transparent outline-none">
+    </div>
+  </div>
+
+  <!-- Step 6: 결과 -->
+  <div class="step-card bg-white rounded-xl border p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-8 h-8 bg-[#D4A574] text-white rounded-full flex items-center justify-center font-bold text-sm">6</span>
+      <h3 class="font-bold text-lg">Claude에게 전달할 값</h3>
+    </div>
+    <p class="text-sm text-gray-600 mb-4">위 입력란을 채운 후 아래 버튼을 클릭하면 복사용 텍스트가 생성됩니다:</p>
+    <button onclick="generateResult()" class="bg-[#D4A574] text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#C9A05E] transition">
+      결과 생성
+    </button>
+    <div id="result" class="hidden mt-4">
+      <div class="bg-gray-900 rounded-lg p-4 relative">
+        <button onclick="copyResult(this)" class="copy-btn absolute top-2 right-2 bg-[#D4A574] text-white px-3 py-1.5 rounded-lg text-xs font-medium">
+          전체 복사
+        </button>
+        <pre id="resultText" class="text-green-400 text-sm whitespace-pre-wrap font-mono"></pre>
+      </div>
+      <p class="text-sm text-gray-500 mt-2">위 내용을 복사해서 Claude에게 붙여넣기 하세요.</p>
+    </div>
+  </div>
+
+  <!-- 보안 경고 -->
+  <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-8">
+    <p class="text-sm text-red-700 font-medium">
+      ⚠ 보안 주의: Client ID, Client Secret, Refresh Token은 절대 공개 저장소에 커밋하지 마세요.
+      Claude가 vault와 Worker 시크릿에 안전하게 저장합니다.
+    </p>
+  </div>
+
+</div>
+
+<script>
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text);
+  btn.textContent = '완료!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = '복사';
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
+function generateResult() {
+  const clientId = document.getElementById('clientId').value.trim();
+  const clientSecret = document.getElementById('clientSecret').value.trim();
+  const refreshToken = document.getElementById('refreshToken').value.trim();
+
+  if (!clientId || !clientSecret || !refreshToken) {
+    alert('모든 값을 입력해주세요.');
+    return;
+  }
+
+  const text = `Gmail OAuth2 설정값:\nGMAIL_CLIENT_ID=${clientId}\nGMAIL_CLIENT_SECRET=${clientSecret}\nGMAIL_REFRESH_TOKEN=${refreshToken}\nGMAIL_USER=a01077457213@gmail.com`;
+
+  document.getElementById('resultText').textContent = text;
+  document.getElementById('result').classList.remove('hidden');
+}
+
+function copyResult(btn) {
+  const text = document.getElementById('resultText').textContent;
+  navigator.clipboard.writeText(text);
+  btn.textContent = '복사됨!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = '전체 복사';
+    btn.classList.remove('copied');
+  }, 2000);
+}
+</script>
+</body>
+</html>

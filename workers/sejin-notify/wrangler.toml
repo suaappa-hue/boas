@@ -1,0 +1,7 @@
+name = "sejin-notify"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+account_id = "2f259a63f12bdd878204e26f063ff337"
+
+[vars]
+TELEGRAM_CHAT_ID = "-1003644635039"
