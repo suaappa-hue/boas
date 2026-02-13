@@ -238,7 +238,7 @@ export default function FundPage() {
               <div className="boas-why-content">
                 <h3 className="boas-why-title">정부 보증이 곧 신용입니다</h3>
                 <p className="boas-why-description">
-                  정책자금 수혜 이력은 기업 신뢰도를 높이고,<br/>
+                  정책자금 자금확보 이력은 기업 신뢰도를 높이고,<br/>
                   후속 투자와 금융 거래에서 유리한 조건을 만듭니다.
                 </p>
               </div>
@@ -451,15 +451,15 @@ export default function FundPage() {
                   </div>
                 </div>
 
-                {/* 3. 사업계획서 작성 코칭 */}
+                {/* 3. 사업계획서 준비 지원 */}
                 <div className="boas-consulting-item">
                   <div className="boas-item-icon">
-                    <Image quality={90} src={IMAGES.itemPlan} alt="사업계획서 작성 코칭" width={280} height={280} />
+                    <Image quality={90} src={IMAGES.itemPlan} alt="사업계획서 준비 지원" width={280} height={280} />
                   </div>
                   <div className="boas-item-content">
                     <div className="boas-item-header">
                       <span className="boas-item-number">3</span>
-                      <h3 className="boas-item-title">사업계획서 작성 코칭</h3>
+                      <h3 className="boas-item-title">사업계획서 준비 지원</h3>
                     </div>
                     <ul className="boas-consulting-list">
                       <li>전문 컨설턴트가 알려주는 <strong>평가 핵심 기준</strong></li>
@@ -493,7 +493,7 @@ export default function FundPage() {
               <ul className="boas-step-description">
                 <li>대표자 경력·역량 심층 분석</li>
                 <li>기업 재무 건전성 점검</li>
-                <li>수혜 가능 정책사업 탐색</li>
+                <li>자금확보 가능 정책사업 탐색</li>
               </ul>
             </div>
 

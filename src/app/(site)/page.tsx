@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { IMAGES } from '@/lib/images'
+import EmployeeSection from '@/components/site/EmployeeSection'
 import { pageMetadata } from '@/lib/seo/metadata'
 import {
   organizationSchema,
@@ -352,31 +353,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Expert Section */}
-          <div className="boas-expert-header">
-            <h3 className="boas-expert-title">전문 경영컨설턴트</h3>
-            <p className="boas-expert-subtitle">기업의 잠재력을 읽는 전문가가<br className="mobile-br"/>자금의 길을 열어드립니다</p>
-          </div>
-
-          <div className="boas-expert-grid">
-            <div className="boas-expert-card">
-              <div className="boas-expert-profile">
-                <div className="boas-expert-photo">
-                  <Image src="/images/profile.jpg" alt="김광진 대표 컨설턴트" width={200} height={200} />
-                </div>
-                <h4 className="boas-expert-name">김광진</h4>
-                <p className="boas-expert-role">경영컨설턴트</p>
-              </div>
-              <div className="boas-expert-message">
-                <p className="boas-expert-greeting">안녕하세요, 경영컨설턴트 김광진입니다.</p>
-                <p className="boas-expert-description">
-                  저는 경영컨설턴트로 수많은 중소기업의 재무현황과 대표자 역량을 분석해왔습니다. 그 과정에서 충분한 잠재력을 가진 기업이 자금 확보 전략을 몰라 기회를 놓치는 경우를 셀 수 없이 봐왔습니다.
-                  <br/><br/>
-                  보아스는 전문가의 관점으로 대표님의 역량과 기업의 성장 가능성을 분석하고, 정책자금 승인에 가장 유리한 전략을 수립합니다. 서류 대행이 아니라, 자금을 받을 수 있는 구조를 만들어드립니다.
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* Expert Section - 동적 임직원 */}
+          <EmployeeSection />
         </div>
       </section>
 

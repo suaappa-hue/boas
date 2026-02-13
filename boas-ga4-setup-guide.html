@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOAS - Google Analytics & Search Console 설정 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .copy-btn:hover { transform: scale(1.05); }
+        .step-card { transition: all 0.3s ease; }
+        .step-card:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .path-arrow { animation: bounce 1s infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+        .progress-ring { transition: stroke-dashoffset 0.5s; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-teal-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg border-b-4 border-teal-500" style="border-color: #009CA0;">
+        <div class="max-w-5xl mx-auto px-6 py-8">
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-gradient-to-br rounded-2xl flex items-center justify-center shadow-lg" style="background: linear-gradient(to bottom right, #009CA0, #007578);">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">BOAS - Google Analytics & Search Console 설정</h1>
+                    <p class="text-gray-500 mt-1">GA4 & Search Console API 연동 가이드</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-10">
+        <!-- Progress Checklist -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mb-10">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6" style="color: #009CA0;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                </svg>
+                설정 진행 체크리스트
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <label class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="w-5 h-5 rounded focus:ring-2" style="color: #009CA0; --tw-ring-color: #009CA0;" onchange="updateProgress()">
+                    <span class="text-gray-700">Google Cloud 프로젝트 생성</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="w-5 h-5 rounded focus:ring-2" style="color: #009CA0; --tw-ring-color: #009CA0;" onchange="updateProgress()">
+                    <span class="text-gray-700">서비스 계정 생성 + JSON 키 다운로드</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="w-5 h-5 rounded focus:ring-2" style="color: #009CA0; --tw-ring-color: #009CA0;" onchange="updateProgress()">
+                    <span class="text-gray-700">Google Analytics Data API 활성화</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="w-5 h-5 rounded focus:ring-2" style="color: #009CA0; --tw-ring-color: #009CA0;" onchange="updateProgress()">
+                    <span class="text-gray-700">Google Search Console API 활성화</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="w-5 h-5 rounded focus:ring-2" style="color: #009CA0; --tw-ring-color: #009CA0;" onchange="updateProgress()">
+                    <span class="text-gray-700">Search Console 사용자 추가</span>
+                </label>
+                <label class="flex items-center gap-3 p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <input type="checkbox" class="w-5 h-5 rounded focus:ring-2" style="color: #009CA0; --tw-ring-color: #009CA0;" onchange="updateProgress()">
+                    <span class="text-gray-700">Analytics 사용자 추가</span>
+                </label>
+            </div>
+            <div class="mt-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>진행률</span>
+                    <span id="progressText">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div id="progressBar" class="h-3 rounded-full transition-all duration-500" style="width: 0%; background: linear-gradient(to right, #009CA0, #00CCD1);"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Important Notice -->
+        <div class="bg-amber-50 border-l-4 border-amber-400 rounded-r-xl p-6 mb-10">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-amber-800 text-lg">중요 안내</h3>
+                    <p class="text-amber-700 mt-1">먼저 Google Cloud 프로젝트를 생성하고 서비스 계정을 만든 후, 해당 이메일을 Google Search Console과 Analytics에 추가해야 API가 정상 작동합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Account Info -->
+        <div class="bg-gradient-to-r rounded-2xl shadow-xl p-8 mb-10 text-white" style="background: linear-gradient(to right, #009CA0, #00CCD1);">
+            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                </svg>
+                서비스 계정 이메일 (복사하여 사용)
+            </h2>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 flex items-center justify-between gap-4">
+                <code id="serviceEmail" class="text-lg font-mono text-white/90 break-all">TODO_서비스계정@TODO_프로젝트.iam.gserviceaccount.com</code>
+                <button onclick="copyToClipboard('serviceEmail')" class="copy-btn bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg flex items-center gap-2 transition flex-shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    복사
+                </button>
+            </div>
+            <p class="text-white/70 text-sm mt-3">아래 Section 0에서 Google Cloud 프로젝트 생성 후 이 이메일을 업데이트하세요.</p>
+        </div>
+
+        <!-- Section 0: Google Cloud Project Setup -->
+        <section class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-gradient-to-br from-gray-600 to-gray-800 rounded-xl flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Google Cloud 프로젝트 설정</h2>
+                    <p class="text-gray-500">서비스 계정을 생성하기 위한 기본 환경 구성</p>
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-gray-600 font-bold">1</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">Google Cloud Console 접속</h3>
+                        <a href="https://console.cloud.google.com" target="_blank" class="inline-flex items-center gap-2 bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-xl transition shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            Cloud Console 열기
+                        </a>
+                        <div class="mt-4 bg-blue-50 rounded-xl p-4 border border-blue-100">
+                            <p class="text-blue-800 text-sm">💡 Google 계정으로 로그인하여 시작하세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-gray-600 font-bold">2</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">새 프로젝트 생성 또는 기존 프로젝트 선택</h3>
+
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <p class="text-gray-700 font-medium mb-3">화면 상단의 프로젝트 선택 드롭다운 클릭:</p>
+                            <div class="flex flex-wrap items-center gap-2 text-gray-700">
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">프로젝트 선택</span>
+                                <span class="path-arrow font-bold" style="color: #009CA0;">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">새 프로젝트</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300">
+                            <p class="text-slate-600 font-medium mb-3">프로젝트 정보 입력:</p>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">프로젝트 이름</label>
+                                    <code class="block bg-white border-2 rounded-lg p-3 font-mono text-sm" style="border-color: #009CA0; color: #009CA0;">boas-analytics</code>
+                                </div>
+                                <p class="text-gray-600 text-sm">또는 기존 프로젝트를 선택하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-gray-600 font-bold">3</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">서비스 계정 생성</h3>
+
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <div class="flex flex-wrap items-center gap-2 text-gray-700">
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">☰ 메뉴</span>
+                                <span class="path-arrow font-bold" style="color: #009CA0;">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">IAM & Admin</span>
+                                <span class="path-arrow font-bold" style="color: #009CA0;">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">Service Accounts</span>
+                                <span class="path-arrow font-bold" style="color: #009CA0;">→</span>
+                                <span class="text-white px-3 py-1.5 rounded-lg font-medium" style="background-color: #009CA0;">+ CREATE SERVICE ACCOUNT</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300">
+                            <p class="text-slate-600 font-medium mb-4">서비스 계정 정보 입력:</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">Service account name</label>
+                                    <code class="block bg-white border-2 rounded-lg p-3 font-mono text-sm" style="border-color: #009CA0; color: #009CA0;">boas-analytics</code>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">Service account ID</label>
+                                    <p class="text-gray-600 text-sm">자동 생성됩니다 (예: boas-analytics@프로젝트ID.iam.gserviceaccount.com)</p>
+                                </div>
+                                <button class="text-white px-6 py-2 rounded-lg font-medium" style="background-color: #009CA0;">CREATE AND CONTINUE</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-blue-50 rounded-xl p-4 border border-blue-100">
+                            <p class="text-blue-800 text-sm"><strong>Step 2 & 3 (Role/Users):</strong> Skip 가능 → Done 클릭</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-gray-600 font-bold">4</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">JSON 키 생성 및 다운로드</h3>
+
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <div class="flex flex-wrap items-center gap-2 text-gray-700">
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">생성된 서비스 계정 클릭</span>
+                                <span class="path-arrow font-bold" style="color: #009CA0;">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">KEYS 탭</span>
+                                <span class="path-arrow font-bold" style="color: #009CA0;">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">ADD KEY</span>
+                                <span class="path-arrow font-bold" style="color: #009CA0;">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">Create new key</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 rounded-xl p-4 text-white">
+                            <p class="text-slate-400 text-sm mb-3">키 타입 선택</p>
+                            <div class="bg-slate-700 rounded-lg p-4">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" checked class="w-4 h-4">
+                                    <span class="font-medium">JSON</span>
+                                    <span class="text-slate-400 text-sm">← 이 옵션 선택</span>
+                                </div>
+                                <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium w-full">
+                                    CREATE
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-amber-50 rounded-xl p-4 border border-amber-200">
+                            <p class="text-amber-800 font-medium">⚠️ JSON 파일이 자동 다운로드됩니다. 안전한 곳에 보관하세요!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-gray-600 font-bold">5</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">서비스 계정 이메일 확인 및 기록</h3>
+
+                        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300">
+                            <p class="text-slate-600 font-medium mb-3">Service Accounts 목록에서 이메일 확인:</p>
+                            <div class="bg-white border-2 rounded-lg p-3">
+                                <code class="font-mono text-sm block" style="color: #009CA0;">boas-analytics@프로젝트ID.iam.gserviceaccount.com</code>
+                            </div>
+                            <p class="text-gray-600 text-sm mt-3">이 이메일을 복사하여 페이지 상단의 "서비스 계정 이메일" 섹션과 아래 Section 2, 3에서 사용하세요.</p>
+                        </div>
+
+                        <div class="mt-4 rounded-xl p-4 border text-white" style="background-color: #009CA0; border-color: #007578;">
+                            <p class="font-medium">✅ Google Cloud 프로젝트 설정 완료! 이제 API 활성화로 넘어가세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: API 활성화 -->
+        <section class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Google Cloud API 활성화</h2>
+                    <p class="text-gray-500">필수 API 2개를 활성화해야 합니다</p>
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-blue-600 font-bold">1</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">Google Cloud Console 접속</h3>
+                        <a href="https://console.cloud.google.com/apis/library" target="_blank" class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl transition shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            API 라이브러리 열기
+                        </a>
+                        <div class="mt-4 bg-blue-50 rounded-xl p-4 border border-blue-100">
+                            <p class="text-blue-800 text-sm">💡 프로젝트가 <strong>boas-analytics</strong>로 선택되어 있는지 상단에서 확인하세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Analytics Data API -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-blue-600 font-bold">2</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">Google Analytics Data API 활성화</h3>
+
+                        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300 mb-4">
+                            <p class="text-slate-600 font-medium mb-3">검색창에 입력:</p>
+                            <div class="flex items-center gap-2 bg-white border-2 border-orange-300 rounded-lg p-3">
+                                <code id="apiName1" class="text-orange-600 font-mono text-lg flex-1 font-bold">Google Analytics Data API</code>
+                                <button onclick="copyText('Google Analytics Data API')" class="text-orange-500 hover:text-orange-600 p-1">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Visual Guide -->
+                        <div class="bg-slate-800 rounded-xl p-4 text-white">
+                            <p class="text-slate-400 text-sm mb-3">API 상세 페이지</p>
+                            <div class="bg-slate-700 rounded-lg p-4">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Google Analytics Data API</div>
+                                        <div class="text-slate-400 text-sm">Google</div>
+                                    </div>
+                                </div>
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium w-full">
+                                    사용 ← 클릭
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Search Console API -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-blue-600 font-bold">3</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">Google Search Console API 활성화</h3>
+
+                        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300 mb-4">
+                            <p class="text-slate-600 font-medium mb-3">검색창에 입력:</p>
+                            <div class="flex items-center gap-2 bg-white border-2 border-green-300 rounded-lg p-3">
+                                <code id="apiName2" class="text-green-600 font-mono text-lg flex-1 font-bold">Google Search Console API</code>
+                                <button onclick="copyText('Google Search Console API')" class="text-green-500 hover:text-green-600 p-1">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Visual Guide -->
+                        <div class="bg-slate-800 rounded-xl p-4 text-white">
+                            <p class="text-slate-400 text-sm mb-3">API 상세 페이지</p>
+                            <div class="bg-slate-700 rounded-lg p-4">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Google Search Console API</div>
+                                        <div class="text-slate-400 text-sm">Google</div>
+                                    </div>
+                                </div>
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium w-full">
+                                    사용 ← 클릭
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-green-50 rounded-xl p-4 border border-green-200">
+                            <p class="text-green-800 font-medium">✅ 두 API 모두 활성화 완료! 이제 권한 설정으로 넘어가세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Search Console -->
+        <section class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Google Search Console 사용자 추가</h2>
+                    <p class="text-gray-500">검색 성능 데이터 API 접근 권한 설정</p>
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-green-600 font-bold">1</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">Search Console 접속</h3>
+                        <a href="https://search.google.com/search-console" target="_blank" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl transition shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            Search Console 열기
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-green-600 font-bold">2</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">속성 선택 후 설정 메뉴 진입</h3>
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <div class="flex flex-wrap items-center gap-2 text-gray-700">
+                                <span class="bg-white px-3 py-1.5 rounded-lg border font-medium" style="border-color: #009CA0; color: #009CA0;">www.boas-solution.kr 선택</span>
+                                <span class="path-arrow text-green-500 font-bold">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">⚙️ 설정 (좌측 하단)</span>
+                                <span class="path-arrow text-green-500 font-bold">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">사용자 및 권한</span>
+                            </div>
+                        </div>
+                        <!-- Visual Guide -->
+                        <div class="mt-4 bg-slate-800 rounded-xl p-4 text-white">
+                            <p class="text-slate-400 text-sm mb-3">화면 구성 예시</p>
+                            <div class="flex gap-4">
+                                <div class="w-48 bg-slate-700 rounded-lg p-3">
+                                    <div class="space-y-2 text-sm">
+                                        <div class="text-slate-400">개요</div>
+                                        <div class="text-slate-400">실적</div>
+                                        <div class="text-slate-400">URL 검사</div>
+                                        <div class="text-slate-400">색인 생성</div>
+                                        <div class="text-slate-400">개선사항</div>
+                                        <div class="border-t border-slate-600 pt-2 mt-4"></div>
+                                        <div class="bg-green-500 px-2 py-1 rounded text-white font-medium">⚙️ 설정 ← 클릭</div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 bg-slate-700 rounded-lg p-3">
+                                    <div class="text-slate-400 text-sm mb-2">설정 페이지</div>
+                                    <div class="space-y-2">
+                                        <div class="bg-slate-600 rounded px-3 py-2 text-sm">소유권 확인</div>
+                                        <div class="bg-green-500 rounded px-3 py-2 text-sm font-medium">사용자 및 권한 ← 클릭</div>
+                                        <div class="bg-slate-600 rounded px-3 py-2 text-sm">연결</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-green-600 font-bold">3</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">사용자 추가</h3>
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <div class="flex flex-wrap items-center gap-2 text-gray-700">
+                                <span class="bg-green-500 text-white px-3 py-1.5 rounded-lg font-medium">+ 사용자 추가</span>
+                                <span class="text-gray-400">버튼 클릭</span>
+                            </div>
+                        </div>
+
+                        <!-- Input Fields Visual -->
+                        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300">
+                            <p class="text-slate-600 font-medium mb-4">팝업 창에서 입력:</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">이메일 주소</label>
+                                    <div class="flex items-center gap-2 bg-white border-2 rounded-lg p-3" style="border-color: #009CA0;">
+                                        <code class="font-mono text-sm flex-1" style="color: #009CA0;">TODO_서비스계정@TODO_프로젝트.iam.gserviceaccount.com</code>
+                                        <button onclick="copyToClipboard('serviceEmail')" class="p-1" style="color: #009CA0;">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mt-2">Section 0에서 생성한 서비스 계정 이메일 입력</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">권한</label>
+                                    <div class="flex items-center gap-3">
+                                        <span class="bg-green-500 text-white px-4 py-2 rounded-lg font-bold shadow">✓ 전체 (Full)</span>
+                                        <span class="text-gray-500">← 이 옵션 선택</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-green-600 font-bold">4</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">저장 및 완료</h3>
+                        <div class="flex items-center gap-4">
+                            <button class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium cursor-default shadow">추가</button>
+                            <span class="text-gray-500">버튼을 클릭하여 저장</span>
+                        </div>
+                        <div class="mt-4 bg-green-50 rounded-xl p-4 border border-green-200">
+                            <p class="text-green-800 font-medium">✅ Search Console 설정 완료! 이제 Analytics 설정으로 넘어가세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Analytics -->
+        <section class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Google Analytics 사용자 추가</h2>
+                    <p class="text-gray-500">GA4 데이터 API 접근 권한 설정</p>
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-orange-600 font-bold">1</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">Google Analytics 접속</h3>
+                        <a href="https://analytics.google.com" target="_blank" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl transition shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            Analytics 열기
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-orange-600 font-bold">2</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">관리자 설정 진입</h3>
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <div class="flex flex-wrap items-center gap-2 text-gray-700">
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">⚙️ 관리 (좌측 하단)</span>
+                                <span class="path-arrow text-orange-500 font-bold">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">속성 열에서</span>
+                                <span class="path-arrow text-orange-500 font-bold">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">속성 액세스 관리</span>
+                            </div>
+                        </div>
+                        <!-- Visual Guide -->
+                        <div class="mt-4 bg-slate-800 rounded-xl p-4 text-white">
+                            <p class="text-slate-400 text-sm mb-3">관리 화면 구성</p>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="bg-slate-700 rounded-lg p-3">
+                                    <div class="text-orange-400 text-xs mb-2 font-medium">계정</div>
+                                    <div class="space-y-1 text-xs text-slate-400">
+                                        <div>계정 설정</div>
+                                        <div>계정 액세스 관리</div>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-700 rounded-lg p-3 ring-2 ring-orange-500">
+                                    <div class="text-orange-400 text-xs mb-2 font-medium">속성</div>
+                                    <div class="space-y-1 text-xs">
+                                        <div class="text-slate-400">속성 설정</div>
+                                        <div class="bg-orange-500 rounded px-2 py-1 text-white">속성 액세스 관리 ←</div>
+                                        <div class="text-slate-400">데이터 스트림</div>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-700 rounded-lg p-3">
+                                    <div class="text-orange-400 text-xs mb-2 font-medium">데이터 수집</div>
+                                    <div class="space-y-1 text-xs text-slate-400">
+                                        <div>데이터 스트림</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-blue-50 rounded-xl p-4 border border-blue-100">
+                            <p class="text-blue-800 text-sm"><strong>참고:</strong> GA4 Property ID는 관리 → 속성 설정 → 속성 ID에서 확인 가능 (G-TCC437319B)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6 mb-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-orange-600 font-bold">3</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">사용자 추가</h3>
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <div class="flex flex-wrap items-center gap-2 text-gray-700">
+                                <span class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-medium">+ 버튼 (우측 상단)</span>
+                                <span class="path-arrow text-orange-500 font-bold">→</span>
+                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200 font-medium">사용자 추가</span>
+                            </div>
+                        </div>
+
+                        <!-- Input Fields Visual -->
+                        <div class="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300">
+                            <p class="text-slate-600 font-medium mb-4">팝업 창에서 입력:</p>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">이메일 주소</label>
+                                    <div class="flex items-center gap-2 bg-white border-2 border-orange-300 rounded-lg p-3">
+                                        <code class="text-orange-600 font-mono text-sm flex-1">TODO_서비스계정@TODO_프로젝트.iam.gserviceaccount.com</code>
+                                        <button onclick="copyToClipboard('serviceEmail')" class="text-orange-500 hover:text-orange-600 p-1">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <p class="text-gray-600 text-sm mt-2">Section 0에서 생성한 서비스 계정 이메일 입력</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-2">역할 (권한)</label>
+                                    <div class="flex items-center gap-3">
+                                        <span class="bg-orange-500 text-white px-4 py-2 rounded-lg font-bold shadow">✓ 뷰어 (Viewer)</span>
+                                        <span class="text-gray-500">← 최소 권한 (데이터 조회 가능)</span>
+                                    </div>
+                                    <p class="text-gray-500 text-sm mt-2">더 넓은 권한이 필요하면 "분석가" 또는 "편집자" 선택</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-orange-600 font-bold">4</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800 text-lg mb-3">저장 및 완료</h3>
+                        <div class="flex items-center gap-4">
+                            <button class="bg-blue-500 text-white px-6 py-2 rounded-lg font-medium cursor-default shadow">추가</button>
+                            <span class="text-gray-500">버튼을 클릭하여 저장</span>
+                        </div>
+                        <div class="mt-4 bg-green-50 rounded-xl p-4 border border-green-200">
+                            <p class="text-green-800 font-medium">✅ Analytics 설정 완료!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Environment Variables -->
+        <section class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">환경변수 설정 (개발자 전용)</h2>
+                    <p class="text-gray-500">로컬 및 Vercel 환경변수 구성</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="mb-6 rounded-xl p-4" style="background-color: #E6F7F7; border: 1px solid #009CA0;">
+                    <p class="font-medium" style="color: #007578;">다음 4개 환경변수를 .env.local 및 Vercel에 설정하세요:</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <label class="font-mono text-sm font-bold text-purple-600">GA4_PROPERTY_ID</label>
+                                <p class="text-gray-500 text-sm">Google Analytics 4 속성 ID</p>
+                            </div>
+                        </div>
+                        <code class="block bg-gray-800 text-green-400 px-4 py-3 rounded-lg font-mono text-sm">G-TCC437319B</code>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <label class="font-mono text-sm font-bold text-purple-600">GOOGLE_SERVICE_ACCOUNT_EMAIL</label>
+                                <p class="text-gray-500 text-sm">서비스 계정 이메일</p>
+                            </div>
+                        </div>
+                        <code class="block bg-gray-800 text-yellow-400 px-4 py-3 rounded-lg font-mono text-sm break-all">TODO_서비스계정@TODO_프로젝트.iam.gserviceaccount.com</code>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <label class="font-mono text-sm font-bold text-purple-600">GOOGLE_PRIVATE_KEY</label>
+                                <p class="text-gray-500 text-sm">JSON 키의 private_key 값</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-800 text-gray-400 px-4 py-3 rounded-lg text-sm">
+                            다운로드한 JSON 파일에서<br>
+                            "private_key" 필드 값 복사<br>
+                            (-----BEGIN PRIVATE KEY-----로 시작)
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <label class="font-mono text-sm font-bold text-purple-600">SEARCH_CONSOLE_SITE_URL</label>
+                                <p class="text-gray-500 text-sm">사이트 URL</p>
+                            </div>
+                        </div>
+                        <code class="block bg-gray-800 text-green-400 px-4 py-3 rounded-lg font-mono text-sm">https://www.boas-solution.kr</code>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-amber-50 rounded-xl p-4 border border-amber-200">
+                    <p class="text-amber-800 font-medium">⚠️ Vercel 환경변수 설정: Vercel Dashboard → Settings → Environment Variables에서 동일하게 설정하세요.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Completion -->
+        <section class="rounded-2xl shadow-xl p-8 text-white" style="background: linear-gradient(to right, #10B981, #059669);">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold">설정 완료 체크</h2>
+                    <p class="text-white/80">모든 설정이 완료되면 API가 정상 작동합니다</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+                    <h3 class="font-bold mb-2">Search Console</h3>
+                    <ul class="space-y-2 text-sm text-white/90">
+                        <li class="flex items-center gap-2">
+                            <span class="w-5 h-5 bg-white/20 rounded flex items-center justify-center text-xs">✓</span>
+                            서비스 계정 이메일 추가됨
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-5 h-5 bg-white/20 rounded flex items-center justify-center text-xs">✓</span>
+                            전체(Full) 권한 부여됨
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+                    <h3 class="font-bold mb-2">Analytics</h3>
+                    <ul class="space-y-2 text-sm text-white/90">
+                        <li class="flex items-center gap-2">
+                            <span class="w-5 h-5 bg-white/20 rounded flex items-center justify-center text-xs">✓</span>
+                            서비스 계정 이메일 추가됨
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-5 h-5 bg-white/20 rounded flex items-center justify-center text-xs">✓</span>
+                            뷰어 이상 권한 부여됨
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+                    <h3 class="font-bold mb-2">환경변수</h3>
+                    <ul class="space-y-2 text-sm text-white/90">
+                        <li class="flex items-center gap-2">
+                            <span class="w-5 h-5 bg-white/20 rounded flex items-center justify-center text-xs">✓</span>
+                            4개 환경변수 설정됨
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="w-5 h-5 bg-white/20 rounded flex items-center justify-center text-xs">✓</span>
+                            Vercel에도 동일하게 설정됨
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+                    <p class="text-sm text-white/90">
+                        <strong>💡 참고:</strong> 권한 설정 후 API가 작동하기까지 최대 10분 정도 소요될 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-8 mt-16">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="font-medium text-gray-300">BOAS 경영지원솔루션</p>
+            <p class="text-sm mt-2">Google Analytics & Search Console 설정 가이드 | 2026-02-13</p>
+            <p class="text-xs mt-1 text-gray-500">www.boas-solution.kr</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 z-50">
+        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span id="toastMessage">복사되었습니다!</span>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('이메일이 복사되었습니다!');
+            });
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('"' + text + '" 복사됨!');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+            const percentage = Math.round((checked.length / checkboxes.length) * 100);
+
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = percentage + '%';
+        }
+    </script>
+</body>
+</html>

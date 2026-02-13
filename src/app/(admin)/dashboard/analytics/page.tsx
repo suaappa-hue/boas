@@ -30,6 +30,22 @@ interface PageFlowData {
   links: { from: string; to: string; count: number }[]
 }
 
+interface SearchQueryData {
+  query: string
+  clicks: number
+  impressions: number
+  ctr: number
+  position: number
+}
+
+interface SearchConsoleData {
+  summary: { totalClicks: number; totalImpressions: number; avgCtr: number; avgPosition: number }
+  queries: SearchQueryData[]
+  pages: { page: string; clicks: number; impressions: number; ctr: number; position: number }[]
+  daily: { date: string; clicks: number; impressions: number }[]
+  period: { start: string; end: string }
+}
+
 interface AnalyticsData {
   realtime: RealtimeData
   visitors: number
@@ -187,6 +203,26 @@ export default function AnalyticsPage() {
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [connected, setConnected] = useState(false)
+  const [searchData, setSearchData] = useState<SearchConsoleData | null>(null)
+  const [searchLoading, setSearchLoading] = useState(false)
+  const [activeTab, setActiveTab] = useState<'analytics' | 'search'>('analytics')
+
+  const fetchSearchQueries = useCallback(async (days: number) => {
+    setSearchLoading(true)
+    try {
+      const res = await fetch(`/api/search-queries?days=${days}`)
+      const json = await res.json()
+      if (json.success && json.data) {
+        setSearchData(json.data)
+      } else {
+        setSearchData(null)
+      }
+    } catch {
+      setSearchData(null)
+    } finally {
+      setSearchLoading(false)
+    }
+  }, [])
 
   const fetchAnalytics = useCallback(async (days: number) => {
     setLoading(true)
@@ -230,24 +266,44 @@ export default function AnalyticsPage() {
 
   useEffect(() => {
     fetchAnalytics(period)
-  }, [period, fetchAnalytics])
+    fetchSearchQueries(period)
+  }, [period, fetchAnalytics, fetchSearchQueries])
 
   return (
     <div className="space-y-6">
-      {/* 헤더 + 기간 필터 */}
+      {/* 헤더 + 탭 + 기간 필터 */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <h1 className="text-2xl font-bold text-white">유입통계</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-2xl font-bold text-white">유입통계</h1>
+          <div className="flex gap-1 bg-white/[0.06] rounded-lg p-0.5">
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                activeTab === 'analytics' ? 'bg-white/[0.1] text-white' : 'text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              GA4
+            </button>
+            <button
+              onClick={() => setActiveTab('search')}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                activeTab === 'search' ? 'bg-white/[0.1] text-white' : 'text-gray-500 hover:text-gray-300'
+              }`}
+            >
+              검색어
+            </button>
+          </div>
+        </div>
         <div className="flex gap-1.5 bg-white/[0.06] rounded-xl p-1">
           {PERIOD_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               onClick={() => setPeriod(opt.value)}
-              disabled={!connected}
               className={`px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
-                period === opt.value && connected
+                period === opt.value
                   ? 'bg-white/[0.1] text-white shadow-sm'
                   : 'text-gray-500 hover:text-gray-300'
-              } ${!connected ? 'opacity-50 cursor-not-allowed' : ''}`}
+              }`}
             >
               {opt.label}
             </button>
@@ -255,8 +311,143 @@ export default function AnalyticsPage() {
         </div>
       </div>
 
-      {/* GA4 연결 상태 + 실시간 */}
-      {!loading && connected && (
+      {/* ────── Search Queries Tab ────── */}
+      {activeTab === 'search' && (
+        <>
+          {searchLoading ? (
+            <div className="space-y-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="h-20 rounded-2xl bg-white/[0.06] animate-pulse" />
+              ))}
+            </div>
+          ) : searchData ? (
+            <div className="space-y-6">
+              {/* 검색 요약 카드 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <AnalyticsStatCard
+                  label="총 클릭수"
+                  value={searchData.summary.totalClicks.toLocaleString()}
+                  color="blue"
+                  icon={
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5" />
+                    </svg>
+                  }
+                />
+                <AnalyticsStatCard
+                  label="총 노출수"
+                  value={searchData.summary.totalImpressions.toLocaleString()}
+                  color="green"
+                  icon={
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  }
+                />
+                <AnalyticsStatCard
+                  label="평균 CTR"
+                  value={`${searchData.summary.avgCtr}%`}
+                  color="purple"
+                  icon={
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  }
+                />
+                <AnalyticsStatCard
+                  label="평균 순위"
+                  value={`${searchData.summary.avgPosition}`}
+                  color="orange"
+                  icon={
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                    </svg>
+                  }
+                />
+              </div>
+
+              {/* 일별 검색 추이 */}
+              {searchData.daily.length > 0 && (
+                <div className="bg-[#141e33] rounded-2xl border border-white/[0.06] p-6">
+                  <h3 className="font-semibold text-white text-sm mb-4">일별 검색 클릭 추이</h3>
+                  <div className="h-56">
+                    <SimpleBarChart data={searchData.daily.map((d) => ({ date: d.date, count: d.clicks }))} />
+                  </div>
+                </div>
+              )}
+
+              {/* 검색어 테이블 */}
+              <div className="bg-[#141e33] rounded-2xl border border-white/[0.06] overflow-hidden">
+                <div className="px-5 py-4 border-b border-white/[0.06] flex items-center justify-between">
+                  <h3 className="font-semibold text-white text-sm">검색어 (상위 {searchData.queries.length}개)</h3>
+                  <span className="text-[10px] text-gray-500">{searchData.period.start} ~ {searchData.period.end}</span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-white/[0.06]">
+                        <th className="text-left text-[11px] font-medium text-gray-400 uppercase px-5 py-2.5">검색어</th>
+                        <th className="text-right text-[11px] font-medium text-gray-400 uppercase px-3 py-2.5 w-20">클릭</th>
+                        <th className="text-right text-[11px] font-medium text-gray-400 uppercase px-3 py-2.5 w-20">노출</th>
+                        <th className="text-right text-[11px] font-medium text-gray-400 uppercase px-3 py-2.5 w-16">CTR</th>
+                        <th className="text-right text-[11px] font-medium text-gray-400 uppercase px-5 py-2.5 w-16">순위</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {searchData.queries.map((q, i) => (
+                        <tr key={i} className="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                          <td className="px-5 py-3 text-sm text-gray-300">{q.query}</td>
+                          <td className="px-3 py-3 text-sm text-white font-medium text-right">{q.clicks}</td>
+                          <td className="px-3 py-3 text-sm text-gray-400 text-right">{q.impressions.toLocaleString()}</td>
+                          <td className="px-3 py-3 text-sm text-gray-400 text-right">{q.ctr}%</td>
+                          <td className="px-5 py-3 text-right">
+                            <span className={`text-xs px-1.5 py-0.5 rounded ${
+                              q.position <= 3 ? 'bg-green-500/10 text-green-400' :
+                              q.position <= 10 ? 'bg-blue-500/10 text-blue-400' :
+                              q.position <= 20 ? 'bg-yellow-500/10 text-yellow-400' :
+                              'bg-white/[0.06] text-gray-500'
+                            }`}>
+                              {q.position}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* 페이지별 검색 성능 */}
+              <DataPanel
+                title="페이지별 검색 성능"
+                data={searchData.pages.map((p) => ({
+                  label: p.page,
+                  value: `${p.clicks} 클릭`,
+                  bar: searchData.pages[0]?.clicks > 0 ? (p.clicks / searchData.pages[0].clicks) * 100 : 0,
+                }))}
+                columns={['페이지', '클릭수']}
+              />
+            </div>
+          ) : (
+            <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-6 text-center">
+              <svg className="w-12 h-12 text-amber-400 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <h2 className="text-lg font-bold text-amber-300 mb-2">Search Console 연동 필요</h2>
+              <p className="text-sm text-amber-400 mb-4">
+                Google Search Console API 연동 후 검색어 분석 데이터를 확인할 수 있습니다.
+              </p>
+              <p className="text-xs text-amber-600">
+                설정 필요: GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, SEARCH_CONSOLE_SITE_URL
+              </p>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ────── GA4 Analytics Tab ────── */}
+      {activeTab === 'analytics' && !loading && connected && (
         <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -287,7 +478,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* GA4 미연결 안내 */}
-      {!connected && !loading && (
+      {activeTab === 'analytics' && !connected && !loading && (
         <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-6 text-center">
           <svg className="w-12 h-12 text-amber-400 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -303,7 +494,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* 로딩 */}
-      {loading && (
+      {activeTab === 'analytics' && loading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="h-28 rounded-2xl bg-white/[0.06] animate-pulse" />
@@ -312,7 +503,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* 기본 통계 카드 4x */}
-      {!loading && (
+      {activeTab === 'analytics' && !loading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <AnalyticsStatCard
             label="방문자"
@@ -359,7 +550,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* 전환 지표 카드 4x (NEW) */}
-      {!loading && data && (
+      {activeTab === 'analytics' && !loading && data && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <AnalyticsStatCard
             label="전화 클릭"
@@ -405,7 +596,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* 퍼널 분석 패널 (NEW) */}
-      {!loading && data && (
+      {activeTab === 'analytics' && !loading && data && (
         <div className="bg-[#141e33] rounded-2xl border border-white/[0.06] p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-white text-sm">전환 퍼널</h3>
@@ -416,7 +607,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* 차트 영역 */}
-      {!loading && (
+      {activeTab === 'analytics' && !loading && (
         <div className="bg-[#141e33] rounded-2xl border border-white/[0.06] p-6">
           <h3 className="font-semibold text-white text-sm mb-4">일별 방문자 추이</h3>
           <div className="h-56">
@@ -432,7 +623,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* 페이지 흐름 다이어그램 (NEW) */}
-      {!loading && data && (
+      {activeTab === 'analytics' && !loading && data && (
         <div className="bg-[#141e33] rounded-2xl border border-white/[0.06] p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-white text-sm">페이지 흐름</h3>
@@ -443,7 +634,7 @@ export default function AnalyticsPage() {
       )}
 
       {/* 분석 패널 5개 */}
-      {!loading && (
+      {activeTab === 'analytics' && !loading && (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
           {data ? (
             <>

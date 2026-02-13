@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOAS 이메일 템플릿 와이어프레임</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #f1f5f9; font-family: 'Pretendard', -apple-system, system-ui, sans-serif; padding: 40px 20px; }
+  .page-header { text-align: center; margin-bottom: 48px; }
+  .page-header h1 { font-size: 28px; color: #1e293b; margin-bottom: 8px; }
+  .page-header p { color: #64748b; font-size: 14px; }
+  .template-section { max-width: 640px; margin: 0 auto 60px; }
+  .template-label {
+    display: inline-block; background: #009CA0; color: #fff; font-size: 13px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .template-desc { color: #475569; font-size: 13px; margin-bottom: 16px; line-height: 1.6; }
+  .email-frame {
+    background: #fff; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;
+  }
+  .divider { height: 1px; background: #e5e7eb; margin: 32px 0; }
+  .note-box {
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;
+    padding: 16px 20px; margin-top: 16px; font-size: 12px; color: #92400e; line-height: 1.6;
+  }
+  .note-box strong { color: #78350f; }
+  .bulk-section { max-width: 640px; margin: 0 auto 60px; background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .bulk-section h2 { font-size: 18px; color: #1e293b; margin-bottom: 16px; }
+  .bulk-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+  .bulk-table th { background: #f8fffe; color: #007c80; text-align: left; padding: 10px 14px; border-bottom: 2px solid #009CA0; }
+  .bulk-table td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; color: #334155; }
+  .badge-yes { background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-limit { background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>BOAS 관리자 이메일 템플릿 와이어프레임</h1>
+  <p>실제 발송 이메일과 동일한 구성 | 검토용</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 1차 상담 안내 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="template-section">
+  <span class="template-label">TEMPLATE 1</span>
+  <h2 style="font-size:20px; color:#1e293b; margin-bottom:8px;">1차 상담 안내</h2>
+  <p class="template-desc">
+    상담 접수 후 1차 상담 일정이 확정되면 고객에게 발송하는 안내 메일.<br>
+    상담 일시·장소, 간단한 준비물, 상담 진행 방식을 안내합니다.
+  </p>
+
+  <div class="email-frame">
+    <!-- Header -->
+    <div style="background:#F8FFFE; padding:40px 30px; text-align:center; border-bottom:3px solid #009CA0;">
+      <h1 style="color:#009CA0; margin:0; font-size:24px; font-weight:800; letter-spacing:-0.5px;">BOAS</h1>
+      <p style="color:#64748B; margin:8px 0 0; font-size:13px;">보아스 경영지원솔루션</p>
+      <p style="color:#1E293B; margin:20px 0 0; font-size:17px; font-weight:700;">1차 상담 일정이 확정되었습니다</p>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:35px 30px;">
+      <p style="font-size:14px; color:#1E293B; line-height:1.8; margin:0 0 24px;">
+        <strong style="color:#009CA0;">{{고객명}}</strong> 대표님, 안녕하세요.<br>
+        보아스 경영지원솔루션입니다.<br><br>
+        접수해 주신 상담 건에 대해 <strong>1차 상담 일정</strong>이 아래와 같이 확정되었습니다.
+      </p>
+
+      <!-- 상담 일정 카드 -->
+      <div style="background:#F8FFFE; border-radius:12px; padding:24px; margin-bottom:24px; border:1px solid #E0FEFF;">
+        <h3 style="margin:0 0 16px; font-size:15px; color:#007C80; font-weight:700;">📅 상담 일정</h3>
+        <table style="width:100%; font-size:14px; color:#334155;">
+          <tr>
+            <td style="padding:8px 0; width:100px; color:#64748B; vertical-align:top;">일시</td>
+            <td style="padding:8px 0; font-weight:700; color:#1E293B;">{{상담일시}}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; color:#64748B; vertical-align:top;">장소</td>
+            <td style="padding:8px 0; font-weight:700; color:#1E293B;">{{상담장소}}<br><span style="font-weight:400; font-size:12px; color:#94a3b8;">* 비대면(Zoom/전화) 상담도 가능합니다</span></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; color:#64748B; vertical-align:top;">담당</td>
+            <td style="padding:8px 0; font-weight:700; color:#1E293B;">{{담당컨설턴트명}} 컨설턴트</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; color:#64748B; vertical-align:top;">소요시간</td>
+            <td style="padding:8px 0; color:#1E293B;">약 40분 ~ 1시간</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 상담 내용 안내 -->
+      <div style="background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; border-left:4px solid #009CA0; border:1px solid #e5e7eb; border-left:4px solid #009CA0;">
+        <h3 style="margin:0 0 14px; font-size:15px; color:#007C80; font-weight:700;">💡 상담에서 진행되는 내용</h3>
+        <ul style="margin:0; padding:0 0 0 18px; font-size:13px; color:#334155; line-height:2;">
+          <li>기업 현황 및 재무상태 간략 분석</li>
+          <li>대표님 기업에 적합한 <strong>정책자금 유형</strong> 안내</li>
+          <li>예상 자금 규모 및 <strong>금리 조건</strong> 시뮬레이션</li>
+          <li>신청 가능 시기 및 <strong>전체 일정</strong> 안내</li>
+          <li>향후 진행 절차 및 예상 소요 기간 설명</li>
+        </ul>
+      </div>
+
+      <!-- 준비물 안내 -->
+      <div style="background:#E0FEFF; border-radius:12px; padding:24px; margin-bottom:24px;">
+        <h3 style="margin:0 0 14px; font-size:15px; color:#007C80; font-weight:700;">📋 상담 시 준비물 (선택)</h3>
+        <p style="font-size:12px; color:#64748b; margin:0 0 12px;">아래 서류가 있으면 더 정확한 분석이 가능합니다. <strong>없어도 상담은 정상 진행</strong>됩니다.</p>
+        <table style="width:100%; font-size:13px; color:#334155; border-collapse:collapse;">
+          <tr>
+            <td style="padding:8px 12px; background:#fff; border-radius:6px; margin-bottom:4px; border-bottom:4px solid #E0FEFF;">
+              <strong style="color:#009CA0;">1.</strong> 사업자등록증 사본
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; background:#fff; border-radius:6px; border-bottom:4px solid #E0FEFF;">
+              <strong style="color:#009CA0;">2.</strong> 최근 매출 현황 (대략적인 연매출 규모)
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px; background:#fff; border-radius:6px; border-bottom:4px solid #E0FEFF;">
+              <strong style="color:#009CA0;">3.</strong> 기존 대출·보증 현황 (있는 경우)
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 안내 문구 -->
+      <div style="background:#f8fafc; border-radius:10px; padding:16px 20px; margin-bottom:24px; text-align:center;">
+        <p style="margin:0; font-size:13px; color:#64748b; line-height:1.6;">
+          상담은 <strong style="color:#1e293b;">무료</strong>이며, 상담 후 진행 여부는 대표님께서 자유롭게 결정하실 수 있습니다.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center; padding:10px 0 20px;">
+        <p style="margin:0 0 14px; color:#64748B; font-size:13px;">일정 변경이 필요하시면 아래로 연락 부탁드립니다</p>
+        <a href="tel:15339269" style="display:inline-block; background:#009CA0; color:#FFFFFF; padding:14px 36px; border-radius:10px; text-decoration:none; font-weight:700; font-size:15px;">
+          📞 1533-9269
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center; padding:24px; background:#F8FFFE; border-top:1px solid #E0FEFF;">
+      <p style="margin:0; font-weight:700; color:#009CA0; font-size:13px;">BOAS 보아스 경영지원솔루션</p>
+      <p style="margin:8px 0 0; color:#94A3B8; font-size:11px;">경기도 구리시 | 대표전화 1533-9269</p>
+      <p style="margin:6px 0 0; color:#CBD5E1; font-size:10px;">본 메일은 상담 일정 안내를 위해 발송되었습니다.</p>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>변수 설명:</strong> {{고객명}}, {{상담일시}}, {{상담장소}}, {{담당컨설턴트명}}은 관리자 대시보드에서 입력 후 자동 치환됩니다.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 2차 심사안내 (필요서류) -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="template-section">
+  <span class="template-label">TEMPLATE 2</span>
+  <h2 style="font-size:20px; color:#1e293b; margin-bottom:8px;">2차 심사안내 — 필요서류 안내</h2>
+  <p class="template-desc">
+    1차 상담 완료 후, 정책자금 심사 단계 진입 시 고객에게 발송하는 필요서류 안내 메일.<br>
+    중진공 기준 공통서류 + 자금유형별 추가서류를 체크리스트 형태로 안내합니다.
+  </p>
+
+  <div class="email-frame">
+    <!-- Header -->
+    <div style="background:#F8FFFE; padding:40px 30px; text-align:center; border-bottom:3px solid #009CA0;">
+      <h1 style="color:#009CA0; margin:0; font-size:24px; font-weight:800; letter-spacing:-0.5px;">BOAS</h1>
+      <p style="color:#64748B; margin:8px 0 0; font-size:13px;">보아스 경영지원솔루션</p>
+      <p style="color:#1E293B; margin:20px 0 0; font-size:17px; font-weight:700;">정책자금 심사 서류 안내</p>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:35px 30px;">
+      <p style="font-size:14px; color:#1E293B; line-height:1.8; margin:0 0 24px;">
+        <strong style="color:#009CA0;">{{고객명}}</strong> 대표님, 안녕하세요.<br>
+        보아스 경영지원솔루션입니다.<br><br>
+        1차 상담 결과를 바탕으로 <strong>{{자금유형}}</strong> 신청을 위한 <strong>필요서류</strong>를 안내드립니다.<br>
+        아래 서류를 준비해 주시면, 보아스에서 <strong>사업계획서 준비 지원</strong> 및 심사 대비를 함께 진행합니다.
+      </p>
+
+      <!-- 공통 필수서류 -->
+      <div style="background:#F8FFFE; border-radius:12px; padding:24px; margin-bottom:20px; border:1px solid #E0FEFF;">
+        <h3 style="margin:0 0 16px; font-size:15px; color:#007C80; font-weight:700;">📌 공통 필수서류</h3>
+        <table style="width:100%; font-size:13px; color:#334155; border-collapse:collapse;">
+          <tr>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; border-radius:4px;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>사업자등록증</strong> 사본
+            </td>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; color:#94a3b8; font-size:11px; width:120px; text-align:right;">홈택스 발급</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>부가가치세 과세표준증명원</strong> (최근 2년)
+            </td>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; color:#94a3b8; font-size:11px; text-align:right;">홈택스 발급</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>표준재무제표증명원</strong> (최근 3개년)
+            </td>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; color:#94a3b8; font-size:11px; text-align:right;">홈택스 발급</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>국세 납세증명서</strong>
+            </td>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; color:#94a3b8; font-size:11px; text-align:right;">홈택스 발급</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>지방세 납세증명서</strong>
+            </td>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; color:#94a3b8; font-size:11px; text-align:right;">정부24 발급</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>4대보험 가입자 명부</strong>
+            </td>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; color:#94a3b8; font-size:11px; text-align:right;">4대보험포털</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>대표자 신분증</strong> 사본
+            </td>
+            <td style="padding:10px 14px; background:#fff; border-bottom:1px solid #f0fdfd; color:#94a3b8; font-size:11px; text-align:right;"></td>
+          </tr>
+          <tr>
+            <td style="padding:10px 14px; background:#fff;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #009CA0; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>주주명부</strong> (법인 해당)
+            </td>
+            <td style="padding:10px 14px; background:#fff; color:#94a3b8; font-size:11px; text-align:right;">법인만 해당</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 추가 서류 (자금유형별) -->
+      <div style="background:#fff; border-radius:12px; padding:24px; margin-bottom:20px; border-left:4px solid #f59e0b; border:1px solid #fde68a; border-left:4px solid #f59e0b;">
+        <h3 style="margin:0 0 14px; font-size:15px; color:#92400e; font-weight:700;">📎 추가서류 ({{자금유형}} 해당)</h3>
+        <p style="font-size:12px; color:#a16207; margin:0 0 12px;">대표님의 신청 자금 유형에 따라 아래 서류가 추가로 필요합니다.</p>
+        <table style="width:100%; font-size:13px; color:#334155; border-collapse:collapse;">
+          <tr>
+            <td style="padding:8px 14px; background:#fffbeb; border-bottom:1px solid #fef3c7;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #f59e0b; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              최근 <strong>급여대장</strong> (전월 기준)
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px; background:#fffbeb; border-bottom:1px solid #fef3c7;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #f59e0b; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>임대차계약서</strong> 사본
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px; background:#fffbeb; border-bottom:1px solid #fef3c7;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #f59e0b; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>기존 대출 현황</strong> 자료 (금융기관 확인서)
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 14px; background:#fffbeb;">
+              <span style="display:inline-block; width:18px; height:18px; border:2px solid #f59e0b; border-radius:4px; margin-right:10px; vertical-align:middle;"></span>
+              <strong>설비 견적서</strong> 또는 투자계획서 (시설자금 해당)
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 서류 발급 안내 -->
+      <div style="background:#E0FEFF; border-radius:12px; padding:24px; margin-bottom:24px;">
+        <h3 style="margin:0 0 14px; font-size:15px; color:#007C80; font-weight:700;">🖥️ 서류 발급 방법</h3>
+        <table style="width:100%; font-size:13px; color:#334155; border-collapse:collapse;">
+          <tr>
+            <td style="padding:8px 0; width:140px; color:#007C80; font-weight:600;">국세청 홈택스</td>
+            <td style="padding:8px 0;">사업자등록증, 과세표준증명원, 재무제표, 납세증명</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; color:#007C80; font-weight:600;">정부24</td>
+            <td style="padding:8px 0;">지방세 납세증명서</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; color:#007C80; font-weight:600;">4대보험포털</td>
+            <td style="padding:8px 0;">4대보험 가입자 명부</td>
+          </tr>
+        </table>
+        <p style="margin:14px 0 0; font-size:12px; color:#64748b; line-height:1.6;">
+          * 서류 발급이 어려우시면 담당 컨설턴트에게 말씀해 주세요. 발급 방법을 안내해 드립니다.
+        </p>
+      </div>
+
+      <!-- 보아스 지원 안내 -->
+      <div style="background:#f0fdf4; border-radius:12px; padding:24px; margin-bottom:24px; border:1px solid #bbf7d0;">
+        <h3 style="margin:0 0 12px; font-size:15px; color:#166534; font-weight:700;">✅ 보아스가 직접 지원하는 영역</h3>
+        <ul style="margin:0; padding:0 0 0 18px; font-size:13px; color:#334155; line-height:2;">
+          <li><strong>사업계획서 준비 지원</strong> — 심사 기준에 맞는 구성 전략 설계</li>
+          <li><strong>기업 현황 분석 보고서</strong> — 재무·역량 데이터 정리</li>
+          <li><strong>발표·면접 코칭</strong> — 대면 심사 모의 훈련</li>
+          <li><strong>서류 최종 검토</strong> — 제출 전 누락·오류 점검</li>
+        </ul>
+      </div>
+
+      <!-- 일정 안내 -->
+      <div style="background:#f8fafc; border-radius:12px; padding:20px; margin-bottom:24px; text-align:center; border:1px solid #e2e8f0;">
+        <p style="margin:0; font-size:14px; color:#1e293b; font-weight:600;">서류 제출 마감: <span style="color:#009CA0;">{{제출마감일}}</span></p>
+        <p style="margin:8px 0 0; font-size:12px; color:#64748b;">마감일 기준 <strong>5영업일 전</strong>까지 제출을 권장합니다.</p>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center; padding:10px 0 20px;">
+        <p style="margin:0 0 14px; color:#64748B; font-size:13px;">서류 관련 문의사항이 있으시면 언제든 연락주세요</p>
+        <a href="tel:15339269" style="display:inline-block; background:#009CA0; color:#FFFFFF; padding:14px 36px; border-radius:10px; text-decoration:none; font-weight:700; font-size:15px;">
+          📞 1533-9269
+        </a>
+        <p style="margin:12px 0 0; font-size:12px; color:#94a3b8;">
+          담당: {{담당컨설턴트명}} 컨설턴트
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center; padding:24px; background:#F8FFFE; border-top:1px solid #E0FEFF;">
+      <p style="margin:0; font-weight:700; color:#009CA0; font-size:13px;">BOAS 보아스 경영지원솔루션</p>
+      <p style="margin:8px 0 0; color:#94A3B8; font-size:11px;">경기도 구리시 | 대표전화 1533-9269</p>
+      <p style="margin:6px 0 0; color:#CBD5E1; font-size:10px;">본 메일은 정책자금 심사 서류 안내를 위해 발송되었습니다.</p>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>변수 설명:</strong> {{고객명}}, {{자금유형}}, {{담당컨설턴트명}}, {{제출마감일}}은 관리자 대시보드에서 입력 후 자동 치환됩니다.<br>
+    <strong>추가서류 섹션:</strong> 자금유형(운전자금/시설자금/창업자금 등)에 따라 내용이 동적으로 변경됩니다.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- 3. 신규정책 소식 안내 (일괄 발송용) -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="template-section">
+  <span class="template-label" style="background:#6366f1;">TEMPLATE 3</span>
+  <h2 style="font-size:20px; color:#1e293b; margin-bottom:8px;">신규정책 소식 안내</h2>
+  <p class="template-desc">
+    새로운 정책자금·지원사업이 공고되면 등록된 고객에게 일괄 발송하는 뉴스레터형 메일.<br>
+    관리자가 정책명·요약·대상·기간을 입력하면 자동 구성됩니다.
+  </p>
+
+  <div class="email-frame">
+    <!-- Header -->
+    <div style="background:#F8FFFE; padding:40px 30px; text-align:center; border-bottom:3px solid #009CA0;">
+      <h1 style="color:#009CA0; margin:0; font-size:24px; font-weight:800; letter-spacing:-0.5px;">BOAS</h1>
+      <p style="color:#64748B; margin:8px 0 0; font-size:13px;">보아스 경영지원솔루션</p>
+      <div style="display:inline-block; margin-top:18px; background:#009CA0; color:#fff; font-size:11px; font-weight:700; padding:5px 14px; border-radius:20px; letter-spacing:0.5px;">NEW POLICY</div>
+      <p style="color:#1E293B; margin:12px 0 0; font-size:17px; font-weight:700;">대표님께 맞는 새로운 정책자금 소식입니다</p>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:35px 30px;">
+      <p style="font-size:14px; color:#1E293B; line-height:1.8; margin:0 0 24px;">
+        <strong style="color:#009CA0;">{{고객명}}</strong> 대표님, 안녕하세요.<br>
+        보아스 경영지원솔루션입니다.<br><br>
+        대표님 기업에 해당될 수 있는 <strong>신규 정책자금</strong> 소식을 전해드립니다.
+      </p>
+
+      <!-- 정책 카드 -->
+      <div style="background:#F8FFFE; border-radius:16px; padding:28px; margin-bottom:20px; border:1px solid #E0FEFF; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg, #009CA0, #00d4aa);"></div>
+        <h3 style="margin:0 0 6px; font-size:18px; color:#1E293B; font-weight:800;">{{정책명}}</h3>
+        <p style="margin:0 0 18px; font-size:12px; color:#009CA0; font-weight:600;">{{공고기관}}</p>
+
+        <p style="font-size:14px; color:#334155; line-height:1.8; margin:0 0 20px;">
+          {{정책요약}}
+        </p>
+
+        <table style="width:100%; font-size:13px; color:#334155; border-collapse:collapse; background:#fff; border-radius:10px; overflow:hidden;">
+          <tr>
+            <td style="padding:12px 16px; color:#64748B; width:100px; border-bottom:1px solid #f0fdfd; font-weight:600;">지원대상</td>
+            <td style="padding:12px 16px; border-bottom:1px solid #f0fdfd; font-weight:600; color:#1E293B;">{{지원대상}}</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px; color:#64748B; font-weight:600; border-bottom:1px solid #f0fdfd;">지원규모</td>
+            <td style="padding:12px 16px; border-bottom:1px solid #f0fdfd; font-weight:600; color:#1E293B;">{{지원규모}}</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px; color:#64748B; font-weight:600; border-bottom:1px solid #f0fdfd;">금리조건</td>
+            <td style="padding:12px 16px; border-bottom:1px solid #f0fdfd; color:#1E293B;">{{금리조건}}</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 16px; color:#64748B; font-weight:600;">신청기간</td>
+            <td style="padding:12px 16px; font-weight:700; color:#dc2626;">{{신청기간}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 핵심 안내 -->
+      <div style="background:#E0FEFF; border-radius:12px; padding:24px; margin-bottom:24px; text-align:center;">
+        <p style="margin:0; font-size:15px; color:#007C80; line-height:1.7; font-weight:600;">
+          해당 정책자금이 대표님 기업에 적합한지<br>
+          <strong style="font-size:17px; color:#009CA0;">무료 적합도 분석</strong>을 받아보세요.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center; padding:10px 0 24px;">
+        <a href="tel:15339269" style="display:inline-block; background:#009CA0; color:#FFFFFF; padding:16px 44px; border-radius:12px; text-decoration:none; font-weight:800; font-size:16px; letter-spacing:-0.3px;">
+          상담 신청하기
+        </a>
+        <p style="margin:14px 0 0; font-size:13px; color:#64748b;">
+          전화 상담: <strong style="color:#1e293b;">1533-9269</strong>
+        </p>
+      </div>
+
+      <!-- 수신거부 안내 -->
+      <div style="border-top:1px solid #e5e7eb; padding-top:16px; margin-top:8px;">
+        <p style="margin:0; font-size:11px; color:#94a3b8; text-align:center; line-height:1.6;">
+          본 메일은 보아스 경영지원솔루션에 상담을 접수하신 고객님께 발송됩니다.<br>
+          수신을 원치 않으시면 <a href="{{수신거부링크}}" style="color:#009CA0; text-decoration:underline;">여기</a>를 클릭해 주세요.
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center; padding:24px; background:#F8FFFE; border-top:1px solid #E0FEFF;">
+      <p style="margin:0; font-weight:700; color:#009CA0; font-size:13px;">BOAS 보아스 경영지원솔루션</p>
+      <p style="margin:8px 0 0; color:#94A3B8; font-size:11px;">경기도 구리시 | 대표전화 1533-9269</p>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>변수:</strong> {{고객명}}, {{정책명}}, {{공고기관}}, {{정책요약}}, {{지원대상}}, {{지원규모}}, {{금리조건}}, {{신청기간}}<br>
+    <strong>발송 방식:</strong> 관리자가 고객 목록 체크 → 템플릿 선택 → 내용 입력 → 일괄 발송 (일 500건 한도)
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- Gmail 대량 발송 가능 여부 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="bulk-section">
+  <span class="template-label" style="background:#6366f1;">참고</span>
+  <h2 style="margin-top:12px;">Gmail API 대량 발송 — 가능 여부</h2>
+  <p style="font-size:13px; color:#475569; line-height:1.7; margin-top:8px;">
+    고객 등록 후 신규 정책 안내 메일을 일괄 발송하는 것은 <strong>기술적으로 가능</strong>합니다.<br>
+    다만, Gmail 계정 유형에 따라 일일 발송 한도가 있습니다.
+  </p>
+
+  <table class="bulk-table">
+    <thead>
+      <tr>
+        <th>계정 유형</th>
+        <th>일일 발송 한도</th>
+        <th>BOAS 적용</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>일반 Gmail (@gmail.com)</td>
+        <td><strong>500건</strong> / 24시간</td>
+        <td><span class="badge-yes">충분</span></td>
+      </tr>
+      <tr>
+        <td>Google Workspace</td>
+        <td><strong>2,000건</strong> / 24시간</td>
+        <td><span class="badge-yes">충분</span></td>
+      </tr>
+      <tr>
+        <td>신규 계정 (14일 이내)</td>
+        <td><strong>제한적</strong> (20~100건)</td>
+        <td><span class="badge-limit">주의</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="background:#f0fdf4; border-radius:10px; padding:16px 20px; margin-top:16px; font-size:13px; color:#166534; line-height:1.7;">
+    <strong>결론:</strong> 현재 suaappa@gmail.com 계정 기준으로 <strong>일 500건</strong>까지 발송 가능합니다.<br>
+    BOAS 고객 규모 감안 시 충분한 수량이며, 관리자 대시보드에서 "정책 안내 일괄 발송" 기능을 구현할 수 있습니다.<br><br>
+    <strong>구현 방식:</strong> 관리자가 고객 목록 선택 → 템플릿 선택 → 일괄 발송 (Worker에서 순차 발송, 초당 1건 제한)
+  </div>
+</div>
+
+</body>
+</html>
