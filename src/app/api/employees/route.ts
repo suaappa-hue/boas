@@ -3,7 +3,7 @@ import Airtable, { FieldSet } from 'airtable'
 import { deleteR2Image } from '@/lib/r2'
 
 const AIRTABLE_BASE_ID = 'appvXvzEaBRCvmTyU'
-const EMPLOYEES_TABLE_ID = 'tblE4kVhRf7PCnzTm'
+const EMPLOYEES_TABLE_ID = 'tblAgOg9oo7JkMhQp'
 
 function getBase() {
   const token = process.env.AIRTABLE_TOKEN
