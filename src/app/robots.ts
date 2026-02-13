@@ -21,6 +21,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://boas-two.vercel.app/sitemap.xml',
+    sitemap: 'https://www.boas-solution.kr/sitemap.xml',
   }
 }

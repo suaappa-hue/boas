@@ -10,7 +10,7 @@ const FIELD_IDS = {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://boas-two.vercel.app'
+  const baseUrl = 'https://www.boas-solution.kr'
 
   const staticPages: MetadataRoute.Sitemap = [
     {

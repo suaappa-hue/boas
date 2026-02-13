@@ -13,8 +13,8 @@ export default function ContactLayout({ children }: { children: React.ReactNode 
           __html: JSON.stringify([
             localBusinessSchema(),
             breadcrumbSchema([
-              { name: '홈', url: 'https://boas-two.vercel.app' },
-              { name: '무료 상담', url: 'https://boas-two.vercel.app/contact' },
+              { name: '홈', url: 'https://www.boas-solution.kr' },
+              { name: '무료 상담', url: 'https://www.boas-solution.kr/contact' },
             ]),
           ]),
         }}

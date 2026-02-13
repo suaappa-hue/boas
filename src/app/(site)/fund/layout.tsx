@@ -13,8 +13,8 @@ export default function FundLayout({ children }: { children: React.ReactNode }) 
           __html: JSON.stringify([
             serviceSchema('fund'),
             breadcrumbSchema([
-              { name: '홈', url: 'https://boas-two.vercel.app' },
-              { name: '정책자금', url: 'https://boas-two.vercel.app/fund' },
+              { name: '홈', url: 'https://www.boas-solution.kr' },
+              { name: '정책자금', url: 'https://www.boas-solution.kr/fund' },
             ]),
           ]),
         }}

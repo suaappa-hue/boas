@@ -32,7 +32,7 @@ async function getPost(id: string): Promise<BoardPost | null> {
   }
 }
 
-const SITE_URL = 'https://boas-two.vercel.app'
+const SITE_URL = 'https://www.boas-solution.kr'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
