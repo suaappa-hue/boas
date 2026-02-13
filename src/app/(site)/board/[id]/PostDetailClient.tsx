@@ -13,6 +13,7 @@ interface BoardPost {
   작성일: string
   공개여부: boolean
   썸네일: string
+  콘텐츠URL: string
 }
 
 interface RelatedPost {
@@ -170,15 +171,26 @@ export default function PostDetailClient({ postId }: { postId: string }) {
               )}
 
               {/* 본문 */}
-              <div className="sp-content">
-                {post.내용 ? (
-                  <div className="sp-body" dangerouslySetInnerHTML={{ __html: post.내용 }} />
-                ) : (
-                  <div className="sp-body">
-                    <p style={{ color: '#999' }}>본문 내용이 없습니다.</p>
-                  </div>
-                )}
-              </div>
+              {post.콘텐츠URL ? (
+                <div className="sp-r2-content">
+                  <iframe
+                    src={post.콘텐츠URL}
+                    title={post.제목}
+                    className="sp-r2-iframe"
+                    sandbox="allow-scripts allow-same-origin"
+                  />
+                </div>
+              ) : (
+                <div className="sp-content">
+                  {post.내용 ? (
+                    <div className="sp-body" dangerouslySetInnerHTML={{ __html: post.내용 }} />
+                  ) : (
+                    <div className="sp-body">
+                      <p style={{ color: '#999' }}>본문 내용이 없습니다.</p>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* CTA 섹션 */}
               <div className="sp-cta-section">
@@ -443,6 +455,18 @@ export default function PostDetailClient({ postId }: { postId: string }) {
           width: 100%;
           max-height: 500px;
           object-fit: cover;
+          display: block;
+        }
+
+        /* R2 콘텐츠 (iframe) */
+        .sp-r2-content {
+          width: 100%;
+          border-top: 1px solid rgba(0, 212, 216, 0.12);
+        }
+        .sp-r2-iframe {
+          width: 100%;
+          min-height: 800px;
+          border: none;
           display: block;
         }
 

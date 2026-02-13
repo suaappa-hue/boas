@@ -4,32 +4,33 @@ import { deleteR2Image } from '@/lib/r2'
 
 const AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN
 const AIRTABLE_BASE_ID = 'appvXvzEaBRCvmTyU'
-const BOARD_TABLE_ID = 'tbleNuxlGV59U47mZ'
+const BOARD_TABLE_ID = 'tblLedyAIbFgQseqj'
 
 // 필드 ID 매핑 (Airtable 인코딩 이슈 방지)
 const FIELD_IDS: Record<string, string> = {
-  제목: 'fldwrF2rOBTv4hZRv',
-  요약: 'fldJGD9b86t9R7Ms0',
-  내용: 'fldo368fKoMJZctIi',
-  카테고리: 'fldRQhAJL3ReMVA1n',
-  금액: 'fldqnLdpI7yZE0QzV',
-  작성일: 'fld4sk10tXdzZjQWh',
-  공개여부: 'fldokDOixWld4QjgG',
-  썸네일: 'fldJkEamGcm3EVtz2',
+  제목: 'fld7poXWMZf6NMKO3',
+  요약: 'fldTMNNVjs37JzxrK',
+  내용: 'fldMY90GJcYjRE4Ui',
+  카테고리: 'fldMNXycDesa3wKgI',
+  금액: 'fldLjoHiF8ip0gdaJ',
+  작성일: 'fldmZ0w1NEwncUQMG',
+  공개여부: 'fld4NYuxs6m0MbrfS',
+  썸네일: 'flduqZZJjlidnnjMG',
+  콘텐츠URL: 'fldqwfMQENXiNWXvi',
 }
 
 // 카테고리 Select Option ID → 이름
 const CATEGORY_NAMES: Record<string, string> = {
-  selK3D1RaEZYTeZcn: '성공사례',
-  selmMKlU4oehoqy5X: '정책자금',
-  selJbVQrsVVXLQ1ma: '인증지원',
+  selFWQivR4YacBodj: '성공사례',
+  sel558D2WXFAzZIC0: '정책자금',
+  selUkOEnIyiDKYxDE: '인증지원',
 }
 
 // 카테고리 이름 → Select Option ID
 const CATEGORY_IDS: Record<string, string> = {
-  성공사례: 'selK3D1RaEZYTeZcn',
-  정책자금: 'selmMKlU4oehoqy5X',
-  인증지원: 'selJbVQrsVVXLQ1ma',
+  성공사례: 'selFWQivR4YacBodj',
+  정책자금: 'sel558D2WXFAzZIC0',
+  인증지원: 'selUkOEnIyiDKYxDE',
 }
 
 interface AirtableField {
@@ -83,6 +84,7 @@ export async function GET(request: NextRequest) {
           작성일: getFieldById(f, '작성일') || record.createdTime,
           공개여부: getFieldById(f, '공개여부') !== false,
           썸네일: getFieldById(f, '썸네일') || '',
+          콘텐츠URL: getFieldById(f, '콘텐츠URL') || '',
         },
       })
     }
@@ -108,6 +110,7 @@ export async function GET(request: NextRequest) {
         작성일: getFieldById(f, '작성일') || record.createdTime,
         공개여부: getFieldById(f, '공개여부') !== false,
         썸네일: getFieldById(f, '썸네일') || '',
+        콘텐츠URL: getFieldById(f, '콘텐츠URL') || '',
       }
     })
 
@@ -121,7 +124,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { 제목, 요약, 내용, 카테고리, 금액, 공개여부, 썸네일 } = body
+    const { 제목, 요약, 내용, 카테고리, 금액, 공개여부, 썸네일, 콘텐츠URL } = body
 
     if (!제목) {
       return NextResponse.json({ success: false, error: '제목은 필수입니다.' }, { status: 400 })
@@ -141,6 +144,7 @@ export async function POST(request: NextRequest) {
     if (금액) fields[FIELD_IDS.금액] = 금액
     if (공개여부 !== undefined) fields[FIELD_IDS.공개여부] = 공개여부
     if (썸네일) fields[FIELD_IDS.썸네일] = 썸네일
+    if (콘텐츠URL) fields[FIELD_IDS.콘텐츠URL] = 콘텐츠URL
 
     const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${BOARD_TABLE_ID}?returnFieldsByFieldId=true`
     const response = await fetch(url, {
@@ -170,7 +174,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json()
-    const { id, 제목, 요약, 내용, 카테고리, 금액, 공개여부, 썸네일 } = body
+    const { id, 제목, 요약, 내용, 카테고리, 금액, 공개여부, 썸네일, 콘텐츠URL } = body
 
     if (!id) {
       return NextResponse.json({ success: false, error: 'ID가 필요합니다.' }, { status: 400 })
@@ -207,6 +211,7 @@ export async function PUT(request: NextRequest) {
     if (금액 !== undefined) fields[FIELD_IDS.금액] = 금액
     if (공개여부 !== undefined) fields[FIELD_IDS.공개여부] = 공개여부
     if (썸네일 !== undefined) fields[FIELD_IDS.썸네일] = 썸네일
+    if (콘텐츠URL !== undefined) fields[FIELD_IDS.콘텐츠URL] = 콘텐츠URL
 
     const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${BOARD_TABLE_ID}/${id}?returnFieldsByFieldId=true`
     const response = await fetch(url, {

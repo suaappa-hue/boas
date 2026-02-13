@@ -16,6 +16,7 @@ interface BoardPost {
   작성일: string
   공개여부: boolean
   썸네일: string
+  콘텐츠URL: string
 }
 
 async function getPost(id: string): Promise<BoardPost | null> {
