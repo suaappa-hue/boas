@@ -457,7 +457,7 @@ export default function AnalyticsPage() {
               </div>
               <div>
                 <p className="text-sm font-medium text-emerald-300">GA4 연동됨</p>
-                <p className="text-xs text-emerald-500">Property ID: 524238112</p>
+                <p className="text-xs text-emerald-500">Property ID: 524671234</p>
               </div>
             </div>
             <div className="text-right">
