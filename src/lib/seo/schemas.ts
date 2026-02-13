@@ -1,4 +1,4 @@
-const SITE_URL = 'https://example.com'
+const SITE_URL = 'https://boas-two.vercel.app'
 const SITE_NAME = '보아스 경영지원솔루션'
 const PHONE = '1533-9269'
 

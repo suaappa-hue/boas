@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-const SITE_URL = 'https://example.com'
+const SITE_URL = 'https://boas-two.vercel.app'
 const SITE_NAME = '보아스 경영지원솔루션'
 
 export const baseMetadata: Metadata = {
@@ -28,7 +28,7 @@ export const pageMetadata: Record<string, Metadata> = {
       siteName: SITE_NAME,
       locale: 'ko_KR',
       type: 'website',
-      images: [{ url: 'https://example.com/images/og-image.png', width: 1200, height: 630, alt: '보아스 경영지원솔루션 - 정부정책자금 자금확보 전문가' }],
+      images: [{ url: 'https://boas-two.vercel.app/images/og-image.png', width: 1200, height: 630, alt: '보아스 경영지원솔루션 - 정부정책자금 자금확보 전문가' }],
     },
     twitter: {
       card: 'summary_large_image',

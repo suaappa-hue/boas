@@ -64,7 +64,7 @@ export default function MobileBottomNav() {
   }
 
   const isActive = (href: string) => {
-    return pathname.startsWith(href.split('#')[0])
+    return pathname?.startsWith(href.split('#')[0]) ?? false
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

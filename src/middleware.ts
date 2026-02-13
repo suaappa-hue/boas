@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const ADMIN_HOST = 'admin.example.com'
+const ADMIN_HOST = 'admin.boas-two.vercel.app'
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const hostname = request.headers.get('host') || ''
   const isAdminDomain = hostname.startsWith('admin.')
 
-  // admin.example.com 서브도메인 처리
+  // admin.boas-two.vercel.app 서브도메인 처리
   if (isAdminDomain) {
     const authCookie = request.cookies.get('admin_auth')
     const isAuthenticated = authCookie?.value === 'authenticated'
@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
 
     // admin-login, dashboard, api는 허용, 나머지 공개 페이지는 메인 도메인으로
     if (!pathname.startsWith('/admin-login') && !pathname.startsWith('/dashboard') && !pathname.startsWith('/api/') && !pathname.startsWith('/_next')) {
-      return NextResponse.redirect(new URL(pathname, `https://example.com`))
+      return NextResponse.redirect(new URL(pathname, `https://boas-two.vercel.app`))
     }
 
     return NextResponse.next()

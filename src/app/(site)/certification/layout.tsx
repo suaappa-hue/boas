@@ -13,8 +13,8 @@ export default function CertificationLayout({ children }: { children: React.Reac
           __html: JSON.stringify([
             serviceSchema('pro'),
             breadcrumbSchema([
-              { name: '홈', url: 'https://example.com' },
-              { name: '인증 컨설팅', url: 'https://example.com/certification' },
+              { name: '홈', url: 'https://boas-two.vercel.app' },
+              { name: '인증 컨설팅', url: 'https://boas-two.vercel.app/certification' },
             ]),
           ]),
         }}

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '보아스 경영지원솔루션 | 정책자금 경영컨설팅',
     description: '체계적인 경영 자문, 정책자금 전문 컨설팅',
-    url: 'https://example.com',
+    url: 'https://boas-two.vercel.app',
     siteName: '보아스 경영지원솔루션',
     locale: 'ko_KR',
     type: 'website',

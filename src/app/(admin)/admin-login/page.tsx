@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirect = searchParams.get('redirect') || '/dashboard'
+  const redirect = searchParams?.get('redirect') || '/dashboard'
 
   const [step, setStep] = useState<'request' | 'verify'>('request')
   const [code, setCode] = useState(['', '', '', '', '', ''])

@@ -1,10 +1,10 @@
 name = "boas-analytics"
 main = "src/index.ts"
 compatibility_date = "2024-12-01"
-account_id = "2f259a63f12bdd878204e26f063ff337"
+account_id = "a06cba973a47136200c275d95feb0d71"
 
 [triggers]
 crons = ["0 16 * * *"]   # 매일 16:00 UTC = KST 01:00
 
 [vars]
-TELEGRAM_CHAT_ID = "-1003644635039"
+TELEGRAM_CHAT_ID = "-1003738101621"

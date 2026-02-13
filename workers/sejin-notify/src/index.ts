@@ -118,7 +118,7 @@ function buildTelegramMessage(data: ConsultData, now: string): string {
   }
 
   msg += '\n📅 ' + now
-  msg += '\n\n📊 <a href="https://example.com/dashboard/leads">리드 관리 바로가기</a>'
+  msg += '\n\n📊 <a href="https://boas-two.vercel.app/dashboard/leads">리드 관리 바로가기</a>'
   return msg
 }
 

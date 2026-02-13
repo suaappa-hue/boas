@@ -12,8 +12,8 @@ export default function SuccessLayout({ children }: { children: React.ReactNode 
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             breadcrumbSchema([
-              { name: '홈', url: 'https://example.com' },
-              { name: '성공사례', url: 'https://example.com/success' },
+              { name: '홈', url: 'https://boas-two.vercel.app' },
+              { name: '성공사례', url: 'https://boas-two.vercel.app/success' },
             ]),
           ]),
         }}

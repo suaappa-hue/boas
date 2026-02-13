@@ -48,7 +48,7 @@ export default async function Image() {
         {/* Logo - 원본 비율 유지 (1200:363 ≈ 3.3:1) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://example.com/images/logo.png"
+          src="https://boas-two.vercel.app/images/logo.png"
           width={640}
           height={194}
           style={{ marginBottom: 48 }}
@@ -89,7 +89,7 @@ export default async function Image() {
             letterSpacing: '0.06em',
           }}
         >
-          example.com
+          boas-two.vercel.app
         </div>
 
         {/* Bottom gold accent line */}

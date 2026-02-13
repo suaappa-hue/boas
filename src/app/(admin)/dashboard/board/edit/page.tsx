@@ -133,7 +133,7 @@ function renderPreview(raw: string): string {
 function BoardEditor() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const editId = searchParams.get('id')
+  const editId = searchParams?.get('id') ?? null
   const isEdit = !!editId
 
   const [form, setForm] = useState<PostForm>(emptyForm)
