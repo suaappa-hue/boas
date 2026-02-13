@@ -9,7 +9,7 @@ interface Env {
 }
 
 // Airtable config
-const AIRTABLE_BASE_ID = 'appZPwyTU6EfGdjC6'
+const AIRTABLE_BASE_ID = 'appvXvzEaBRCvmTyU'
 const AIRTABLE_TABLE_NAME = '일별통계'
 
 // ─── JWT / OAuth2 (Web Crypto API) ───
@@ -398,24 +398,24 @@ async function sendTelegramAlert(env: Env, message: string) {
 export default {
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
     const date = getYesterdayKST()
-    console.log(`[sejin-analytics] Cron triggered for date: ${date}`)
+    console.log(`[boas-analytics] Cron triggered for date: ${date}`)
 
     try {
       // 1. OAuth2 Access Token
       const accessToken = await getAccessToken(env)
-      console.log('[sejin-analytics] OAuth2 token acquired')
+      console.log('[boas-analytics] OAuth2 token acquired')
 
       // 2. GA4 Data API
       const ga4Data = await fetchGA4Data(env, accessToken)
-      console.log(`[sejin-analytics] GA4 data fetched: ${ga4Data.visitors} visitors, ${ga4Data.pageviews} pageviews`)
+      console.log(`[boas-analytics] GA4 data fetched: ${ga4Data.visitors} visitors, ${ga4Data.pageviews} pageviews`)
 
       // 3. Airtable upsert
       const action = await upsertAirtable(env, date, ga4Data)
-      console.log(`[sejin-analytics] Airtable record ${action} for ${date}`)
+      console.log(`[boas-analytics] Airtable record ${action} for ${date}`)
 
       // 4. 성공 알림
       await sendTelegramAlert(env,
-        `📊 <b>세진 일별통계 저장 완료</b>\n\n` +
+        `📊 <b>보아스 일별통계 저장 완료</b>\n\n` +
         `📅 ${date}\n` +
         `├ 방문자: <b>${ga4Data.visitors}</b>\n` +
         `├ 페이지뷰: <b>${ga4Data.pageviews}</b>\n` +
@@ -428,10 +428,10 @@ export default {
       )
     } catch (error) {
       const errMsg = error instanceof Error ? error.message : String(error)
-      console.error(`[sejin-analytics] Error: ${errMsg}`)
+      console.error(`[boas-analytics] Error: ${errMsg}`)
 
       await sendTelegramAlert(env,
-        `🚨 <b>세진 일별통계 오류</b>\n\n` +
+        `🚨 <b>보아스 일별통계 오류</b>\n\n` +
         `📅 대상 날짜: ${date}\n` +
         `❌ ${errMsg.slice(0, 500)}`
       )

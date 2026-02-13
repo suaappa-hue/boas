@@ -1,5 +1,5 @@
 {
-  "name": "jni-notify",
+  "name": "boas-notify",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",

@@ -2415,7 +2415,7 @@ body {
 
 /* 토글 버튼 (접기/펼치기) */
 .boas-floating-toggle {
-  background: linear-gradient(135deg, #00D4D8 0%, #3BF4F7 100%);
+  background: linear-gradient(135deg, #009CA0 0%, #00B8BC 100%);
   color: white;
   padding: 12px 24px;
   border-radius: 8px 8px 0 0;
@@ -2513,7 +2513,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+  background: linear-gradient(135deg, #009CA0, #00B8BC);
   color: white;
   padding: 6px 14px;
   border-radius: 20px;
@@ -2633,7 +2633,7 @@ body {
 
 /* 제출 버튼 */
 .boas-floating-submit {
-  background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+  background: linear-gradient(135deg, #009CA0, #00B8BC);
   color: white;
   padding: 12px 32px;
   border: none;
@@ -2822,7 +2822,7 @@ body {
 
   /* 슬라이드업 CTA 트리거 */
   .boas-slideup-trigger {
-    background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+    background: linear-gradient(135deg, #009CA0, #00B8BC);
     padding: 12px 20px;
     display: flex;
     align-items: center;
@@ -2987,7 +2987,7 @@ body {
   }
 
   .boas-slideup-submit {
-    background: linear-gradient(135deg, #00D4D8, #3BF4F7);
+    background: linear-gradient(135deg, #009CA0, #00B8BC);
     color: white;
     padding: 12px 24px;
     border: none;

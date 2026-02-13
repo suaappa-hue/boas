@@ -13,8 +13,8 @@ export const IMAGES = {
   pointCustom: `${IMG}/point-custom.webp`,
   pointTransparent: `${IMG}/point-transparent.webp`,
   storyBg: `${IMG}/story-bg.webp`,
-  consultantPortrait: '/images/consultant-team.png',
-  aftercareConsulting: '/images/aftercare-consulting.png',
+  consultantPortrait: `${IMG}/consultant-team.webp`,
+  aftercareConsulting: `${IMG}/aftercare-consulting.webp`,
 
   // 정책자금
   fundHero: `${IMG}/fund-hero.webp`,

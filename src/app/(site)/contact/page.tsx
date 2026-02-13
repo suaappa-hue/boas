@@ -59,12 +59,12 @@ export default function ContactPage() {
   }
 
   const faqs = [
-    { q: '정책자금 상담 비용이 정말 무료인가요?', a: '네, 초기 상담은 100% 무료입니다. 기업 현황 분석부터 최적의 정책자금 전략 제시까지 비용 부담 없이 전문 컨설턴트 상담을 받으실 수 있습니다. 상담 후 실제 신청 진행 시에만 별도 비용이 발생합니다.' },
-    { q: '정책자금 상담 시간은 얼마나 걸리나요?', a: '기본 상담은 약 30분~1시간 정도 소요됩니다. 기업 현황과 필요한 자금 규모에 따라 시간이 달라질 수 있으며, 충분한 시간을 가지고 상세히 상담해 드립니다.' },
-    { q: '정책자금 신청에 어떤 서류가 필요한가요?', a: '초기 상담 시에는 별도 서류 준비가 필요하지 않습니다. 기업 기본 정보(업종, 설립일, 직원 수 등)만 알고 계시면 됩니다. 필요한 서류는 상담 후 맞춤 전략 수립 단계에서 안내해 드립니다.' },
-    { q: '이미 정책자금을 받고 있어도 추가 상담이 가능한가요?', a: '네, 상담 가능합니다. 이미 정책자금을 받고 계신 경우에도 추가로 신청 가능한 정책자금이 있거나, 기업인증을 통해 더 유리한 조건으로 재신청할 수 있습니다. 현재 상황을 분석하여 최적의 추가 자금조달 방안을 안내해 드립니다.' },
-    { q: '상담 후 컨설팅 계약은 필수인가요?', a: '아니요, 상담 후 계약은 전혀 강제되지 않습니다. 상담을 통해 제시된 자금조달 전략을 충분히 검토하신 후, 필요하다고 판단되실 때만 진행하시면 됩니다. 부담 없이 상담받으실 수 있습니다.' },
-    { q: '소규모 중소기업도 정책자금 상담이 가능한가요?', a: '물론입니다. 1인 기업부터 중소기업까지 규모와 관계없이 모두 상담 가능합니다. 각 기업의 규모와 특성에 맞는 최적의 정책자금 지원 방안을 제시해 드립니다.' },
+    { q: '무료심사에 별도 비용이 발생하나요?', a: '아닙니다. 경영컨설턴트 김광진 대표가 직접 진행하는 초기 현황분석은 전액 무료입니다. 귀사의 재무 상태와 성장 가능성을 종합적으로 점검해 드리며, 이후 실행 단계로 넘어가실 때에만 서비스 비용이 안내됩니다.' },
+    { q: '현황분석은 어느 정도 시간이 소요되나요?', a: '통상 40분에서 1시간 내외로 진행됩니다. 기업 규모와 자금 수요에 따라 분석 깊이가 달라지며, 충분한 시간을 확보하여 핵심 사항을 놓치지 않도록 꼼꼼히 살펴드립니다.' },
+    { q: '첫 상담 전에 준비해야 할 자료가 있나요?', a: '별도의 서류 없이 편하게 상담받으실 수 있습니다. 업종, 설립 시기, 현재 매출 규모 정도만 파악하고 계시면 충분합니다. 구체적인 증빙 서류는 전략이 확정된 이후 단계에서 순서대로 안내해 드립니다.' },
+    { q: '기존에 정책자금을 수령한 이력이 있어도 되나요?', a: '당연히 가능합니다. 기수령 이력이 있더라도 활용 가능한 추가 정책자금이나 기업인증 제도가 다수 존재합니다. 보아스에서는 기존 수혜 내역까지 종합 검토하여, 추가로 확보할 수 있는 최적의 자금 경로를 설계해 드립니다.' },
+    { q: '상담을 받으면 반드시 계약해야 하나요?', a: '전혀 그렇지 않습니다. 현황분석 결과를 확인하신 뒤, 실행 여부는 전적으로 대표님께서 판단하시면 됩니다. 보아스는 강요 없는 상담을 원칙으로 하며, 납득이 되셨을 때만 다음 단계로 진행합니다.' },
+    { q: '매출이 적은 초기 기업도 신청할 수 있나요?', a: '물론 가능합니다. 예비창업자부터 1인 기업, 초기 스타트업까지 기업 규모에 관계없이 신청하실 수 있습니다. 보아스는 각 기업의 성장 단계와 업종 특성에 맞는 정책자금 활용 방안을 개별적으로 설계해 드립니다.' },
   ]
 
   return (
@@ -248,13 +248,13 @@ export default function ContactPage() {
         <div className="boas-contact-hero-container">
           <div className="boas-contact-hero-content">
             <h1 className="boas-contact-hero-headline">
-              무료 현황분석으로<br/>
-              시작하세요
+              전문 경영컨설턴트가<br/>
+              직접 검토합니다
             </h1>
 
             <p className="boas-contact-hero-subheadline">
-              정책자금부터 기업인증까지<br/>
-              맞춤형 자금조달 전략을 무료로 확인하세요
+              귀사의 재무 현황과 성장 잠재력을<br/>
+              무료로 점검받고, 최적의 정책자금 경로를 확인하세요
             </p>
 
             <div className="boas-contact-hero-cta-group">
@@ -290,10 +290,10 @@ export default function ContactPage() {
       <section className="boas-contact-process">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">정책자금 상담 프로세스</h2>
+            <h2 className="boas-section-title">보아스 무료심사 절차</h2>
             <p className="boas-section-subtitle">
-              체계적인 4단계 컨설팅으로<br/>
-              최적의 자금조달 전략을 제시합니다
+              전문 컨설턴트의 4단계 검토로<br/>
+              귀사에 맞는 자금 확보 로드맵을 설계합니다
             </p>
           </div>
 
@@ -306,10 +306,10 @@ export default function ContactPage() {
                 </svg>
                 <span className="boas-step-number-badge">01</span>
               </div>
-              <h3 className="boas-step-card-title">무료심사 신청</h3>
+              <h3 className="boas-step-card-title">심사 접수</h3>
               <p className="boas-step-card-desc">
-                온라인 또는 전화로<br/>
-                간편하게 신청하세요
+                웹 폼 또는 전화 한 통으로<br/>
+                1분 만에 접수 완료
               </p>
             </div>
 
@@ -323,10 +323,10 @@ export default function ContactPage() {
                 </svg>
                 <span className="boas-step-number-badge">02</span>
               </div>
-              <h3 className="boas-step-card-title">기업 현황 분석</h3>
+              <h3 className="boas-step-card-title">재무·역량 정밀 검토</h3>
               <p className="boas-step-card-desc">
-                전문 컨설턴트가<br/>
-                기업 역량을 면밀히 분석
+                컨설팅 경력의 전문가가<br/>
+                기업 체력을 다각도로 점검
               </p>
             </div>
 
@@ -338,10 +338,10 @@ export default function ContactPage() {
                 </svg>
                 <span className="boas-step-number-badge">03</span>
               </div>
-              <h3 className="boas-step-card-title">자금조달 전략 수립</h3>
+              <h3 className="boas-step-card-title">맞춤 자금 경로 설계</h3>
               <p className="boas-step-card-desc">
-                상황에 최적화된<br/>
-                정책자금 전략을 제시
+                업종·규모·시기를 고려한<br/>
+                실현 가능한 자금 로드맵 제시
               </p>
             </div>
 
@@ -352,10 +352,10 @@ export default function ContactPage() {
                 </svg>
                 <span className="boas-step-number-badge">04</span>
               </div>
-              <h3 className="boas-step-card-title">실행 지원</h3>
+              <h3 className="boas-step-card-title">승인까지 동행</h3>
               <p className="boas-step-card-desc">
-                신청부터 승인까지<br/>
-                전 과정을 밀착 지원
+                서류 준비부터 최종 승인까지<br/>
+                전 구간 밀착 관리
               </p>
             </div>
           </div>
@@ -366,8 +366,8 @@ export default function ContactPage() {
       <section className="boas-cta-bar">
         <div className="boas-cta-bar-container">
           <p className="boas-cta-text">
-            지금 바로 <span className="highlight">무료 심사</span>를 신청하세요<br/>
-            맞춤형 정책자금 전략을 확인할 수 있습니다
+            김광진 대표의 <span className="highlight">무료 현황분석</span>을 받아보세요<br/>
+            귀사가 놓치고 있는 정책자금 기회를 찾아드립니다
           </p>
         </div>
       </section>
@@ -376,10 +376,10 @@ export default function ContactPage() {
       <section className="boas-contact-faq">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">정책자금 상담 자주 묻는 질문</h2>
+            <h2 className="boas-section-title">무료심사 궁금증 해소</h2>
             <p className="boas-section-subtitle">
-              상담 전 궁금하신 사항을<br className="mobile-br"/>
-              빠르게 확인하세요
+              신청 전 자주 문의하시는 사항을<br className="mobile-br"/>
+              미리 정리했습니다
             </p>
           </div>
 
@@ -413,13 +413,13 @@ export default function ContactPage() {
             {/* Left: Info */}
             <div className="boas-form-info">
               <h2 className="boas-info-title">
-                정책자금<br/>
-                <span className="highlight">무료 상담 신청</span>
+                보아스<br/>
+                <span className="highlight">무료 현황분석 신청</span>
               </h2>
               <p className="boas-info-desc">
-                보아스 경영지원솔루션 전문 컨설턴트가<br/>
-                맞춤형 정책자금 조달 방안을<br/>
-                제시해드립니다.
+                경영컨설턴트 김광진 대표가<br/>
+                귀사의 자금 확보 가능성을<br/>
+                직접 검토해 드립니다.
               </p>
 
               <div className="boas-info-image">
@@ -445,8 +445,8 @@ export default function ContactPage() {
             {/* Right: Form */}
             <div className="boas-form-area">
               <div className="boas-form-header">
-                <h3 className="boas-form-title">상담 신청서</h3>
-                <p className="boas-form-subtitle">정보를 입력해주시면 전문가가 24시간 내 연락드립니다</p>
+                <h3 className="boas-form-title">무료 현황분석 신청서</h3>
+                <p className="boas-form-subtitle">아래 항목을 작성해 주시면 김광진 대표가 직접 검토 후 연락드립니다</p>
               </div>
 
               <form onSubmit={handleSubmit}>

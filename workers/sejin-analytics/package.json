@@ -1,5 +1,5 @@
 {
-  "name": "sejin-analytics",
+  "name": "boas-analytics",
   "private": true,
   "scripts": {
     "dev": "wrangler dev",

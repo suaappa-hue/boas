@@ -164,13 +164,13 @@ export default function FundPage() {
         <div className="boas-fund-hero-container">
           <div className="boas-fund-hero-content">
             <h1 className="boas-fund-hero-headline">
-              중소기업 성장 자금,<br/>
-              정책자금으로 확보하세요
+              전문 컨설턴트가 설계하는<br/>
+              정책자금 조달 전략
             </h1>
 
             <p className="boas-fund-hero-subheadline">
-              저금리, 장기 상환, 정부 보증까지<br/>
-              중소기업 자금조달을 든든히 지원합니다
+              대표자 역량과 기업 성장잠재력을 먼저 분석합니다.<br/>
+              승인 가능성을 높이는 전략, 보아스가 함께합니다.
             </p>
 
             <div className="boas-fund-hero-cta-group">
@@ -206,18 +206,18 @@ export default function FundPage() {
       <section id="boas-fund-why" className="boas-fund-why">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">중소기업 정책자금, 왜 필요한가요?</h2>
-            <p className="boas-section-subtitle">기업 성장을 위한 든든한 자금조달 파트너</p>
+            <h2 className="boas-section-title">정책자금, 받을 수 있는데 왜 안 받으세요?</h2>
+            <p className="boas-section-subtitle">자격이 되는데도 몰라서, 준비가 안 돼서 놓치는 기업이 많습니다</p>
           </div>
 
           <div className="boas-why-grid">
             <div className="boas-why-card">
               <Image quality={90} src={IMAGES.whyLowRate} alt="저금리 장점" width={400} height={200} className="boas-why-image" />
               <div className="boas-why-content">
-                <h3 className="boas-why-title">저금리 자금조달</h3>
+                <h3 className="boas-why-title">이자 부담, 확 줄입니다</h3>
                 <p className="boas-why-description">
-                  시중 금리 대비 1~3% 낮은 금리로<br/>
-                  이자 부담을 대폭 절감할 수 있습니다.
+                  시중 금리 대비 1~3%p 낮은 정책금리 적용.<br/>
+                  같은 금액이라도 매년 수백만 원을 아낄 수 있습니다.
                 </p>
               </div>
             </div>
@@ -225,10 +225,10 @@ export default function FundPage() {
             <div className="boas-why-card">
               <Image quality={90} src={IMAGES.whyGrowth} alt="성장 동력 확보" width={400} height={200} className="boas-why-image" />
               <div className="boas-why-content">
-                <h3 className="boas-why-title">성장 동력 확보</h3>
+                <h3 className="boas-why-title">투자 타이밍을 놓치지 마세요</h3>
                 <p className="boas-why-description">
-                  설비 투자, R&amp;D, 인력 채용 등<br/>
-                  중소기업 성장의 핵심 자금을 확보합니다.
+                  설비 도입, 인력 확충, 신사업 진출까지.<br/>
+                  기회가 왔을 때 자금이 준비되어야 합니다.
                 </p>
               </div>
             </div>
@@ -236,10 +236,10 @@ export default function FundPage() {
             <div className="boas-why-card">
               <Image quality={90} src={IMAGES.whyTrust} alt="기업 신뢰도 향상" width={400} height={200} className="boas-why-image" />
               <div className="boas-why-content">
-                <h3 className="boas-why-title">기업 신뢰도 향상</h3>
+                <h3 className="boas-why-title">정부 보증이 곧 신용입니다</h3>
                 <p className="boas-why-description">
-                  정부 보증으로 기업 신뢰도 상승,<br/>
-                  추가 투자 유치에도 유리합니다.
+                  정책자금 수혜 이력은 기업 신뢰도를 높이고,<br/>
+                  후속 투자와 금융 거래에서 유리한 조건을 만듭니다.
                 </p>
               </div>
             </div>
@@ -257,8 +257,8 @@ export default function FundPage() {
       <section className="boas-fund-category">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">정책자금 컨설팅 분야</h2>
-            <p className="boas-section-subtitle">기업 성장 단계에 맞는 맞춤형 자금을 안내합니다</p>
+            <h2 className="boas-section-title">보아스 컨설팅 영역</h2>
+            <p className="boas-section-subtitle">대표님의 기업 상황에 맞는 최적의 자금과 경영 전략을 설계합니다</p>
           </div>
 
           <div className="boas-tab-container">
@@ -418,13 +418,13 @@ export default function FundPage() {
                       <h3 className="boas-item-title">재무구조 개선</h3>
                     </div>
                     <ul className="boas-consulting-list">
-                      <li><strong>부채비율</strong> 최적화</li>
-                      <li><strong>유동비율</strong> 관리</li>
-                      <li>자금 심사 시 유리한 <strong>재무제표</strong> 구성</li>
-                      <li><strong>현금흐름</strong> 개선 전략 수립</li>
-                      <li><strong>재무 건전성</strong> 지표 관리</li>
-                      <li><strong>자본구조</strong> 재편성 컨설팅</li>
-                      <li><strong>재무비율</strong> 분석 및 개선 방안</li>
+                      <li>심사 통과에 유리한 <strong>부채비율</strong> 조정</li>
+                      <li><strong>유동비율</strong> 기준 충족 가이드</li>
+                      <li>보증기관이 선호하는 <strong>재무제표</strong> 설계</li>
+                      <li>월별 <strong>현금흐름</strong> 예측 및 관리 체계 구축</li>
+                      <li><strong>재무 건전성</strong> 평가 등급 개선 전략</li>
+                      <li>정책자금 신청 전 <strong>자본구조</strong> 사전 정비</li>
+                      <li>전문가 관점의 <strong>재무비율</strong> 취약점 진단</li>
                     </ul>
                   </div>
                 </div>
@@ -440,13 +440,13 @@ export default function FundPage() {
                       <h3 className="boas-item-title">원가절감 전략</h3>
                     </div>
                     <ul className="boas-consulting-list">
-                      <li>불필요한 <strong>지출 분석</strong></li>
-                      <li><strong>원가구조</strong> 개선</li>
-                      <li><strong>수익성</strong> 개선 방안 제시</li>
-                      <li><strong>고정비/변동비</strong> 최적화</li>
-                      <li><strong>공정 효율화</strong>를 통한 원가절감</li>
-                      <li><strong>구매 단가</strong> 협상 전략</li>
-                      <li><strong>재고관리</strong> 최적화</li>
+                      <li>매출 대비 <strong>불필요 지출</strong> 항목 식별</li>
+                      <li>제품별·서비스별 <strong>원가구조</strong> 재설계</li>
+                      <li>매출총이익률 기반 <strong>수익성</strong> 개선 로드맵</li>
+                      <li><strong>고정비·변동비</strong> 비중 재조정</li>
+                      <li>생산라인 <strong>공정 효율화</strong> 포인트 도출</li>
+                      <li>주요 자재 <strong>구매 단가</strong> 벤치마킹 및 협상</li>
+                      <li>적정 <strong>재고 수준</strong> 산정 및 회전율 개선</li>
                     </ul>
                   </div>
                 </div>
@@ -462,13 +462,13 @@ export default function FundPage() {
                       <h3 className="boas-item-title">사업계획서 작성 코칭</h3>
                     </div>
                     <ul className="boas-consulting-list">
-                      <li><strong>심사관</strong>이 보는 <strong>핵심 포인트</strong> 전달</li>
-                      <li>설득력 있는 <strong>사업계획서</strong> 구조화</li>
-                      <li><strong>발표</strong> 및 <strong>인터뷰</strong> 대응 전략</li>
-                      <li><strong>시장분석</strong> 및 <strong>경쟁우위</strong> 작성법</li>
-                      <li><strong>재무계획</strong> 및 <strong>손익 추정</strong> 가이드</li>
-                      <li><strong>사업모델</strong> 명확화 컨설팅</li>
-                      <li><strong>PT 자료</strong> 제작 및 발표 코칭</li>
+                      <li>전문 컨설턴트가 알려주는 <strong>평가 핵심 기준</strong></li>
+                      <li>승인률을 높이는 <strong>사업계획서</strong> 논리 구조 설계</li>
+                      <li><strong>현장 발표</strong> 및 <strong>대면 심사</strong> 모의 훈련</li>
+                      <li>데이터 기반 <strong>시장분석</strong>·<strong>경쟁우위</strong> 서술 전략</li>
+                      <li>심사에 강한 <strong>재무계획</strong>·<strong>손익 추정표</strong> 작성법</li>
+                      <li>투자 매력도를 높이는 <strong>사업모델</strong> 정리 코칭</li>
+                      <li>실전형 <strong>PT 자료</strong> 구성 및 발표 리허설</li>
                     </ul>
                   </div>
                 </div>
@@ -482,48 +482,48 @@ export default function FundPage() {
       <section className="boas-fund-process">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">정책자금 상담 진행 절차</h2>
-            <p className="boas-section-subtitle">체계적인 4단계 컨설팅으로 자금조달을 지원합니다</p>
+            <h2 className="boas-section-title">보아스 컨설팅 프로세스</h2>
+            <p className="boas-section-subtitle">컨설팅 경험에 기반한 4단계 맞춤 전략으로 승인 가능성을 끌어올립니다</p>
           </div>
 
           <div className="boas-process-timeline">
             <div className="boas-process-step">
               <div className="boas-step-number">1</div>
-              <h3 className="boas-step-title">잠재력<br/>현황 진단</h3>
+              <h3 className="boas-step-title">대표자 역량<br/>현황분석</h3>
               <ul className="boas-step-description">
-                <li>재무 상태 분석</li>
-                <li>사업 모델 검토</li>
-                <li>지원 가능 사업 매칭</li>
+                <li>대표자 경력·역량 심층 분석</li>
+                <li>기업 재무 건전성 점검</li>
+                <li>수혜 가능 정책사업 탐색</li>
               </ul>
             </div>
 
             <div className="boas-process-step">
               <div className="boas-step-number">2</div>
-              <h3 className="boas-step-title">최적 솔루션<br/>전략 수립</h3>
+              <h3 className="boas-step-title">맞춤 자금<br/>로드맵 설계</h3>
               <ul className="boas-step-description">
-                <li>맞춤형 자금 계획 수립</li>
-                <li>필요 인증 확인</li>
-                <li>재무 개선 방안 제시</li>
+                <li>기업별 최적 자금 조합 설계</li>
+                <li>사전 취득 필요 인증 안내</li>
+                <li>심사 전 재무구조 개선 코칭</li>
               </ul>
             </div>
 
             <div className="boas-process-step">
               <div className="boas-step-number">3</div>
-              <h3 className="boas-step-title">사업계획서<br/>작성 코칭</h3>
+              <h3 className="boas-step-title">사업계획서<br/>전략 수립</h3>
               <ul className="boas-step-description">
-                <li>심사 기준 서류 전략</li>
-                <li>핵심 강점 부각</li>
-                <li>서류 검토 및 피드백</li>
+                <li>전문가 관점 서류 구성 전략</li>
+                <li>기업 고유 강점 스토리 설계</li>
+                <li>완성본 다각도 검토·보완</li>
               </ul>
             </div>
 
             <div className="boas-process-step">
               <div className="boas-step-number">4</div>
-              <h3 className="boas-step-title">발표/심사<br/>대비 지원</h3>
+              <h3 className="boas-step-title">실전 심사<br/>대응 훈련</h3>
               <ul className="boas-step-description">
-                <li>예상 질문 시뮬레이션</li>
-                <li>답변 전략 수립</li>
-                <li>최종 점검 및 제출</li>
+                <li>기출 질문 기반 모의 심사</li>
+                <li>약점 보완 답변 시나리오 수립</li>
+                <li>최종 서류 점검 및 제출 지원</li>
               </ul>
             </div>
           </div>
@@ -534,12 +534,12 @@ export default function FundPage() {
       <section className="boas-fund-final-cta">
         <div className="boas-final-cta-container">
           <h2 className="boas-final-cta-main-text">
-            <span className="highlight">정책자금</span>으로<br/>
-            중소기업 성장을 시작하세요
+            <span className="highlight">전문 컨설턴트</span>가 직접 설계하는<br/>
+            정책자금 승인 전략
           </h2>
           <p className="boas-final-cta-sub-text">
-            전문 컨설턴트가 대표님 상황에 최적화된<br/>
-            정책자금 조달 전략을 제시합니다
+            대표님의 역량과 기업의 성장잠재력을 정밀 분석하여<br/>
+            가장 현실적인 자금조달 방안을 제시합니다
           </p>
 
           <div className="boas-final-cta-button-group">

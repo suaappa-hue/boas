@@ -41,23 +41,43 @@ async function saveToAirtable(data: ConsultData) {
   })
 }
 
-// Worker로 알림 발송 (텔레그램 + 사내 이메일 + 고객 이메일)
-async function triggerNotifyWorker(data: ConsultData) {
-  const workerUrl = process.env.NOTIFY_WORKER_URL
-  const secret = process.env.NOTIFY_SECRET
-  if (!workerUrl || !secret) {
-    console.warn('[BOAS] NOTIFY_WORKER_URL or NOTIFY_SECRET not configured, skipping notifications')
+// 텔레그램 알림 발송
+async function sendTelegramNotification(data: ConsultData) {
+  const botToken = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+  if (!botToken || !chatId) {
+    console.warn('[BOAS] Telegram not configured, skipping notification')
     return
   }
 
-  await fetch(workerUrl, {
+  const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+  const text = [
+    '📋 *보아스 경영지원솔루션 \\- 상담 신청*',
+    '',
+    `👤 *대표자명:* ${escapeMarkdown(data.name)}`,
+    `📞 *연락처:* ${escapeMarkdown(data.phone)}`,
+    `🏢 *기업명:* ${escapeMarkdown(data.company || '-')}`,
+    `⏰ *통화가능시간:* ${escapeMarkdown(data.consultTime || '-')}`,
+    data.amount ? `💰 *자금규모:* ${escapeMarkdown(data.amount)}` : '',
+    data.fundType ? `📂 *자금종류:* ${escapeMarkdown(data.fundType)}` : '',
+    data.message ? `💬 *문의사항:* ${escapeMarkdown(data.message)}` : '',
+    '',
+    `🕐 ${escapeMarkdown(now)}`,
+  ].filter(Boolean).join('\n')
+
+  await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Notify-Secret': secret,
-    },
-    body: JSON.stringify(data),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text,
+      parse_mode: 'MarkdownV2',
+    }),
   })
+}
+
+function escapeMarkdown(text: string): string {
+  return text.replace(/([_*\[\]()~`>#+\-=|{}.!\\])/g, '\\$1')
 }
 
 export async function POST(request: NextRequest) {
@@ -72,14 +92,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 1. Airtable 저장 (필수 - await)
-    await saveToAirtable(data)
-
-    // 2. Worker 알림 발송 (await 필수 - Vercel serverless는 응답 후 즉시 종료되어 fire-and-forget 불가)
+    // 1. Airtable 저장
     try {
-      await triggerNotifyWorker(data)
+      await saveToAirtable(data)
     } catch (err) {
-      console.error('[BOAS] Notify worker failed:', err)
+      console.error('[BOAS] Airtable save failed:', err)
+    }
+
+    // 2. 텔레그램 알림 (필수)
+    try {
+      await sendTelegramNotification(data)
+    } catch (err) {
+      console.error('[BOAS] Telegram notification failed:', err)
     }
 
     return NextResponse.json({ success: true })

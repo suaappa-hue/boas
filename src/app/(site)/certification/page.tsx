@@ -124,37 +124,37 @@ const READY_TABS = [
 const CERT_CARDS = [
   {
     name: '벤처확인기업',
-    desc: '혁신적 기술과 성장 가능성을 인정받는 기업',
+    desc: '기술 기반 스타트업·성장기업의 필수 인증',
     benefits: ['세제 혜택 최대 50% 감면', '정책자금 금리 우대', '공공입찰 가점 부여'],
     image: 'certVenture' as const,
   },
   {
     name: '이노비즈',
-    desc: '기술혁신형 중소기업 인증',
+    desc: 'R&D 투자 실적을 공식 인정받는 기술혁신 인증',
     benefits: ['R&D 자금 지원 우대', '기술개발 세액공제', '조달청 입찰 우대'],
     image: 'certInnobiz' as const,
   },
   {
     name: '메인비즈',
-    desc: '경영혁신형 중소기업 인증',
+    desc: '경영 체계와 성과를 인정받는 경영혁신 인증',
     benefits: ['경영개선자금 지원', '컨설팅 비용 지원', '판로 개척 지원'],
     image: 'certMainbiz' as const,
   },
   {
     name: '기업부설연구소',
-    desc: '독자적 연구개발 역량 보유 기업',
+    desc: '연구개발비 세액공제의 핵심 요건',
     benefits: ['연구개발비 세액공제', '전문연구요원 배정', 'R&D 과제 수주 가점'],
     image: 'certLab' as const,
   },
   {
     name: 'ISO 인증',
-    desc: '국제 표준 품질경영시스템',
+    desc: '수출·입찰에 필수인 국제 품질경영 표준',
     benefits: ['수출 경쟁력 강화', '입찰 참가 자격', '기업 신뢰도 향상'],
     image: 'certIso' as const,
   },
   {
     name: '여성기업인증',
-    desc: '여성이 대표인 기업',
+    desc: '공공입찰 가점과 전용 자금을 활용하는 인증',
     benefits: ['공공입찰 우대 (5% 가점)', '정책자금 금리 우대', '특화 지원 프로그램'],
     image: 'certWoman' as const,
   },
@@ -307,13 +307,13 @@ export default function CertificationPage() {
         <div className="boas-cert-hero-container">
           <div className="boas-cert-hero-content">
             <h1 className="boas-cert-hero-headline">
-              기업인증 하나로<br/>
-              혜택은 여러 가지
+              인증 취득,<br/>
+              기업 성장의 시작점
             </h1>
 
             <p className="boas-cert-hero-subheadline">
-              세제 감면, 정책자금 우대, 입찰 가점까지<br/>
-              벤처·이노비즈 인증으로 성장 기회를 넓히세요
+              세제 감면부터 정책자금, 입찰 가점까지<br/>
+              전문 경영컨설턴트가 직접 인증 전략을 설계합니다
             </p>
 
             <div className="boas-cert-hero-cta-group">
@@ -334,8 +334,8 @@ export default function CertificationPage() {
             </div>
 
             <p className="boas-cert-hero-disclaimer">
-              기업 현황에 맞는 최적의 인증을 안내합니다.<br/>
-              인증 취득을 위한 전문 컨설팅을 제공합니다.
+              현황분석을 통해 귀사에 적합한 인증을 선별합니다.<br/>
+              서류 준비부터 심사 대응까지 원스톱으로 지원합니다.
             </p>
           </div>
 
@@ -349,8 +349,8 @@ export default function CertificationPage() {
       <section className="boas-cert-category">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">보아스 경영지원솔루션이 지원하는 중소기업 인증</h2>
-            <p className="boas-section-subtitle">귀사에 맞는 최적의 기업인증을 찾아드립니다</p>
+            <h2 className="boas-section-title">보아스가 취득을 지원하는 6대 기업인증</h2>
+            <p className="boas-section-subtitle">업종과 규모에 따라 가장 효과적인 인증 조합을 제안합니다</p>
           </div>
 
           <div className="boas-cert-grid">
@@ -386,7 +386,7 @@ export default function CertificationPage() {
       {/* CTA Bar */}
       <section className="boas-cert-cta-bar">
         <p className="boas-cert-cta-text">
-          우리 기업에 맞는 <span className="highlight">인증</span>, 지금 무료로 <span className="highlight">진단</span>하세요
+          인증 하나가 <span className="highlight">세금 감면</span>, <span className="highlight">자금 우대</span>, <span className="highlight">입찰 가점</span>을 만듭니다
         </p>
       </section>
 
@@ -394,8 +394,8 @@ export default function CertificationPage() {
       <section className="boas-cert-benefit-section">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">벤처·이노비즈 인증의 실질적 혜택</h2>
-            <p className="boas-section-subtitle">인증 취득 후 받을 수 있는 세제감면·자금우대 혜택</p>
+            <h2 className="boas-section-title">인증 취득 후 돌아오는 실질적 혜택</h2>
+            <p className="boas-section-subtitle">세제 감면, 자금 우대, 입찰 가점, 인재 채용까지 한눈에 확인하세요</p>
           </div>
 
           <div className="boas-benefit-tabs">
@@ -440,8 +440,8 @@ export default function CertificationPage() {
       <section className="boas-cert-ready">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">기업인증별 요건 및 준비사항</h2>
-            <p className="boas-section-subtitle">우리 기업이 갖춰야 할 인증 조건을 확인하세요</p>
+            <h2 className="boas-section-title">인증별 핵심 요건 체크리스트</h2>
+            <p className="boas-section-subtitle">귀사의 현재 조건으로 어떤 인증이 가능한지 미리 점검하세요</p>
           </div>
 
           <div className="boas-ready-tabs">
@@ -500,11 +500,11 @@ export default function CertificationPage() {
       <section className="boas-cert-final-cta">
         <div className="boas-section-container">
           <h2 className="boas-cert-final-cta-text">
-            우리 기업에 맞는 인증,<br/>
-            <span className="highlight">무료 진단으로 확인하세요</span>
+            어떤 인증이 우리 기업에 맞을까?<br/>
+            <span className="highlight">무료 현황분석으로 바로 확인하세요</span>
           </h2>
           <p className="boas-cert-final-cta-sub">
-            무료 인증 진단으로 최적의 인증을<br/>먼저 파악하고 시작하세요
+            전문 경영컨설턴트가 귀사의 현황을 분석하고<br/>최적의 인증 로드맵을 설계해 드립니다
           </p>
 
           <div className="boas-cert-final-cta-buttons">

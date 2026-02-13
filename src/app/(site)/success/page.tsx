@@ -157,13 +157,13 @@ export default async function SuccessPage() {
         <div className="boas-success-hero-container">
           <div className="boas-success-hero-content">
             <h1 className="boas-success-hero-headline">
-              정책자금 성공사례를<br/>
-              확인하세요
+              경영컨설턴트가 직접 설계한<br/>
+              자금조달 성공 기록
             </h1>
 
             <p className="boas-success-hero-subheadline">
-              정책자금부터 기업인증까지<br/>
-              보아스 경영지원솔루션과 함께한 자금조달 스토리
+              현황분석부터 자금 확보, 사후관리까지<br/>
+              보아스가 함께 만들어낸 실제 성과입니다
             </p>
 
             <div className="boas-success-hero-cta-group">
@@ -200,13 +200,13 @@ export default async function SuccessPage() {
         <div className="boas-aftercare-container">
           <div className="boas-aftercare-content">
             <h2 className="boas-aftercare-title">
-              한 번의 지원이<br/>
-              <span className="highlight">끝이 아닙니다</span>
+              자금 확보 이후가<br/>
+              <span className="highlight">진짜 시작입니다</span>
             </h2>
 
             <p className="boas-aftercare-subtitle">
-              지속적인 사후관리로<br/>
-              추가 정책자금까지 책임집니다
+              전문 컨설턴트의 밀착 사후관리로<br/>
+              기업 성장의 다음 단계까지 함께합니다
             </p>
 
             <div className="boas-timeline">
@@ -218,10 +218,10 @@ export default async function SuccessPage() {
                 </div>
                 <div>
                   <div className="boas-timeline-step">Step 1</div>
-                  <h3 className="boas-timeline-title">1차 정책자금 확보</h3>
+                  <h3 className="boas-timeline-title">맞춤 현황분석 및 자금 확보</h3>
                   <p className="boas-timeline-description">
-                    정책자금 또는 인증 취득으로<br/>
-                    첫 번째 자금조달 달성
+                    기업 재무·기술력을 정밀 분석하여<br/>
+                    최적의 정책자금 또는 인증을 확보합니다
                   </p>
                 </div>
               </div>
@@ -237,10 +237,10 @@ export default async function SuccessPage() {
                 </div>
                 <div>
                   <div className="boas-timeline-step">Step 2</div>
-                  <h3 className="boas-timeline-title">자금 집행 모니터링</h3>
+                  <h3 className="boas-timeline-title">집행 현황 점검 및 리스크 관리</h3>
                   <p className="boas-timeline-description">
-                    자금 사용 내역 관리 및<br/>
-                    추가 지원 가능성 검토
+                    자금 집행 과정을 함께 점검하고<br/>
+                    상환 리스크를 사전에 차단합니다
                   </p>
                 </div>
               </div>
@@ -254,10 +254,10 @@ export default async function SuccessPage() {
                 </div>
                 <div>
                   <div className="boas-timeline-step">Step 3</div>
-                  <h3 className="boas-timeline-title">추가 정책자금 시기 알림</h3>
+                  <h3 className="boas-timeline-title">신규 지원사업 선제 안내</h3>
                   <p className="boas-timeline-description">
-                    신청 가능한 정부지원사업 및<br/>
-                    인증 시기를 사전 안내
+                    기업 조건에 부합하는 정부지원사업을<br/>
+                    공고 전 단계에서 미리 알려드립니다
                   </p>
                 </div>
               </div>
@@ -271,10 +271,10 @@ export default async function SuccessPage() {
                 </div>
                 <div>
                   <div className="boas-timeline-step">Step 4</div>
-                  <h3 className="boas-timeline-title">2차 정책자금 조달 지원</h3>
+                  <h3 className="boas-timeline-title">복합 자금 전략으로 추가 조달</h3>
                   <p className="boas-timeline-description">
-                    다른 정책자금과 조합하여<br/>
-                    추가 자금조달 성공
+                    정책자금·인증·보증을 교차 설계하여<br/>
+                    기업 성장에 필요한 재원을 확대합니다
                   </p>
                 </div>
               </div>
@@ -294,8 +294,8 @@ export default async function SuccessPage() {
           <div className="boas-aftercare-visual">
             <Image quality={90} src={IMAGES.aftercareConsulting} alt="보아스 경영지원솔루션 사후관리 상담" width={500} height={750} />
             <p className="boas-aftercare-disclaimer">
-              ※ 현황 분석 및 성장잠재력을 평가합니다.<br/>
-              대표자가 직접 접수하는 것을 지원합니다.
+              ※ 기업별 재무 현황과 성장 가능성을 종합 평가합니다.<br/>
+              대표자 본인이 직접 신청·접수할 수 있도록 안내합니다.
             </p>
           </div>
         </div>
@@ -304,8 +304,8 @@ export default async function SuccessPage() {
       {/* 3. CTA Bar */}
       <section className="boas-success-cta-bar">
         <p className="boas-success-cta-text">
-          체계적인 <span className="highlight">사후 컨설팅</span>으로<br/>
-          자금상환까지 <span className="highlight">끝까지 함께</span>합니다
+          전문가의 눈으로 <span className="highlight">설계</span>하고<br/>
+          기업이 성장할 때까지 <span className="highlight">끝까지 동행</span>합니다
         </p>
       </section>
 
@@ -314,9 +314,9 @@ export default async function SuccessPage() {
         <div className="boas-success-board-container">
           <div className="boas-success-board-header">
             <h2 className="boas-success-board-title">
-              <span className="highlight">성공사례</span> 게시판
+              <span className="highlight">자금조달</span> 성과 기록
             </h2>
-            <p className="boas-success-board-subtitle">보아스 경영지원솔루션과 함께한 중소기업의 자금조달 스토리</p>
+            <p className="boas-success-board-subtitle">보아스와 함께 정책자금을 확보한 기업들의 실제 사례입니다</p>
           </div>
 
           <div className="boas-success-board-list">
@@ -352,12 +352,12 @@ export default async function SuccessPage() {
       {/* 5. Final CTA */}
       <section className="boas-final-cta">
         <h2 className="boas-final-cta-title">
-          다음 <span className="highlight">성공 주인공</span>은<br/>
-          당신의 기업입니다
+          지금 <span className="highlight">무료 심사</span>를 받으면<br/>
+          자금조달 가능성이 보입니다
         </h2>
         <p className="boas-final-cta-subtitle">
-          무료 심사로 맞춤형 자금조달 전략을<br/>
-          먼저 확인하고 시작하세요
+          전문 경영컨설턴트가 귀사의 현황을 분석하고<br/>
+          실현 가능한 자금조달 로드맵을 제시합니다
         </p>
 
         <div className="boas-final-cta-buttons">

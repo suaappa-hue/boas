@@ -44,13 +44,13 @@ export default function HomePage() {
             </div>
 
             <h1 className="boas-hero-headline">
-              기업의 성장 가능성을 분석해<br/>
-              <span className="highlight">맞춤 자금</span>을 설계합니다
+              대표님의 역량을 읽고<br/>
+              <span className="highlight">자금의 길</span>을 열어드립니다
             </h1>
 
             <p className="boas-hero-subheadline">
-              정책자금 심사부터 기업인증 컨설팅까지,<br/>
-              전담 컨설턴트가 1:1 맞춤 상담합니다.
+              경영컨설턴트 전문가가 대표자 역량을 직접 분석하고,<br/>
+              기업에 가장 유리한 정책자금 전략을 설계합니다.
             </p>
 
             <div className="boas-hero-cta-group">
@@ -73,8 +73,8 @@ export default function HomePage() {
             </div>
 
             <p className="boas-hero-disclaimer">
-              ※ 대표자 개인역량 및 성장잠재력을 분석합니다.<br/>
-              정책자금 서류작성 및 접수대행을 하지 않습니다.
+              ※ 대표자 개인역량 및 기업 성장잠재력을 심층 분석합니다.<br/>
+              정책자금 서류작성 및 접수대행은 하지 않습니다.
             </p>
           </div>
 
@@ -188,8 +188,8 @@ export default function HomePage() {
       <section className="boas-cta-bar">
         <div className="boas-cta-bar-container">
           <p className="boas-cta-text">
-            중소기업 대표님,<br className="mobile-br"/>
-            <span className="highlight">무료 상담</span>으로 <span className="highlight">자금조달 방안</span> 확인하세요
+            대표님의 기업,<br className="mobile-br"/>
+            <span className="highlight">정책자금</span> 대상인지 <span className="highlight">무료로 확인</span>해보세요
           </p>
         </div>
       </section>
@@ -198,8 +198,8 @@ export default function HomePage() {
       <section id="boas-core" className="boas-core">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">보아스 경영지원솔루션 핵심 서비스</h2>
-            <p className="boas-section-subtitle">대표자 역량분석 기반<br className="mobile-br"/>맞춤형 자금 전략을 수립합니다</p>
+            <h2 className="boas-section-title">보아스가 제공하는<br/>세 가지 핵심 솔루션</h2>
+            <p className="boas-section-subtitle">전문가의 시선으로 기업을 분석하고,<br className="mobile-br"/>최적의 자금 경로를 찾아드립니다</p>
           </div>
 
           <div className="boas-service-grid">
@@ -218,9 +218,9 @@ export default function HomePage() {
                 </div>
                 <h3 className="boas-service-title">정책자금 컨설팅</h3>
                 <p className="boas-service-description">
-                  저금리 중소기업 정책자금<br/>
-                  으로 성장 기반을 마련하고<br/>
-                  맞춤 전략을 수립합니다.
+                  대표님 기업의 재무구조와<br/>
+                  성장단계에 맞는 저금리<br/>
+                  정책자금을 설계합니다.
                 </p>
                 <span className="boas-service-link">
                   자세히 보기
@@ -244,9 +244,9 @@ export default function HomePage() {
                 </div>
                 <h3 className="boas-service-title">인증 컨설팅</h3>
                 <p className="boas-service-description">
-                  벤처·이노비즈 등<br/>
-                  기업인증으로 세제혜택과<br/>
-                  자금우대를 확보합니다.
+                  벤처·이노비즈·메인비즈 등<br/>
+                  인증 취득으로 세제감면과<br/>
+                  정책자금 우대를 확보합니다.
                 </p>
                 <span className="boas-service-link">
                   자세히 보기
@@ -270,9 +270,9 @@ export default function HomePage() {
                 </div>
                 <h3 className="boas-service-title">성공사례</h3>
                 <p className="boas-service-description">
-                  보아스 경영지원솔루션과 함께한<br/>
-                  중소기업의 실제 자금<br/>
-                  조달 사례를 확인하세요.
+                  보아스와 함께 정책자금을<br/>
+                  확보한 수도권·충청 지역<br/>
+                  중소기업의 실제 사례입니다.
                 </p>
                 <span className="boas-service-link">
                   자세히 보기
@@ -291,8 +291,8 @@ export default function HomePage() {
       <section id="boas-info" className="boas-info">
         <div className="boas-section-container">
           <div className="boas-section-header">
-            <h2 className="boas-section-title">보아스 경영지원솔루션이<br/>선택받는 이유</h2>
-            <p className="boas-section-subtitle">많은 중소기업 대표님이 보아스 경영지원솔루션을 찾는 이유</p>
+            <h2 className="boas-section-title">대표님들이<br/>보아스를 선택하는 이유</h2>
+            <p className="boas-section-subtitle">전문 경영컨설턴트의 정밀 분석, 그 차이를 경험하세요</p>
           </div>
 
           {/* Differentiation Points Grid */}
@@ -308,9 +308,9 @@ export default function HomePage() {
                 </div>
                 <h3 className="boas-point-title">무료 현황분석</h3>
                 <p className="boas-point-description">
-                  비용 없이 시작하세요.<br/>
-                  기업 현황과 대표님 역량을 분석하고<br/>
-                  적합한 정책자금을 안내합니다.
+                  비용 부담 없이 시작하세요.<br/>
+                  대표님의 경력·역량과 기업 재무현황을<br/>
+                  전문가의 기준으로 분석합니다.
                 </p>
               </div>
             </div>
@@ -324,11 +324,11 @@ export default function HomePage() {
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                 </div>
-                <h3 className="boas-point-title">1:1 맞춤 컨설팅</h3>
+                <h3 className="boas-point-title">1:1 전담 컨설팅</h3>
                 <p className="boas-point-description">
-                  획일적인 컨설팅이 아닙니다.<br/>
-                  대표님 기업에 꼭 맞는<br/>
-                  자금조달 전략을 수립해드립니다.
+                  천편일률적인 상담은 하지 않습니다.<br/>
+                  업종·매출·성장단계에 따라<br/>
+                  최적의 자금조달 로드맵을 수립합니다.
                 </p>
               </div>
             </div>
@@ -344,9 +344,9 @@ export default function HomePage() {
                 </div>
                 <h3 className="boas-point-title">투명한 프로세스</h3>
                 <p className="boas-point-description">
-                  컨설팅 과정을 실시간 투명하게 공유하며,<br/>
-                  불필요한 비용은<br/>
-                  절대 제안하지 않습니다.
+                  진행 과정을 단계별로 공유합니다.<br/>
+                  불필요한 비용을 제안하지 않으며,<br/>
+                  결과로 신뢰를 증명합니다.
                 </p>
               </div>
             </div>
@@ -354,8 +354,8 @@ export default function HomePage() {
 
           {/* Expert Section */}
           <div className="boas-expert-header">
-            <h3 className="boas-expert-title">정책자금 전문 컨설턴트</h3>
-            <p className="boas-expert-subtitle">풍부한 경험과 전문성으로<br className="mobile-br"/>중소기업 성장을 지원합니다</p>
+            <h3 className="boas-expert-title">전문 경영컨설턴트</h3>
+            <p className="boas-expert-subtitle">기업의 잠재력을 읽는 전문가가<br className="mobile-br"/>자금의 길을 열어드립니다</p>
           </div>
 
           <div className="boas-expert-grid">
@@ -365,15 +365,14 @@ export default function HomePage() {
                   <Image src="/images/profile.jpg" alt="김광진 대표 컨설턴트" width={200} height={200} />
                 </div>
                 <h4 className="boas-expert-name">김광진</h4>
-                <p className="boas-expert-role">기업심사관</p>
+                <p className="boas-expert-role">경영컨설턴트</p>
               </div>
               <div className="boas-expert-message">
-                <p className="boas-expert-greeting">안녕하세요, 보아스 경영지원솔루션입니다.</p>
+                <p className="boas-expert-greeting">안녕하세요, 경영컨설턴트 김광진입니다.</p>
                 <p className="boas-expert-description">
-                  많은 중소기업 대표님께서 좋은 기술력을 갖추고도 자금 부족으로 성장 기회를 놓치는 모습을 보며 안타까움을 느꼈습니다.
-                  그래서 저는 대표님의 역량과 기업 잠재력을 정밀 분석하여, 가장 적합한 정책자금 솔루션을 찾아드리고자 합니다.
+                  저는 경영컨설턴트로 수많은 중소기업의 재무현황과 대표자 역량을 분석해왔습니다. 그 과정에서 충분한 잠재력을 가진 기업이 자금 확보 전략을 몰라 기회를 놓치는 경우를 셀 수 없이 봐왔습니다.
                   <br/><br/>
-                  단순한 서류 대행이 아닌, 대표님의 비전을 함께 고민하고 자금조달을 지원하는 든든한 파트너가 되겠습니다.
+                  보아스는 전문가의 관점으로 대표님의 역량과 기업의 성장 가능성을 분석하고, 정책자금 승인에 가장 유리한 전략을 수립합니다. 서류 대행이 아니라, 자금을 받을 수 있는 구조를 만들어드립니다.
                 </p>
               </div>
             </div>
@@ -393,104 +392,104 @@ export default function HomePage() {
             <div className="boas-review-scroll-container">
               {/* First Set */}
               <div className="boas-review-card">
-                <span className="boas-review-industry">대전 제조업 대표님</span>
-                <p className="boas-review-text">다른 업체는 상담 후 연락이 두절되는 경우가 많았는데, 보아스 경영지원솔루션은 처음부터 끝까지 책임감 있게 진행해주셔서 정말 신뢰할 수 있었습니다. 정책자금 받는 과정이 이렇게 안심되는 줄 몰랐어요.</p>
+                <span className="boas-review-industry">구리 제조업 대표님</span>
+                <p className="boas-review-text">처음 상담부터 끝까지 한 분이 전담으로 붙어주셔서 진행 상황을 매번 확인할 필요가 없었어요. 중간에 궁금한 점이 생기면 바로바로 답변해주시고, 정책자금이 이렇게 체계적으로 진행되는 줄 처음 알았습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">세종 식품업 대표님</span>
-                <p className="boas-review-text">제가 직접 은행에 알아봤을 때는 5천만원 한도였는데, 보아스 경영지원솔루션을 통해 정책자금을 알아보니 더 좋은 조건을 찾을 수 있었어요. 덕분에 사업 확장 계획을 앞당길 수 있었습니다.</p>
+                <span className="boas-review-industry">남양주 IT 대표님</span>
+                <p className="boas-review-text">직접 은행에 갔을 때는 담보가 없다고 한도가 낮았는데, 보아스 경영지원솔루션에서 기술보증 기반 정책자금을 안내받고 훨씬 나은 조건으로 자금을 확보할 수 있었습니다. 개발 인력 충원에 큰 도움이 됐어요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">천안 IT 대표님</span>
-                <p className="boas-review-text">정책자금 종류가 이렇게 많은지 몰랐어요. 저희 회사 상황에 딱 맞는 자금을 추천해주시고, 신청 절차까지 상세히 안내해주셔서 헤매지 않고 진행할 수 있었습니다.</p>
+                <span className="boas-review-industry">하남 유통업 대표님</span>
+                <p className="boas-review-text">정책자금 종류가 이렇게 다양한 줄 몰랐어요. 저희 업종과 매출 규모에 맞는 자금을 콕 집어서 추천해주시니까 선택이 쉬웠습니다. 복잡한 서류 준비도 하나하나 안내해주셔서 수월하게 진행했어요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">공주 유통업 대표님</span>
-                <p className="boas-review-text">문의사항이 생길 때마다 빠르게 답변해주셔서 답답함이 없었어요. 다른 컨설팅 업체는 연락이 잘 안 되던데, 여기는 카톡으로도 실시간 소통이 가능해서 정말 편했습니다.</p>
+                <span className="boas-review-industry">성남 서비스업 대표님</span>
+                <p className="boas-review-text">다른 곳에서는 전화 한 번이면 끝이었는데, 여기는 카톡으로 실시간 소통이 되고 진행 상황도 수시로 공유해주셔서 답답함이 전혀 없었어요. 사후관리까지 챙겨주시는 건 정말 기대 이상이었습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">논산 건설업 대표님</span>
-                <p className="boas-review-text">솔직히 처음엔 반신반의했는데, 실제로 정책자금이 일반 대출보다 금리가 낮더라고요. 이자 부담이 확 줄어드니까 회사 운영이 훨씬 여유로워졌습니다.</p>
+                <span className="boas-review-industry">서울 강동 식품업 대표님</span>
+                <p className="boas-review-text">반신반의하면서 상담을 받았는데, 정책자금 금리가 시중 대출보다 확연히 낮더라고요. 연간 이자 부담이 줄어드니 그만큼 원재료 투자에 여유가 생겼습니다. 진작 알았으면 좋았을 거예요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">아산 제조업 대표님</span>
-                <p className="boas-review-text">정책자금이 이렇게 금리가 낮고 조건이 좋은 줄 전혀 몰랐습니다. 일반 대출만 알고 있었는데, 보아스 경영지원솔루션에서 정책자금의 장점을 하나하나 설명해주셔서 눈이 확 뜨였어요.</p>
+                <span className="boas-review-industry">수원 건설업 대표님</span>
+                <p className="boas-review-text">정책자금이 이렇게 조건이 좋은 줄 정말 몰랐습니다. 일반 대출만 쓰고 있었는데, 컨설턴트분이 저희 상황에 맞는 자금을 찾아주시면서 금리 차이를 숫자로 보여주시니까 확 와닿더라고요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">보령 서비스업 대표님</span>
-                <p className="boas-review-text">저희 회사 업종과 규모에 맞는 정책자금을 정확히 찾아주셨어요. 전문가의 노하우가 확실히 다르다는 걸 느꼈습니다. 혼자 알아봤으면 이런 좋은 조건의 자금은 못 찾았을 거예요.</p>
+                <span className="boas-review-industry">용인 물류업 대표님</span>
+                <p className="boas-review-text">업종과 기업 규모에 딱 맞는 정책자금을 정확하게 매칭해주셨어요. 혼자 알아봤으면 어디서부터 시작해야 할지 막막했을 텐데, 전문가 도움으로 시간도 절약하고 더 좋은 조건을 찾을 수 있었습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">서산 물류업 대표님</span>
-                <p className="boas-review-text">절차가 투명하고, 추가 비용이나 숨은 수수료 같은 게 전혀 없어서 믿고 맡길 수 있었어요. 처음부터 모든 과정을 명확하게 설명해주시니까 불안감이 없었습니다.</p>
+                <span className="boas-review-industry">안양 도소매업 대표님</span>
+                <p className="boas-review-text">비용이나 수수료 관련해서 처음부터 투명하게 설명해주셔서 불안감 없이 진행할 수 있었어요. 숨겨진 비용이 없으니까 신뢰가 가고, 주변 사장님들에게도 추천하고 있습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">당진 도소매업 대표님</span>
-                <p className="boas-review-text">다른 업체는 전화 한 통으로 끝나는 느낌이었는데, 여기는 정말 세심하게 챙겨주셔서 감동했어요. 제 상황을 꼼꼼히 파악하고 최선의 방법을 찾아주려고 노력하시는 게 느껴졌습니다.</p>
+                <span className="boas-review-industry">천안 제조업 대표님</span>
+                <p className="boas-review-text">제 상황을 꼼꼼히 파악한 뒤에 최적의 방법을 제안해주시는 게 느껴졌어요. 단순히 자금만 연결해주는 게 아니라 재무구조 개선까지 같이 고민해주셔서 장기적으로 큰 도움이 됐습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">홍성 무역업 대표님</span>
-                <p className="boas-review-text">혼자 준비하다가 너무 복잡해서 포기하려던 참이었어요. 그런데 보아스 경영지원솔루션에서 끝까지 함께 해주셔서 결국 정책자금 신청을 무사히 마칠 수 있었습니다. 정말 감사드립니다.</p>
+                <span className="boas-review-industry">세종 무역업 대표님</span>
+                <p className="boas-review-text">혼자 준비하다가 서류가 너무 복잡해서 거의 포기했었어요. 보아스 경영지원솔루션에서 전 과정을 같이 점검해주셔서 무사히 마칠 수 있었습니다. 올해 추가 자금도 상담 예정입니다.</p>
               </div>
 
               {/* Second Set (duplicate for infinite scroll) */}
               <div className="boas-review-card">
-                <span className="boas-review-industry">대전 제조업 대표님</span>
-                <p className="boas-review-text">다른 업체는 상담 후 연락이 두절되는 경우가 많았는데, 보아스 경영지원솔루션은 처음부터 끝까지 책임감 있게 진행해주셔서 정말 신뢰할 수 있었습니다. 정책자금 받는 과정이 이렇게 안심되는 줄 몰랐어요.</p>
+                <span className="boas-review-industry">구리 제조업 대표님</span>
+                <p className="boas-review-text">처음 상담부터 끝까지 한 분이 전담으로 붙어주셔서 진행 상황을 매번 확인할 필요가 없었어요. 중간에 궁금한 점이 생기면 바로바로 답변해주시고, 정책자금이 이렇게 체계적으로 진행되는 줄 처음 알았습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">세종 식품업 대표님</span>
-                <p className="boas-review-text">제가 직접 은행에 알아봤을 때는 5천만원 한도였는데, 보아스 경영지원솔루션을 통해 정책자금을 알아보니 더 좋은 조건을 찾을 수 있었어요. 덕분에 사업 확장 계획을 앞당길 수 있었습니다.</p>
+                <span className="boas-review-industry">남양주 IT 대표님</span>
+                <p className="boas-review-text">직접 은행에 갔을 때는 담보가 없다고 한도가 낮았는데, 보아스 경영지원솔루션에서 기술보증 기반 정책자금을 안내받고 훨씬 나은 조건으로 자금을 확보할 수 있었습니다. 개발 인력 충원에 큰 도움이 됐어요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">천안 IT 대표님</span>
-                <p className="boas-review-text">정책자금 종류가 이렇게 많은지 몰랐어요. 저희 회사 상황에 딱 맞는 자금을 추천해주시고, 신청 절차까지 상세히 안내해주셔서 헤매지 않고 진행할 수 있었습니다.</p>
+                <span className="boas-review-industry">하남 유통업 대표님</span>
+                <p className="boas-review-text">정책자금 종류가 이렇게 다양한 줄 몰랐어요. 저희 업종과 매출 규모에 맞는 자금을 콕 집어서 추천해주시니까 선택이 쉬웠습니다. 복잡한 서류 준비도 하나하나 안내해주셔서 수월하게 진행했어요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">공주 유통업 대표님</span>
-                <p className="boas-review-text">문의사항이 생길 때마다 빠르게 답변해주셔서 답답함이 없었어요. 다른 컨설팅 업체는 연락이 잘 안 되던데, 여기는 카톡으로도 실시간 소통이 가능해서 정말 편했습니다.</p>
+                <span className="boas-review-industry">성남 서비스업 대표님</span>
+                <p className="boas-review-text">다른 곳에서는 전화 한 번이면 끝이었는데, 여기는 카톡으로 실시간 소통이 되고 진행 상황도 수시로 공유해주셔서 답답함이 전혀 없었어요. 사후관리까지 챙겨주시는 건 정말 기대 이상이었습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">논산 건설업 대표님</span>
-                <p className="boas-review-text">솔직히 처음엔 반신반의했는데, 실제로 정책자금이 일반 대출보다 금리가 낮더라고요. 이자 부담이 확 줄어드니까 회사 운영이 훨씬 여유로워졌습니다.</p>
+                <span className="boas-review-industry">서울 강동 식품업 대표님</span>
+                <p className="boas-review-text">반신반의하면서 상담을 받았는데, 정책자금 금리가 시중 대출보다 확연히 낮더라고요. 연간 이자 부담이 줄어드니 그만큼 원재료 투자에 여유가 생겼습니다. 진작 알았으면 좋았을 거예요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">아산 제조업 대표님</span>
-                <p className="boas-review-text">정책자금이 이렇게 금리가 낮고 조건이 좋은 줄 전혀 몰랐습니다. 일반 대출만 알고 있었는데, 보아스 경영지원솔루션에서 정책자금의 장점을 하나하나 설명해주셔서 눈이 확 뜨였어요.</p>
+                <span className="boas-review-industry">수원 건설업 대표님</span>
+                <p className="boas-review-text">정책자금이 이렇게 조건이 좋은 줄 정말 몰랐습니다. 일반 대출만 쓰고 있었는데, 컨설턴트분이 저희 상황에 맞는 자금을 찾아주시면서 금리 차이를 숫자로 보여주시니까 확 와닿더라고요.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">보령 서비스업 대표님</span>
-                <p className="boas-review-text">저희 회사 업종과 규모에 맞는 정책자금을 정확히 찾아주셨어요. 전문가의 노하우가 확실히 다르다는 걸 느꼈습니다. 혼자 알아봤으면 이런 좋은 조건의 자금은 못 찾았을 거예요.</p>
+                <span className="boas-review-industry">용인 물류업 대표님</span>
+                <p className="boas-review-text">업종과 기업 규모에 딱 맞는 정책자금을 정확하게 매칭해주셨어요. 혼자 알아봤으면 어디서부터 시작해야 할지 막막했을 텐데, 전문가 도움으로 시간도 절약하고 더 좋은 조건을 찾을 수 있었습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">서산 물류업 대표님</span>
-                <p className="boas-review-text">절차가 투명하고, 추가 비용이나 숨은 수수료 같은 게 전혀 없어서 믿고 맡길 수 있었어요. 처음부터 모든 과정을 명확하게 설명해주시니까 불안감이 없었습니다.</p>
+                <span className="boas-review-industry">안양 도소매업 대표님</span>
+                <p className="boas-review-text">비용이나 수수료 관련해서 처음부터 투명하게 설명해주셔서 불안감 없이 진행할 수 있었어요. 숨겨진 비용이 없으니까 신뢰가 가고, 주변 사장님들에게도 추천하고 있습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">당진 도소매업 대표님</span>
-                <p className="boas-review-text">다른 업체는 전화 한 통으로 끝나는 느낌이었는데, 여기는 정말 세심하게 챙겨주셔서 감동했어요. 제 상황을 꼼꼼히 파악하고 최선의 방법을 찾아주려고 노력하시는 게 느껴졌습니다.</p>
+                <span className="boas-review-industry">천안 제조업 대표님</span>
+                <p className="boas-review-text">제 상황을 꼼꼼히 파악한 뒤에 최적의 방법을 제안해주시는 게 느껴졌어요. 단순히 자금만 연결해주는 게 아니라 재무구조 개선까지 같이 고민해주셔서 장기적으로 큰 도움이 됐습니다.</p>
               </div>
 
               <div className="boas-review-card">
-                <span className="boas-review-industry">홍성 무역업 대표님</span>
-                <p className="boas-review-text">혼자 준비하다가 너무 복잡해서 포기하려던 참이었어요. 그런데 보아스 경영지원솔루션에서 끝까지 함께 해주셔서 결국 정책자금 신청을 무사히 마칠 수 있었습니다. 정말 감사드립니다.</p>
+                <span className="boas-review-industry">세종 무역업 대표님</span>
+                <p className="boas-review-text">혼자 준비하다가 서류가 너무 복잡해서 거의 포기했었어요. 보아스 경영지원솔루션에서 전 과정을 같이 점검해주셔서 무사히 마칠 수 있었습니다. 올해 추가 자금도 상담 예정입니다.</p>
               </div>
             </div>
           </div>
