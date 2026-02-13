@@ -417,7 +417,7 @@ export default function EmployeesPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-xs text-gray-400 line-clamp-1 mb-1">{emp.소개 || '-'}</p>
+                        <p className="text-xs text-gray-400 truncate max-w-[180px] mb-1">{emp.소개 || '-'}</p>
                         {badges.length > 0 && (
                           <div className="flex flex-wrap gap-1">
                             {badges.map((b) => (
