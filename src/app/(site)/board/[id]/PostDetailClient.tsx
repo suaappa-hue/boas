@@ -47,6 +47,17 @@ export default function PostDetailClient({ postId }: { postId: string }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const [iframeHeight, setIframeHeight] = useState(0)
+
+  useEffect(() => {
+    function handleMessage(e: MessageEvent) {
+      if (e.data?.type === 'boas-iframe-height' && typeof e.data.height === 'number') {
+        setIframeHeight(e.data.height)
+      }
+    }
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [])
 
   useEffect(() => {
     async function load() {
@@ -177,7 +188,9 @@ export default function PostDetailClient({ postId }: { postId: string }) {
                     src={post.콘텐츠URL}
                     title={post.제목}
                     className="sp-r2-iframe"
+                    scrolling="no"
                     sandbox="allow-scripts allow-same-origin"
+                    style={iframeHeight > 0 ? { height: iframeHeight + 'px' } : undefined}
                   />
                 </div>
               ) : (
@@ -465,9 +478,10 @@ export default function PostDetailClient({ postId }: { postId: string }) {
         }
         .sp-r2-iframe {
           width: 100%;
-          min-height: 800px;
+          min-height: 600px;
           border: none;
           display: block;
+          overflow: hidden;
         }
 
         /* 본문 */
