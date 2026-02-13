@@ -248,7 +248,7 @@ export default function ContactPage() {
         <div className="boas-contact-hero-container">
           <div className="boas-contact-hero-content">
             <h1 className="boas-contact-hero-headline">
-              무료 기업진단으로<br/>
+              무료 현황분석으로<br/>
               시작하세요
             </h1>
 

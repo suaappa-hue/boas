@@ -28,7 +28,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(160deg, #0A1628 0%, #FAF7F0 30%, #FFFFFF 60%, #0A1628 100%)',
+          background: 'linear-gradient(160deg, #E0FEFF 0%, #FAF7F0 30%, #FFFFFF 60%, #E0FEFF 100%)',
           fontFamily,
           position: 'relative',
         }}

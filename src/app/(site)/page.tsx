@@ -306,7 +306,7 @@ export default function HomePage() {
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                 </div>
-                <h3 className="boas-point-title">무료 기업진단</h3>
+                <h3 className="boas-point-title">무료 현황분석</h3>
                 <p className="boas-point-description">
                   비용 없이 시작하세요.<br/>
                   기업 현황과 대표님 역량을 분석하고<br/>
