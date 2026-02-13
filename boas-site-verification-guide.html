@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOAS 사이트 인증 가이드</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .copy-btn { transition: all 0.2s; }
+  .copy-btn:active { transform: scale(0.95); }
+  .check-item:has(input:checked) { background: #f0fdf4; border-color: #22c55e; }
+  .check-item:has(input:checked) .step-num { background: #22c55e; color: white; }
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<div class="max-w-3xl mx-auto py-8 px-4">
+
+  <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
+    <div class="flex items-center gap-3 mb-2">
+      <div class="w-10 h-10 bg-[#009CA0] rounded-lg flex items-center justify-center text-white font-bold text-lg">B</div>
+      <h1 class="text-2xl font-bold text-gray-900">BOAS 사이트 인증 가이드</h1>
+    </div>
+    <p class="text-gray-500 text-sm">Google Search Console + 네이버 서치어드바이저 소유권 인증</p>
+    <p class="text-gray-400 text-xs mt-1">대상 도메인: <code class="bg-gray-100 px-2 py-0.5 rounded">www.boas-solution.kr</code></p>
+  </div>
+
+  <!-- Part 1: Google Search Console -->
+  <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
+    <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Google Search Console
+    </h2>
+
+    <div class="space-y-4">
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#009CA0]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+            <span class="font-semibold text-gray-900">Google Search Console 접속</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            <a href="https://search.google.com/search-console" target="_blank" class="text-blue-600 underline">https://search.google.com/search-console</a>
+            에 <code class="bg-gray-100 px-1 rounded">suaappa@gmail.com</code> 계정으로 로그인
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#009CA0]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+            <span class="font-semibold text-gray-900">속성 추가</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            좌측 상단 드롭다운 → "속성 추가" → <strong>"URL 접두어"</strong> 선택 →
+            <code class="bg-yellow-50 border border-yellow-200 px-2 py-0.5 rounded font-mono text-sm">https://www.boas-solution.kr</code> 입력
+            <button onclick="navigator.clipboard.writeText('https://www.boas-solution.kr')" class="copy-btn ml-2 px-2 py-0.5 bg-gray-100 hover:bg-gray-200 rounded text-xs">복사</button>
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#009CA0]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+            <span class="font-semibold text-gray-900">HTML 태그 인증 방법 선택</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            인증 방법 중 <strong>"HTML 태그"</strong> 선택 → 메타 태그가 표시됨<br>
+            <code class="text-xs bg-gray-100 px-2 py-1 rounded block mt-2 break-all">
+              &lt;meta name="google-site-verification" content="<span class="text-red-600 font-bold">여기_값을_복사</span>" /&gt;
+            </code>
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#009CA0]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+            <span class="font-semibold text-gray-900">content 값을 Vercel 환경변수에 등록</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8 mb-2">
+            아래 명령어의 <code class="text-red-600">VALUE</code>를 실제 값으로 교체 후 실행:
+          </p>
+          <div class="bg-gray-900 text-green-400 p-3 rounded-lg text-xs font-mono ml-8 relative">
+            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent.trim())" class="copy-btn absolute top-2 right-2 px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs text-gray-300">복사</button>
+            <pre class="whitespace-pre-wrap">printf "VALUE" | npx vercel env add NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION production --token YOUR_VERCEL_TOKEN</pre>
+          </div>
+          <p class="text-xs text-gray-400 ml-8 mt-1">또는 Claude에게 값을 알려주시면 직접 설정해드립니다.</p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#009CA0]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+            <span class="font-semibold text-gray-900">서비스 계정 사용자 추가</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            Search Console 속성 → 설정 → 사용자 및 권한 → 사용자 추가 →<br>
+            <code class="bg-yellow-50 border border-yellow-200 px-2 py-0.5 rounded font-mono text-sm">boas-485@boas-487307.iam.gserviceaccount.com</code>
+            <button onclick="navigator.clipboard.writeText('boas-485@boas-487307.iam.gserviceaccount.com')" class="copy-btn ml-2 px-2 py-0.5 bg-gray-100 hover:bg-gray-200 rounded text-xs">복사</button>
+            <br>권한: <strong>전체</strong>
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#009CA0]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">6</span>
+            <span class="font-semibold text-gray-900">Vercel 재배포 후 인증 확인</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            환경변수 설정 후 Vercel 재배포 → Search Console에서 "확인" 버튼 클릭
+          </p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Part 2: Naver Search Advisor -->
+  <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
+    <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6" viewBox="0 0 24 24"><rect fill="#03C75A" width="24" height="24" rx="4"/><path fill="white" d="M8 7h2.5l3 4.5V7H16v10h-2.5l-3-4.5V17H8V7z"/></svg>
+      네이버 서치어드바이저
+    </h2>
+
+    <div class="space-y-4">
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#03C75A]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+            <span class="font-semibold text-gray-900">네이버 서치어드바이저 접속</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            <a href="https://searchadvisor.naver.com" target="_blank" class="text-blue-600 underline">https://searchadvisor.naver.com</a>
+            에 네이버 계정으로 로그인
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#03C75A]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+            <span class="font-semibold text-gray-900">사이트 등록</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            웹마스터 도구 → 사이트 관리 → 사이트 등록 →
+            <code class="bg-yellow-50 border border-yellow-200 px-2 py-0.5 rounded font-mono text-sm">https://www.boas-solution.kr</code> 입력
+            <button onclick="navigator.clipboard.writeText('https://www.boas-solution.kr')" class="copy-btn ml-2 px-2 py-0.5 bg-gray-100 hover:bg-gray-200 rounded text-xs">복사</button>
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#03C75A]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+            <span class="font-semibold text-gray-900">HTML 태그 인증 방법 선택</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            소유확인 → <strong>"HTML 태그"</strong> 선택 → 메타 태그 표시됨<br>
+            <code class="text-xs bg-gray-100 px-2 py-1 rounded block mt-2 break-all">
+              &lt;meta name="naver-site-verification" content="<span class="text-red-600 font-bold">여기_값을_복사</span>" /&gt;
+            </code>
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#03C75A]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+            <span class="font-semibold text-gray-900">content 값을 Vercel 환경변수에 등록</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8 mb-2">
+            아래 명령어의 <code class="text-red-600">VALUE</code>를 실제 값으로 교체 후 실행:
+          </p>
+          <div class="bg-gray-900 text-green-400 p-3 rounded-lg text-xs font-mono ml-8 relative">
+            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent.trim())" class="copy-btn absolute top-2 right-2 px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs text-gray-300">복사</button>
+            <pre class="whitespace-pre-wrap">printf "VALUE" | npx vercel env add NEXT_PUBLIC_NAVER_SITE_VERIFICATION production --token YOUR_VERCEL_TOKEN</pre>
+          </div>
+          <p class="text-xs text-gray-400 ml-8 mt-1">또는 Claude에게 값을 알려주시면 직접 설정해드립니다.</p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#03C75A]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+            <span class="font-semibold text-gray-900">사이트맵 제출</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            소유확인 완료 후 → 요청 → 사이트맵 제출 →
+            <code class="bg-yellow-50 border border-yellow-200 px-2 py-0.5 rounded font-mono text-sm">https://www.boas-solution.kr/sitemap.xml</code>
+            <button onclick="navigator.clipboard.writeText('https://www.boas-solution.kr/sitemap.xml')" class="copy-btn ml-2 px-2 py-0.5 bg-gray-100 hover:bg-gray-200 rounded text-xs">복사</button>
+          </p>
+        </div>
+      </label>
+
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#03C75A]">
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="step-num w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold">6</span>
+            <span class="font-semibold text-gray-900">RSS 피드 제출 (선택)</span>
+          </div>
+          <p class="text-sm text-gray-600 ml-8">
+            웹마스터 도구 → 요청 → RSS 제출 → 게시판 RSS URL 입력 (있는 경우)
+          </p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- 추가 설정 -->
+  <div class="bg-white rounded-2xl shadow-sm border p-8 mb-8">
+    <h2 class="text-xl font-bold text-gray-900 mb-6">추가: Google Search Console 사이트맵 제출</h2>
+    <div class="space-y-4">
+      <label class="check-item flex gap-4 p-4 border rounded-xl cursor-pointer">
+        <input type="checkbox" class="mt-1 accent-[#4285F4]">
+        <div class="flex-1">
+          <p class="font-semibold text-gray-900 mb-1">Google Search Console에서 사이트맵 제출</p>
+          <p class="text-sm text-gray-600">
+            색인 → Sitemaps → 새 사이트맵 추가 →
+            <code class="bg-yellow-50 border border-yellow-200 px-2 py-0.5 rounded font-mono text-sm">https://www.boas-solution.kr/sitemap.xml</code>
+            <button onclick="navigator.clipboard.writeText('https://www.boas-solution.kr/sitemap.xml')" class="copy-btn ml-2 px-2 py-0.5 bg-gray-100 hover:bg-gray-200 rounded text-xs">복사</button>
+          </p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- 현재 상태 요약 -->
+  <div class="bg-gradient-to-br from-[#009CA0]/5 to-[#009CA0]/10 rounded-2xl border border-[#009CA0]/20 p-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">현재 작업 완료 상태</h2>
+    <div class="grid grid-cols-1 gap-2 text-sm">
+      <div class="flex items-center gap-2"><span class="text-green-600">&#10003;</span> Vercel GOOGLE_PRIVATE_KEY 설정 완료</div>
+      <div class="flex items-center gap-2"><span class="text-green-600">&#10003;</span> Vercel NEXT_PUBLIC_GA_MEASUREMENT_ID 추가 완료</div>
+      <div class="flex items-center gap-2"><span class="text-green-600">&#10003;</span> GA4 프로덕션 API 정상 동작 확인</div>
+      <div class="flex items-center gap-2"><span class="text-green-600">&#10003;</span> boas-notify Worker 재배포 완료</div>
+      <div class="flex items-center gap-2"><span class="text-green-600">&#10003;</span> boas-analytics Worker 재배포 완료 (GA4_PROPERTY_ID 시크릿 추가)</div>
+      <div class="flex items-center gap-2"><span class="text-green-600">&#10003;</span> Gmail 이메일 발송 테스트 성공 (mkt@polarad.co.kr)</div>
+      <div class="flex items-center gap-2"><span class="text-green-600">&#10003;</span> Vercel 프로덕션 재배포 완료</div>
+      <div class="flex items-center gap-2"><span class="text-yellow-500">&#9679;</span> Google Search Console 소유권 인증 (위 가이드 참조)</div>
+      <div class="flex items-center gap-2"><span class="text-yellow-500">&#9679;</span> 네이버 서치어드바이저 소유권 인증 (위 가이드 참조)</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

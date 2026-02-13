@@ -4,7 +4,7 @@ compatibility_date = "2024-12-01"
 account_id = "a06cba973a47136200c275d95feb0d71"
 
 [triggers]
-crons = ["0 16 * * *"]   # 매일 16:00 UTC = KST 01:00
+crons = ["0 0 * * *"]   # 매일 00:00 UTC = KST 09:00
 
 [vars]
 TELEGRAM_CHAT_ID = "-1003738101621"
