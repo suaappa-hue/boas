@@ -185,7 +185,7 @@ export default function PostDetailClient({ postId }: { postId: string }) {
               {post.콘텐츠URL ? (
                 <div className="sp-r2-content">
                   <iframe
-                    src={post.콘텐츠URL}
+                    src={`${post.콘텐츠URL}${post.콘텐츠URL.includes('?') ? '&' : '?'}v=2`}
                     title={post.제목}
                     className="sp-r2-iframe"
                     scrolling="no"
