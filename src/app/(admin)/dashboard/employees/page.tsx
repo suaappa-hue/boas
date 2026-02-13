@@ -383,8 +383,8 @@ export default function EmployeesPage() {
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 w-16">순서</th>
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3">프로필</th>
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3">소개 / 전문분야</th>
-                  <th className="text-center text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 w-20">상태</th>
-                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 w-32">관리</th>
+                  <th className="text-center text-xs font-medium text-gray-500 uppercase tracking-wider px-3 py-3 w-24 whitespace-nowrap">상태</th>
+                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider px-3 py-3 w-36 whitespace-nowrap">관리</th>
                 </tr>
               </thead>
               <tbody>
@@ -426,12 +426,12 @@ export default function EmployeesPage() {
                           </div>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-center">
+                      <td className="px-3 py-4 text-center whitespace-nowrap">
                         <span className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${emp.활성여부 ? 'bg-green-100 text-green-700' : 'bg-white/[0.06] text-gray-500'}`}>
                           {emp.활성여부 ? '활성' : '비활성'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-3 py-4 text-right whitespace-nowrap">
                         <div className="flex justify-end gap-2">
                           <button
                             onClick={() => openEditModal(emp)}
