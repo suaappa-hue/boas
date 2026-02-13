@@ -6,6 +6,8 @@ export interface EmailRecipient {
   name: string
   company: string
   phone?: string
+  status?: 'pending' | 'progress' | 'complete' | 'cancel'
+  statusLabel?: string
 }
 
 export interface EmailTemplate {
@@ -30,8 +32,11 @@ export interface VariableField {
 
 export interface EmailSendPayload {
   template: string
-  recipients: EmailRecipient[]
+  recipients?: EmailRecipient[] // 배치 발송 (legacy)
+  recipient?: EmailRecipient // 단일 발송 (sequential)
   variables: Record<string, string>
+  customSubject?: string // custom 템플릿 전용
+  customHtml?: string // custom 템플릿 전용
 }
 
 export interface EmailSendResult {
@@ -40,4 +45,11 @@ export interface EmailSendResult {
   failed?: number
   errors?: string[]
   error?: string
+}
+
+export interface EmailPreviewData {
+  subject: string
+  from: string
+  to: string
+  html: string
 }
