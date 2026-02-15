@@ -348,7 +348,13 @@ export default function PostDetailClient({ postId }: { postId: string }) {
         .sp-section {
           background: linear-gradient(180deg, #FFFFFF 0%, var(--boas-bg-ivory) 50%, #FFFFFF 100%);
           min-height: calc(100vh - 200px);
-          padding: 100px 0 80px;
+          padding: 24px 0 80px;
+        }
+        @media (min-width: 768px) {
+          .sp-section { padding-top: 48px; }
+        }
+        @media (min-width: 1024px) {
+          .sp-section { padding-top: 60px; }
         }
 
         /* 2컬럼 레이아웃 */
