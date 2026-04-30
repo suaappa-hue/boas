@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import LeadDetailModal from "@/components/dashboard/LeadDetailModal";
+import { normalizePhone } from "@/lib/phone";
 
 interface Lead {
   id: string;
@@ -35,6 +36,7 @@ interface Stats {
   상담중: number;
   진행중: number;
   완료: number;
+  스팸: number;
 }
 
 const STATUS_TABS = [
@@ -44,6 +46,7 @@ const STATUS_TABS = [
   "상담중",
   "진행중",
   "완료",
+  "스팸",
 ] as const;
 
 const STATUS_COLORS: Record<string, string> = {
@@ -52,6 +55,7 @@ const STATUS_COLORS: Record<string, string> = {
   상담중: "bg-purple-500/20 text-purple-400",
   진행중: "bg-orange-500/20 text-orange-400",
   완료: "bg-green-500/20 text-green-400",
+  스팸: "bg-red-500/20 text-red-300",
 };
 
 const STATUS_COUNTER_STYLES: Record<
@@ -88,6 +92,11 @@ const STATUS_COUNTER_STYLES: Record<
     active: "bg-emerald-500 text-white border-emerald-500",
     icon: "text-emerald-400",
   },
+  스팸: {
+    bg: "bg-red-500/10 border-red-500/20",
+    active: "bg-red-500 text-white border-red-500",
+    icon: "text-red-400",
+  },
 };
 
 export default function LeadsPage() {
@@ -102,7 +111,11 @@ export default function LeadsPage() {
     상담중: 0,
     진행중: 0,
     완료: 0,
+    스팸: 0,
   });
+  const [blockTarget, setBlockTarget] = useState<Lead | null>(null);
+  const [blockReason, setBlockReason] = useState("");
+  const [blocking, setBlocking] = useState(false);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [editingMemo, setEditingMemo] = useState<{
@@ -211,6 +224,56 @@ export default function LeadsPage() {
     }
   };
 
+  const handleOpenBlock = (e: React.MouseEvent, lead: Lead) => {
+    e.stopPropagation();
+    setBlockTarget(lead);
+    setBlockReason("");
+  };
+
+  const handleConfirmBlock = async () => {
+    if (!blockTarget || blocking) return;
+    setBlocking(true);
+    try {
+      const res = await fetch("/api/blacklist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          연락처: blockTarget.연락처,
+          사유: blockReason,
+          leadId: blockTarget.id,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        // 해당 리드 상태를 '스팸'으로 즉시 반영
+        setLeads((prev) =>
+          prev.map((l) =>
+            l.id === blockTarget.id ? { ...l, 상태: "스팸" } : l,
+          ),
+        );
+        setStats((prev) => {
+          const updated = { ...prev };
+          const oldStatus = blockTarget.상태 as keyof Stats;
+          if (typeof updated[oldStatus] === "number")
+            (updated[oldStatus] as number)--;
+          updated.스팸 = (updated.스팸 || 0) + 1;
+          return updated;
+        });
+        showToast("success", `${blockTarget.연락처} 블랙리스트 등록됨`);
+        setBlockTarget(null);
+        setBlockReason("");
+      } else if (res.status === 409) {
+        showToast("error", "이미 등록된 연락처입니다.");
+      } else {
+        showToast("error", data.error || "등록 실패");
+      }
+    } catch {
+      showToast("error", "네트워크 오류");
+    } finally {
+      setBlocking(false);
+    }
+  };
+
   const handleDelete = async (e: React.MouseEvent, lead: Lead) => {
     e.stopPropagation();
     if (
@@ -267,7 +330,7 @@ export default function LeadsPage() {
           <div className="h-8 w-28 bg-white/[0.06] rounded-lg animate-pulse" />
           <div className="h-5 w-20 bg-white/[0.06] rounded-lg animate-pulse" />
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+        <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
@@ -346,7 +409,7 @@ export default function LeadsPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+      <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
         {STATUS_TABS.map((tab) => {
           const count = getCountForTab(tab);
           const isActive = filter === tab;
@@ -477,7 +540,11 @@ export default function LeadsPage() {
                   {filteredLeads.map((lead) => (
                     <tr
                       key={lead.id}
-                      className="hover:bg-white/[0.02] group transition-colors"
+                      className={`group transition-colors ${
+                        lead.상태 === "스팸"
+                          ? "bg-red-500/[0.04] hover:bg-red-500/[0.08]"
+                          : "hover:bg-white/[0.02]"
+                      }`}
                     >
                       <td
                         className="px-4 py-3 cursor-pointer"
@@ -617,6 +684,27 @@ export default function LeadsPage() {
                                       strokeLinejoin="round"
                                       strokeWidth={2}
                                       d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                                    />
+                                  </svg>
+                                </button>
+                              )}
+                              {lead.상태 !== "스팸" && (
+                                <button
+                                  onClick={(e) => handleOpenBlock(e, lead)}
+                                  className="inline-flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs text-rose-400 hover:bg-rose-500/15 transition-colors"
+                                  title="블랙리스트 등록"
+                                >
+                                  <svg
+                                    className="w-3.5 h-3.5"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
                                     />
                                   </svg>
                                 </button>
@@ -922,6 +1010,27 @@ export default function LeadsPage() {
                             메모
                           </button>
                         )}
+                        {lead.상태 !== "스팸" && (
+                          <button
+                            onClick={(e) => handleOpenBlock(e, lead)}
+                            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-rose-400 active:bg-rose-500/15 border border-rose-500/20"
+                          >
+                            <svg
+                              className="w-3.5 h-3.5"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                              />
+                            </svg>
+                            차단
+                          </button>
+                        )}
                         <button
                           onClick={(e) => handleDelete(e, lead)}
                           className="flex items-center gap-1 px-2.5 py-2 rounded-xl text-xs text-red-400 active:bg-red-500/15 border border-red-500/20"
@@ -964,6 +1073,93 @@ export default function LeadsPage() {
           onClose={() => setSelectedLead(null)}
           onUpdate={fetchLeads}
         />
+      )}
+
+      {blockTarget && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => !blocking && setBlockTarget(null)}
+        >
+          <div
+            className="bg-[#0d1829] rounded-2xl w-full max-w-md p-6 border border-white/10 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-rose-500/15 flex items-center justify-center text-xl">
+                🚫
+              </div>
+              <div>
+                <h3 className="text-white font-semibold">블랙리스트 등록</h3>
+                <p className="text-xs text-gray-400">
+                  동일 연락처로 들어오는 후속 리드를 자동 차단합니다
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white/[0.04] rounded-lg p-4 mb-4 space-y-2 text-sm">
+              <div className="flex justify-between gap-3">
+                <span className="text-gray-400 shrink-0">기업명</span>
+                <span className="text-white text-right break-all">
+                  {blockTarget.기업명 || "-"}
+                </span>
+              </div>
+              <div className="flex justify-between gap-3">
+                <span className="text-gray-400 shrink-0">대표자명</span>
+                <span className="text-white text-right break-all">
+                  {blockTarget.대표자명 || "-"}
+                </span>
+              </div>
+              <div className="flex justify-between gap-3 items-start">
+                <span className="text-gray-400 shrink-0">연락처</span>
+                <span className="text-white text-right font-mono text-xs break-all">
+                  {blockTarget.연락처}
+                  <br />
+                  <span className="text-gray-500">→</span>{" "}
+                  <span className="text-amber-300">
+                    {normalizePhone(blockTarget.연락처) || "-"}
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <label className="block text-xs text-gray-400 mb-1">
+              차단 사유 (선택)
+            </label>
+            <textarea
+              value={blockReason}
+              onChange={(e) => setBlockReason(e.target.value)}
+              className="w-full bg-white/[0.04] border border-white/10 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-white/20"
+              rows={3}
+              placeholder="예) 모든 필드가 한 글자, 명백한 봇/장난 입력"
+              disabled={blocking}
+            />
+
+            <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-xs text-amber-200 leading-relaxed">
+              ⚠️ 등록 시 동작:
+              <br />• 이 리드의 상태가 <b>&apos;스팸&apos;</b>으로 변경
+              <br />• 이후 동일 번호로 들어오는 리드는 자동으로 &apos;스팸&apos;
+              처리
+              <br />• 텔레그램 알림도 발송되지 않음
+            </div>
+
+            <div className="flex gap-2 mt-5">
+              <button
+                onClick={() => setBlockTarget(null)}
+                disabled={blocking}
+                className="flex-1 py-2.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-gray-300 text-sm disabled:opacity-50"
+              >
+                취소
+              </button>
+              <button
+                onClick={handleConfirmBlock}
+                disabled={blocking}
+                className="flex-1 py-2.5 rounded-lg bg-rose-500 hover:bg-rose-600 text-white text-sm font-medium disabled:opacity-50"
+              >
+                {blocking ? "등록 중..." : "차단 등록"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

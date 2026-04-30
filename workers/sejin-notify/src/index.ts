@@ -580,9 +580,29 @@ async function handleSendEmail(
 
 async function handleConsultation(
   env: Env,
+  ctx: ExecutionContext,
   data: ConsultData,
 ): Promise<Response> {
   const now = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+
+  // 블랙리스트 체크 — 매치 시 모든 알림 SKIP
+  try {
+    const match = await findBlacklistMatch(env, data.phone || "");
+    if (match) {
+      ctx.waitUntil(
+        recordBlacklistHit(env, match).catch((e) =>
+          console.error("[BOAS/consultation] blacklist hit update error:", e),
+        ),
+      );
+      return Response.json({ success: true, blocked: true });
+    }
+  } catch (e) {
+    console.error(
+      "[BOAS/consultation] blacklist check failed:",
+      (e as Error).message,
+    );
+    // 차단 우회 방지보다 정상 흐름이 우선이므로 fallthrough
+  }
 
   const results = await Promise.allSettled([
     // 1. 텔레그램 알림 (사내)
@@ -626,10 +646,116 @@ async function handleConsultation(
 
 const AIRTABLE_BASE_ID = "appvXvzEaBRCvmTyU";
 const AIRTABLE_TABLE = "고객접수";
+const BLACKLIST_TABLE = "블랙리스트";
 
 function pickString(v: unknown): string {
   if (v === null || v === undefined) return "";
   return String(v).trim();
+}
+
+// ─── 전화번호 정규화 (lib/phone.ts와 동일 로직, Worker에 inline 복제) ───
+function normalizePhone(input: string | null | undefined): string {
+  if (!input) return "";
+  const digits = String(input).replace(/\D+/g, "");
+  if (!digits) return "";
+  if (digits.startsWith("82")) return "0" + digits.slice(2);
+  return digits;
+}
+
+// ─── 블랙리스트 조회 (Cache API 5분 캐시) ───
+interface BlacklistEntry {
+  id: string;
+  연락처: string;
+  차단횟수: number;
+}
+
+async function fetchBlacklist(env: Env): Promise<BlacklistEntry[]> {
+  const cacheUrl = "https://blacklist.internal/v1/all";
+  const cache = caches.default;
+  const cacheKey = new Request(cacheUrl);
+  const cached = await cache.match(cacheKey);
+  if (cached) {
+    try {
+      return (await cached.json()) as BlacklistEntry[];
+    } catch {
+      // 캐시 오염 시 무시하고 새로 조회
+    }
+  }
+
+  const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(BLACKLIST_TABLE)}?pageSize=100`;
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${env.AIRTABLE_TOKEN}` },
+  });
+  if (!res.ok) {
+    console.error(
+      "[BOAS/blacklist] Airtable fetch failed:",
+      res.status,
+      await res.text(),
+    );
+    return [];
+  }
+  const json = (await res.json()) as {
+    records: { id: string; fields: Record<string, unknown> }[];
+  };
+  const entries: BlacklistEntry[] = (json.records || []).map((r) => ({
+    id: r.id,
+    연락처: String(r.fields["연락처"] || ""),
+    차단횟수: Number(r.fields["차단횟수"] || 0),
+  }));
+
+  // 5분 캐시
+  const cacheRes = new Response(JSON.stringify(entries), {
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "public, max-age=300",
+    },
+  });
+  await cache.put(cacheKey, cacheRes);
+  return entries;
+}
+
+async function findBlacklistMatch(
+  env: Env,
+  phoneRaw: string,
+): Promise<BlacklistEntry | null> {
+  const normalized = normalizePhone(phoneRaw);
+  if (!normalized) return null;
+  const list = await fetchBlacklist(env);
+  return list.find((e) => normalizePhone(e.연락처) === normalized) || null;
+}
+
+// 블랙리스트 매치 후 차단횟수 +1, 마지막차단일시 갱신, 캐시 무효화
+async function recordBlacklistHit(
+  env: Env,
+  entry: BlacklistEntry,
+): Promise<void> {
+  const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(BLACKLIST_TABLE)}/${entry.id}`;
+  const res = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${env.AIRTABLE_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      fields: {
+        차단횟수: (entry.차단횟수 || 0) + 1,
+        마지막차단일시: new Date().toISOString(),
+      },
+    }),
+  });
+  if (!res.ok) {
+    console.error(
+      "[BOAS/blacklist] hit update failed:",
+      res.status,
+      await res.text(),
+    );
+  }
+  // 캐시 무효화 (다음 조회 시 fresh 데이터)
+  try {
+    await caches.default.delete(
+      new Request("https://blacklist.internal/v1/all"),
+    );
+  } catch {}
 }
 
 function buildMetaMessageField(data: MetaLeadData): string {
@@ -647,6 +773,7 @@ async function saveMetaLeadToAirtable(
   env: Env,
   data: MetaLeadData,
   접수시각: string,
+  상태Override?: string,
 ): Promise<{ id: string }> {
   const fields: Record<string, string> = {
     기업명: pickString(data.상호명),
@@ -658,6 +785,7 @@ async function saveMetaLeadToAirtable(
     문의사항: buildMetaMessageField(data),
     출처: "메타",
   };
+  if (상태Override) fields["상태"] = 상태Override;
   // 빈 값은 제거 (Airtable select 필드 등 보호)
   for (const k of Object.keys(fields)) {
     if (!fields[k]) delete fields[k];
@@ -744,6 +872,7 @@ async function sendMetaLeadTelegram(
 
 async function handleMetaLead(
   env: Env,
+  ctx: ExecutionContext,
   data: MetaLeadData,
   clientIp: string,
 ): Promise<Response> {
@@ -759,10 +888,41 @@ async function handleMetaLead(
   }
 
   try {
-    const { id } = await saveMetaLeadToAirtable(env, data, 접수시각);
-    // 텔레그램 알림 (실패해도 계속)
-    sendMetaLeadTelegram(env, data, now, id).catch((e) =>
-      console.error("[BOAS/meta-lead] telegram error:", e),
+    // 블랙리스트 체크 (실패 시 차단 우회 안되도록 정상 흐름으로 fallback)
+    let blacklistMatch: BlacklistEntry | null = null;
+    try {
+      blacklistMatch = await findBlacklistMatch(env, pickString(data.연락처));
+    } catch (e) {
+      console.error(
+        "[BOAS/meta-lead] blacklist check failed:",
+        (e as Error).message,
+      );
+    }
+
+    const { id } = await saveMetaLeadToAirtable(
+      env,
+      data,
+      접수시각,
+      blacklistMatch ? "스팸" : undefined,
+    );
+
+    if (blacklistMatch) {
+      // 차단횟수 +1, 마지막차단일시 갱신 (waitUntil로 백그라운드)
+      ctx.waitUntil(
+        recordBlacklistHit(env, blacklistMatch).catch((e) =>
+          console.error("[BOAS/meta-lead] blacklist hit update error:", e),
+        ),
+      );
+      // 텔레그램 발송 SKIP
+      return Response.json({ success: true, id, blocked: true });
+    }
+
+    // 텔레그램 알림 — Response 반환 후에도 끝까지 실행되도록 waitUntil로 감싸기
+    // (fire-and-forget 패턴은 Workers가 즉시 cancel하여 발송이 누락됨)
+    ctx.waitUntil(
+      sendMetaLeadTelegram(env, data, now, id).catch((e) =>
+        console.error("[BOAS/meta-lead] telegram error:", e),
+      ),
     );
     return Response.json({ success: true, id });
   } catch (error) {
@@ -789,7 +949,11 @@ async function handleMetaLead(
 // ─── Worker Entry ───
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
@@ -838,9 +1002,9 @@ export default {
     if (pathname === "/send-email") {
       return handleSendEmail(env, body as SendEmailRequest);
     } else if (pathname === "/meta-lead") {
-      return handleMetaLead(env, body as MetaLeadData, clientIp);
+      return handleMetaLead(env, ctx, body as MetaLeadData, clientIp);
     } else if (pathname === "/") {
-      return handleConsultation(env, body as ConsultData);
+      return handleConsultation(env, ctx, body as ConsultData);
     } else {
       return Response.json({ error: "Not found" }, { status: 404 });
     }
